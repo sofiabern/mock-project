@@ -1,0 +1,23 @@
+<section class="rooms">
+  <div class="container">
+    <h2 class="rooms__title">Available Rooms</h2>
+    <div *ngIf="loading" class="rooms__loading">Loading...</div>
+    <div *ngIf="!loading" class="rooms__wrapper">
+      <div class="room-card" *ngFor="let room of rooms$ | async">
+        <!-- Додання дефолтного фото -->
+        <!-- <img src="../../assets/defaultroom.jpg" alt="Room Image" class="room-image"> -->
+        <div class="mock-img"></div>
+  
+        <div class="room-card__bottom">
+          <ul class="room-card__details">
+            <li class="room-details__info room-details__info-bold">Room {{ room.id }}</li>
+            <li class="room-details__info"><span class="room-details__info-bold">Capacity:</span> {{ room.capacity }}<li>
+            <li class="room-details__info"><span class="room-details__info-bold">Comfort:</span> {{ room.comfort }}<li>
+            <li class="room-details__info"><span class="room-details__info-bold">Price:</span> ${{ room.price }}<li>
+          </ul>
+          <button class="room-card__button">Book</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,27 @@
+<header class="header">
+  <div class="header__container container">
+    <div class="header__brand">
+      <a class="header__logo" routerLink="/">Serenity Hotel</a>
+    </div>
+    <nav class="header__nav">
+      <ul class="header__list">
+        <li class="header__item">
+          <a class="header__link" routerLink="/">Home</a>
+        </li>
+        <li class="header__item">
+          <a class="header__link" routerLink="/rooms">Available Rooms</a>
+        </li>
+        <li class="header__item">
+          <a class="header__link" routerLink="/check-ins-bookings">Check-ins & Bookings</a>
+        </li>
+        <li class="header__item">
+          <a class="header__link" routerLink="/guests">Guests</a>
+        </li>
+      </ul>
+    </nav>
+    <div class="header__auth-buttons">
+      <button class="auth-buttons__button auth-buttons__button--login" >Log In</button>
+      <button class="auth-buttons__button  auth-buttons__button--signup"  (click)="openSignUpDialog()" >Sign Up</button>
+    </div>
+  </div>
+</header>

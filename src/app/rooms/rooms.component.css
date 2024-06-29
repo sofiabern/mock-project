@@ -1,0 +1,53 @@
+.mock-img {
+  width: 160px;
+  height: 120px;
+  background-color: lightgreen;
+}
+
+.rooms__wrapper {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.room-card {
+  border: 1px solid #000000;
+}
+
+.room-card__bottom {
+  padding: 12px;
+}
+
+.room-card__details {
+  font-size: 12px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+
+  margin-bottom: 6px;
+}
+
+.room-details__info-bold{
+    font-weight: 500;
+}
+
+.room-card__button {
+  padding: 6px 0 6px 0;
+  width: 60px;
+  transition: all 0.3s;
+  font-size: 12px;
+  color: #ffffff;
+  background-color: #000000;
+  border: 1px solid #000000;
+  display: block;
+  margin-left: auto;
+}
+
+.room-card__button:hover {
+  background-color: #62ae62;
+  border-color: #62ae62;
+  color: #ffffff;
+}
+

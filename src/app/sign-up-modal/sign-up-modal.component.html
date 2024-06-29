@@ -1,0 +1,17 @@
+<h1>Sign Up</h1>
+<form>
+  <div>
+    <label for="username">Username</label>
+    <input id="username" name="username" type="text" ngModel required>
+  </div>
+  <div>
+    <label for="email">Email</label>
+    <input id="email" name="email" type="email" ngModel required email>
+  </div>
+  <div>
+    <label for="password">Password</label>
+    <input id="password" name="password" type="password" ngModel required minlength="6">
+  </div>
+  <button type="submit">Sign Up</button>
+  <button type="button" (click)="closeDialog()" >Cancel</button>
+</form>
