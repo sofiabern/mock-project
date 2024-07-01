@@ -1,0 +1,21 @@
+.book-modal__close-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+}
+
+.book-modal__title{
+    margin-bottom: 12px;
+}
+
+.book-modal__form{
+    display: flex;
+    flex-direction: column;
+    max-width: 80%;
+}
+
+.book-modal__sumbit-btn{
+    position: absolute;
+    bottom: 24px;
+    right: 24px;
+}

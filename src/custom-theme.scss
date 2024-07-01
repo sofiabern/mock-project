@@ -13,11 +13,11 @@
 $mock-project-theme: mat.define-theme((
   color: (
     theme-type: light,
-    primary: mat.$azure-palette,
-    tertiary: mat.$blue-palette,
+    primary: mat.$green-palette,
+    tertiary: mat.$green-palette,
   ),
   density: (
-    scale: 0,
+    scale: -1,
   )
 ));
 

@@ -1,16 +1,13 @@
-<h1 >Sign Up</h1>
+<h1 >Log In</h1>
 <div >
-  <form #signUpForm="ngForm" (ngSubmit)="submitForm(signUpForm)">
+  <form #logInForm="ngForm" (ngSubmit)="submitForm(logInForm)">
     <label>Username</label>
     <input type="text" name="username" ngModel required>
-    
-    <label>Email</label>
-    <input type="email" name="email" ngModel required>
     
     <label>Password</label>
     <input type="password" name="password" ngModel required>
     
-    <button type="submit" >Sign Up</button>
+    <button type="submit" >Log In</button>
   </form>
 </div>
 <div >

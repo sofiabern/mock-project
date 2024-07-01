@@ -4,6 +4,10 @@
   background-color: lightgreen;
 }
 
+.rooms{
+  padding: 0 0 32px 0;
+}
+
 .rooms__wrapper {
   display: flex;
   justify-content: center;
@@ -20,7 +24,7 @@
 }
 
 .room-card__details {
-  font-size: 12px;
+  font-size: 14px;
 
   display: flex;
   flex-direction: column;
@@ -37,7 +41,7 @@
   padding: 6px 0 6px 0;
   width: 60px;
   transition: all 0.3s;
-  font-size: 12px;
+  font-size: 14px;
   color: #ffffff;
   background-color: #000000;
   border: 1px solid #000000;

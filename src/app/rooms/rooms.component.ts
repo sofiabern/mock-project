@@ -4,6 +4,9 @@ import { Room } from '../models/room.model';
 import { RoomsService } from '../services/rooms.service';
 import { CommonModule } from '@angular/common';
 
+import { MatDialog } from '@angular/material/dialog';
+import { BookModalComponent } from '../book-modal/book-modal.component';
+
 import rooms from "../mock-info/rooms.json"
 
 @Component({
@@ -17,7 +20,7 @@ import rooms from "../mock-info/rooms.json"
 //   rooms$!: Observable<Room[]>;
 //   loading = true;
 
-//   constructor(private roomService: RoomsService) { }
+//   constructor(private roomService: RoomsService, private dialog: MatDialog) { }
 
 //   ngOnInit() {
 //     this.fetchRooms();
@@ -44,9 +47,13 @@ import rooms from "../mock-info/rooms.json"
 // }
 
 
+
+
 export class RoomsComponent implements OnInit {
   rooms$!: Observable<Room[]>;
   loading = true;
+
+  constructor(private dialog: MatDialog){}
 
   ngOnInit() {
     this.fetchRooms();
@@ -74,6 +81,14 @@ export class RoomsComponent implements OnInit {
     return new Observable(observer => {
       observer.next(rooms as Room[]);
       observer.complete();
+    });
+  }
+
+  openBookModal(): void {
+    this.dialog.open(BookModalComponent, {
+      width: '36vw',
+      height: '80vh',
+      disableClose: false,
     });
   }
 }

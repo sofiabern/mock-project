@@ -3,14 +3,14 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-sign-up-modal',
+  selector: 'app-log-in-modal',
   standalone: true,
   imports: [FormsModule],
-  templateUrl: './sign-up-modal.component.html',
-  styleUrls: ['./sign-up-modal.component.css']
+  templateUrl: './log-in-modal.component.html',
+  styleUrls: ['./log-in-modal.component.css']
 })
-export class SignUpModalComponent {
-  constructor(public dialogRef: MatDialogRef<SignUpModalComponent>) {}
+export class LogInModalComponent {
+  constructor(public dialogRef: MatDialogRef<LogInModalComponent>) {}
 
   closeDialog(): void {
     this.dialogRef.close();
@@ -18,7 +18,7 @@ export class SignUpModalComponent {
 
   submitForm(form: NgForm): void {
     if (form.valid) {
-      // Ваш код для відправки форми, наприклад, до сервера
+      // Your code to handle the login, e.g., sending to the server
       console.log('Form submitted:', form.value);
       this.dialogRef.close();
     }

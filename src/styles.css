@@ -13,8 +13,15 @@ a{
   text-decoration: none;
 }
 
+h1, h2, h3, h4, p{
+  margin: 0;
+  padding: 0;
+}
+
+html, body { height: 100%; }
+
 body{
-  font-family: Roboto, sans-serif;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
 .container {
@@ -31,6 +38,12 @@ body{
   }
 }
 
+@media screen and (min-width: 1158px) {
+  .container {
+    max-width: 1158px;
+  }
+}
+
 /* Desktop screen */
 @media screen and (min-width: 1440px) {
   .container {
@@ -38,6 +51,8 @@ body{
   }
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-
+.mat-mdc-dialog-surface.mdc-dialog__surface{
+  border-radius: 0;
+  border: 1px solid #111111;
+  padding: 24px
+}

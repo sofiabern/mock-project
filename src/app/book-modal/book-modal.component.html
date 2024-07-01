@@ -1,0 +1,25 @@
+<div>
+  <h1 class="book-modal__title">Book Room</h1>
+  <form #bookForm="ngForm" (ngSubmit)="submitForm(bookForm)" class="book-modal__form">
+    <mat-form-field appearance="fill">
+      <mat-label>Full Name</mat-label>
+      <input matInput type="text" required name="fullName" ngModel />
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Passport Number</mat-label>
+      <input matInput type="text" required name="passportNumber" ngModel />
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Check-in Date</mat-label>
+      <input matInput type="date" required name="checkInDate" ngModel />
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Check-out Date</mat-label>
+      <input matInput type="date" required name="checkOutDate" ngModel />
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit" class="book-modal__sumbit-btn">Book</button>
+  </form>
+  <button mat-icon-button mat-dialog-close aria-label="Close" class="book-modal__close-btn">
+    <mat-icon>close</mat-icon>
+  </button>  
+</div>
