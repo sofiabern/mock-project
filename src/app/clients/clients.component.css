@@ -1,0 +1,27 @@
+.clients__title{
+  margin-bottom: 12px;
+}
+
+.clients__list{
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.client-card {
+  border: 1px solid #000000;
+  padding: 12px;
+  width: 24%;
+}
+
+.client-details__info-bold{
+  font-weight: 500;
+}
+
+.clients__loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

@@ -3,6 +3,7 @@
 @import "@fontsource/roboto/400.css";
 @import "@fontsource/roboto/700.css";
 
+
 ul{
   list-style: none;
   margin: 0;
@@ -16,6 +17,10 @@ a{
 h1, h2, h3, h4, p{
   margin: 0;
   padding: 0;
+}
+
+img{
+  display: block;
 }
 
 html, body { height: 100%; }
@@ -51,8 +56,13 @@ body{
   }
 }
 
+/* Styles for modals */
 .mat-mdc-dialog-surface.mdc-dialog__surface{
   border-radius: 0;
   border: 1px solid #111111;
   padding: 24px
+}
+/* Styles for loader */
+.mat-mdc-progress-spinner .mdc-circular-progress__indeterminate-circle-graphic circle{
+  stroke: #111111;
 }

@@ -1,0 +1,17 @@
+<section class="clients">
+  <div class="container">
+    <h2 class="clients__title">Our Clients</h2>
+    <div *ngIf="loading" class="clients__loading">
+      <mat-spinner [diameter]="60"></mat-spinner>
+    </div>
+    <ul *ngIf="!loading" class="clients__list">
+      <li class="client-card" *ngFor="let client of clients$ | async">
+          <ul class="client-details__list">
+            <li class="client-details__info"><span class="client-details__info-bold">Name:</span> {{ client.first_name }} {{ client.middle_name }} {{ client.last_name }}</li>
+            <li class="client-details__info"><span class="client-details__info-bold">Passport number:</span> {{ client.passport_details }}</li>
+            <li class="client-details__info"><span class="client-details__info-bold">Comment:</span> {{ client.comment }}</li>
+          </ul>
+      </li>
+    </ul>
+  </div>
+</section>

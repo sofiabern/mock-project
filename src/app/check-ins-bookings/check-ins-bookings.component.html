@@ -1,1 +1,21 @@
-<p>check-ins-bookings works!</p>
+<section class="check-ins">
+  <div class="container">
+    <h2 class="check-ins__title">Check-Ins</h2>
+    <div *ngIf="loading" class="check_ins__loading">
+      <mat-spinner [diameter]="60"></mat-spinner>
+    </div>
+    <ul *ngIf="!loading" class="check-ins__list">
+      <li class="check-in-card" *ngFor="let checkIn of checkIns$ | async">
+        <div class="check-in-card__details">
+          <ul class="check-in-details__list">
+            <li class="check-in-details__info"><span class="check-in-details__info-bold">Client Name:</span> {{ checkIn.client_id }}</li>
+            <li class="check-in-details__info"><span class="check-in-details__info-bold">Room:</span> {{ checkIn.room_id }}</li>
+            <li class="check-in-details__info"><span class="check-in-details__info-bold">Check-In Date:</span> {{ checkIn.check_in_date }}</li>
+            <li class="check-in-details__info"><span class="check-in-details__info-bold">Check-Out Date:</span> {{ checkIn.check_out_date }}</li>
+            <li class="check-in-details__info"><span class="check-in-details__info-bold">Note:</span> {{ checkIn.note }}</li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>

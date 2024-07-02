@@ -1,7 +1,7 @@
 export interface Room {
-    id: number;
+    _id: string;
+    room_number: number;
     capacity: number;
-    number: string;
-    comfort: string;
+    comfort_level: string;
     price: number;
   }

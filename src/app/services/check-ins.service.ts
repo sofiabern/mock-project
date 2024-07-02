@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Room } from '../models/room.model'; 
+import { CheckIn } from '../models/check-in.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class RoomsService {
+export class CheckInsService {
   private apiUrl = 'https://mock-beckend.onrender.com';
 
   constructor(private http: HttpClient) { }
-  getRooms(): Observable<Room[]> {
-    return this.http.get<Room[]>(`${this.apiUrl}/rooms`);
+  getCheckIns(): Observable<CheckIn[]> {
+    return this.http.get<CheckIn[]>(`${this.apiUrl}/check-ins`);
   }
 }

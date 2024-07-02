@@ -1,31 +1,32 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { CheckIn } from '../models/check-in.model';
-import { CheckInsService } from '../services/check-ins.service';
+import { Client } from '../models/client.model';
+import { ClientsService} from '../services/clients.service';
 import { CommonModule } from '@angular/common';
 
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
-  selector: 'app-check-ins-bookings',
+  selector: 'app-clients',
   standalone: true,
   imports: [CommonModule, MatProgressSpinnerModule],
-  templateUrl: './check-ins-bookings.component.html',
-  styleUrl: './check-ins-bookings.component.css'
+  templateUrl: './clients.component.html',
+  styleUrls: ['./clients.component.css']
 })
-export class CheckInsBookingsComponent implements OnInit {
-  checkIns$!: Observable<CheckIn[]>;
+
+export class ClientsComponent implements OnInit {
+  clients$!: Observable<Client[]>;
   loading = true;
 
-  constructor(private checkInService: CheckInsService) { }
+  constructor(private clientService: ClientsService) { }
 
   ngOnInit() {
     this.fetchClients();
   }
 
   fetchClients() {
-    this.checkIns$ = this.checkInService.getCheckIns().pipe(
+    this.clients$ = this.clientService.getClients().pipe(
       map((response: any) => response.data),
       catchError(error => {
         console.error('Error fetching clients:', error);
@@ -34,9 +35,9 @@ export class CheckInsBookingsComponent implements OnInit {
       })
     );
 
-    this.checkIns$.subscribe({
-      next: (checkIns: CheckIn[]) => {
-        console.log('Received check-ins:', checkIns);
+    this.clients$.subscribe({
+      next: (clients: Client[]) => {
+        console.log('Received clients:', clients);
         this.loading = false;
       },
       error: (error) => {
@@ -44,7 +45,7 @@ export class CheckInsBookingsComponent implements OnInit {
         this.loading = false;
       },
       complete: () => {
-        console.log('Check-in subscription completed');
+        console.log('Client subscription completed');
       }
     });
   }

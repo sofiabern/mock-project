@@ -1,0 +1,23 @@
+.check-ins__title{
+  margin-bottom: 12px;
+}
+
+.check_ins__loading{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.check-ins__list{
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.check-in-card{
+  border: 1px solid #000000;
+  padding: 12px;
+  width: 30%;
+}

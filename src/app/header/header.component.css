@@ -1,5 +1,6 @@
 .header{
   padding: 16px 0 16px 0;
+  margin-bottom: 24px;
 }
 
 .header__container {
@@ -13,8 +14,13 @@
     font-size: 20px;
     font-weight: 700;
 
-    transition: color 0.3s
+    transition: color 0.3s ease-in-out;
 }
+
+.header__logo:hover{
+    color: #62ae62;
+}
+
 
 .header__list {
   display: flex;
@@ -22,37 +28,32 @@
 }
 
 
-.header__logo:hover{
-    color: #62ae62;
-}
-
 .header__link {
   color: #000000;
+
+  padding: 8px 0;
+
   position: relative;
   text-decoration: none;
-  transition: color 0.3s;
 }
 
-.header__link::after {
-  content: "";
+.header__link::after{
+  content: '';
   position: absolute;
-  width: 100%;
+  bottom: 4px;
+  right: 0;
+  width: 0;
   height: 2px;
-  background-color: #62ae62;
-  left: 0;
-  bottom: 0;
-
-  opacity: 0;
-  transition: all 0.3s;
+  background-color: #000000;
+  transition: width 0.6s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-.header__link:hover {
-  color: #62ae62;
-}
-
-.header__link:hover::after {
-  opacity: 1;
-  transform: translateY(3px);
+@media (hover: hover) and (pointer: fine) {
+  .header__link:hover::after{
+    left: 0;
+    right: auto;
+    width: 100%;
+  }
 }
 
 .header__auth-buttons{
@@ -63,7 +64,7 @@
 .auth-buttons__button{
     padding: 6px 0 6px 0;
     width: 72px;
-    transition: all 0.3s;
+    transition: all 0.3s ease-in-out;
 }
 
 .auth-buttons__button--login{
