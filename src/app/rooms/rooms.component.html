@@ -16,7 +16,7 @@
             <li class="room-details__info"><span class="room-details__info-bold">Comfort:</span> {{ room.comfort_level }}<li>
             <li class="room-details__info"><span class="room-details__info-bold">Price:</span> ${{ room.price }}<li>
           </ul>
-          <button class="room-card__button" (click)="openBookModal()" >Check-in & Book</button>
+          <button class="room-card__button" (click)="openBookModal(room._id)" >Check-in & Book</button>
         </div>
       </li>
     </ul>

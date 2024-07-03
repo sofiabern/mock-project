@@ -12,7 +12,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 @Component({
   selector: 'app-rooms',
   standalone: true,
-  imports: [CommonModule,  MatProgressSpinnerModule],
+  imports: [CommonModule, MatProgressSpinnerModule],
   templateUrl: './rooms.component.html',
   styleUrls: ['./rooms.component.css']
 })
@@ -58,11 +58,13 @@ export class RoomsComponent implements OnInit {
     });
   }
 
-  openBookModal(): void {
-    this.dialog.open(BookModalComponent, {
+  openBookModal(roomId: string): void {
+    const dialogRef = this.dialog.open(BookModalComponent, {
       width: '600px',
       height: '80vh',
       disableClose: false,
+      data: { roomId }
     });
+
   }
 }
