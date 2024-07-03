@@ -60,7 +60,7 @@ export class RoomsComponent implements OnInit {
 
   openBookModal(): void {
     this.dialog.open(BookModalComponent, {
-      width: '36vw',
+      width: '600px',
       height: '80vh',
       disableClose: false,
     });

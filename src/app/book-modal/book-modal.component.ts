@@ -1,17 +1,29 @@
 import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import {FormsModule, NgForm } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
+import { provideNativeDateAdapter } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+
 @Component({
   selector: 'app-book-modal',
   templateUrl: './book-modal.component.html',
   standalone: true,
-  imports: [FormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule, MatDialogModule],
-  styleUrls: ['./book-modal.component.css']
+  imports: [
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatIconModule,
+    MatDialogModule,
+    MatDatepickerModule
+  ],
+  styleUrls: ['./book-modal.component.css'],
+  providers: [provideNativeDateAdapter()],
 })
 export class BookModalComponent {
   constructor(public dialogRef: MatDialogRef<BookModalComponent>) {}

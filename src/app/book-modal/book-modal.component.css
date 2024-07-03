@@ -4,18 +4,56 @@
   right: 8px;
 }
 
-.book-modal__title{
-    margin-bottom: 12px;
+.book-modal__title {
+  margin-bottom: 12px;
 }
 
-.book-modal__form{
-    display: flex;
-    flex-direction: column;
-    max-width: 80%;
+.book-modal__form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
-.book-modal__sumbit-btn{
-    position: absolute;
-    bottom: 24px;
-    right: 24px;
+.book-modal__name-wrapper {
+  display: flex;
+  gap: 12px;
+}
+
+.book-modal__field {
+  width: 60%;
+}
+
+.book-modal__comment {
+  resize: none;
+}
+
+.book-modal__submit-btn {
+  position: absolute;
+  bottom: 16px;
+  right: 48px;
+  padding: 6px 0 6px 0;
+  width: 72px;
+  color: #ffffff;
+  background-color: #000000;
+  border: 1px solid #000000;
+  transition: all 0.3s ease-in-out;
+}
+
+.book-modal__close-btn{
+  border: none;
+  background-color: transparent;
+  padding: 4px;
+  transition: all 0.3s ease-in-out;
+
+}
+
+.book-modal__close-btn:hover{
+ transform: scale(1.1);
+}
+
+.book-modal__submit-btn:hover {
+  background-color: #62ae62;
+  border-color: #62ae62;
+  color: #ffffff;
+  transform: scale(1.1);
 }

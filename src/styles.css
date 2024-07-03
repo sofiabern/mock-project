@@ -3,29 +3,35 @@
 @import "@fontsource/roboto/400.css";
 @import "@fontsource/roboto/700.css";
 
-
-ul{
+ul {
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-a{
+a {
   text-decoration: none;
 }
 
-h1, h2, h3, h4, p{
+h1,
+h2,
+h3,
+h4,
+p {
   margin: 0;
   padding: 0;
 }
 
-img{
+img {
   display: block;
 }
 
-html, body { height: 100%; }
+html,
+body {
+  height: 100%;
+}
 
-body{
+body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
@@ -57,12 +63,23 @@ body{
 }
 
 /* Styles for modals */
-.mat-mdc-dialog-surface.mdc-dialog__surface{
+.mat-mdc-dialog-surface.mdc-dialog__surface {
   border-radius: 0;
   border: 1px solid #111111;
-  padding: 24px
+  padding: 24px;
 }
+.cdk-overlay-container .cdk-overlay-pane.mat-mdc-dialog-panel {
+  max-width: 100%;
+}
+
+.mat-mdc-form-field-flex .mat-mdc-form-field-icon-suffix,
+[dir="rtl"] .mat-mdc-form-field-icon-prefix {
+  padding: 4px;
+}
+
 /* Styles for loader */
-.mat-mdc-progress-spinner .mdc-circular-progress__indeterminate-circle-graphic circle{
+.mat-mdc-progress-spinner
+  .mdc-circular-progress__indeterminate-circle-graphic
+  circle {
   stroke: #111111;
 }
