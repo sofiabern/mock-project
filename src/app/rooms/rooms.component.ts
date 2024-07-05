@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Room } from '../models/room.model';
@@ -6,7 +6,6 @@ import { RoomsService } from '../services/rooms.service';
 import { CommonModule } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { BookModalComponent } from '../book-modal/book-modal.component';
-
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
@@ -22,7 +21,7 @@ export class RoomsComponent implements OnInit {
   loading = true;
 
   constructor(
-    private roomService: RoomsService,
+    private roomsService: RoomsService,
     private dialog: MatDialog
   ) { }
 
@@ -33,7 +32,7 @@ export class RoomsComponent implements OnInit {
   fetchRooms() {
     this.loading = true;
 
-    this.rooms$ = this.roomService.getRooms().pipe(
+    this.rooms$ = this.roomsService.getRooms().pipe(
       map((response: any) => response.data),
       catchError(error => {
         console.error('Error fetching rooms:', error);
@@ -66,5 +65,13 @@ export class RoomsComponent implements OnInit {
       data: { roomId }
     });
 
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      console.log(result)
+      if (result) { // Execute fetchRooms only if booking was successful
+
+        this.fetchRooms();
+      }
+    });
   }
 }

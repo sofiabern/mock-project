@@ -2,7 +2,7 @@
   <div class="container">
     <h2 class="clients__title">Our Clients</h2>
     <div *ngIf="loading" class="clients__loading">
-      <mat-spinner [diameter]="60"></mat-spinner>
+      <mat-spinner diameter="60"></mat-spinner>
     </div>
     <ul *ngIf="!loading" class="clients__list">
       <li class="client-card" *ngFor="let client of clients$ | async">

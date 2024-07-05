@@ -1,15 +1,19 @@
-<h1 >Log In</h1>
-<div >
-  <form #logInForm="ngForm" (ngSubmit)="submitForm(logInForm)">
-    <label>Username</label>
-    <input type="text" name="username" ngModel required>
-    
-    <label>Password</label>
-    <input type="password" name="password" ngModel required>
-    
-    <button type="submit" >Log In</button>
+<h1>Log In</h1>
+<div mat-dialog-content>
+  <form #logInForm="ngForm" (ngSubmit)="submitForm(logInForm)" class="log-in-modal__form">
+    <mat-form-field appearance="outline">
+      <mat-label>Email</mat-label>
+      <input matInput type="text" name="username" ngModel required>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Password</mat-label>
+      <input matInput type="password" name="password" ngModel required>
+    </mat-form-field>
+
+    <button type="submit" class="log-in-modal__submit-btn">Log In</button>
   </form>
-</div>
-<div >
-  <button  (click)="closeDialog()">Close</button>
+  <button mat-dialog-close aria-label="Close" class="log-in-modal__close-btn">
+    <mat-icon>close</mat-icon>
+  </button>
 </div>

@@ -1,0 +1,38 @@
+.sign-up-modal__form{
+  position: relative;
+}
+
+
+.sign-up-modal__close-btn{
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  border: none;
+  background-color: transparent;
+  padding: 4px;
+  transition: all 0.3s ease-in-out;
+
+}
+
+.sign-up-modal__close-btn:hover{
+ transform: scale(1.1);
+}
+
+.sign-up-modal__submit-btn {
+  display: block;
+  margin: 0 auto;
+  padding: 6px 0 6px 0;
+  width: 72px;
+  color: #ffffff;
+  background-color: #000000;
+  border: 1px solid #000000;
+  transition: all 0.3s ease-in-out;
+}
+
+
+.sign-up-modal__submit-btn:hover {
+  background-color: #62ae62;
+  border-color: #62ae62;
+  color: #ffffff;
+  transform: scale(1.1);
+}

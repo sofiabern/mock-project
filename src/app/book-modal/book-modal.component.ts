@@ -1,4 +1,4 @@
-import { Component,  Inject } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormsModule, NgForm } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -11,6 +11,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 
 import { ClientsService } from '../services/clients.service';
 import { RoomsService } from '../services/rooms.service';
+import { CheckInsService } from '../services/check-ins.service';
 
 @Component({
   selector: 'app-book-modal',
@@ -29,7 +30,7 @@ import { RoomsService } from '../services/rooms.service';
   providers: [provideNativeDateAdapter()],
 })
 export class BookModalComponent {
-  constructor(public dialogRef: MatDialogRef<BookModalComponent>, private clientsService: ClientsService, @Inject(MAT_DIALOG_DATA) public data: { roomId: string }, private roomsService: RoomsService,) { }
+  constructor(public dialogRef: MatDialogRef<BookModalComponent>, private clientsService: ClientsService, @Inject(MAT_DIALOG_DATA) public data: { roomId: string }, private roomsService: RoomsService, private checkInsService: CheckInsService) { }
 
   submitForm(form: NgForm): void {
     if (form.valid) {
@@ -41,13 +42,21 @@ export class BookModalComponent {
         comment: form.value.comment
       };
 
+      const checkInData = {
+        room_id: this.data.roomId,
+        client: clientData,
+        check_in_date: form.value.checkInDate,
+        check_out_date: form.value.checkOutDate,
+        note: form.value.comment,
+      }
+
       console.log(clientData);
 
       this.clientsService.createClient(clientData).subscribe({
         next: (response) => {
           console.log('Client created:', response);
           this.updateRoomAvailability(this.data.roomId, { isAvailable: false });
-          this.dialogRef.close();
+          this.dialogRef.close(true); // Close dialog and pass true to indicate success
         },
         error: (error) => {
           console.error('Error creating client:', error);
@@ -58,6 +67,7 @@ export class BookModalComponent {
       });
     }
   }
+
   private updateRoomAvailability(roomId: string, updateData: any): void {
     this.roomsService.updateRoom(roomId, updateData).subscribe({
       next: (response) => {

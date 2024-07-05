@@ -1,18 +1,26 @@
-<h1 >Sign Up</h1>
-<div >
+<h1>Sign Up</h1>
+<div mat-dialog-content>
   <form #signUpForm="ngForm" (ngSubmit)="submitForm(signUpForm)">
-    <label>Username</label>
-    <input type="text" name="username" ngModel required>
-    
-    <label>Email</label>
-    <input type="email" name="email" ngModel required>
-    
-    <label>Password</label>
-    <input type="password" name="password" ngModel required>
-    
-    <button type="submit" >Sign Up</button>
+    <mat-form-field appearance="outline">
+      <mat-label>Username</mat-label>
+      <input matInput type="text" name="username" ngModel required>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Email</mat-label>
+      <input matInput type="email" name="email" ngModel required>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Password</mat-label>
+      <input matInput type="password" name="password" ngModel required>
+    </mat-form-field>
+
+    <button type="submit" class="sign-up-modal__submit-btn">Sign Up</button>
   </form>
+  <button mat-dialog-close aria-label="Close" class="sign-up-modal__close-btn">
+    <mat-icon>close</mat-icon>
+  </button>
 </div>
-<div >
-  <button  (click)="closeDialog()">Close</button>
-</div>
+
+

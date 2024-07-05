@@ -2,6 +2,10 @@
   position: absolute;
   top: 8px;
   right: 8px;
+  border: none;
+  background-color: transparent;
+  padding: 4px;
+  transition: all 0.3s ease-in-out;
 }
 
 .book-modal__title {
@@ -37,14 +41,6 @@
   background-color: #000000;
   border: 1px solid #000000;
   transition: all 0.3s ease-in-out;
-}
-
-.book-modal__close-btn{
-  border: none;
-  background-color: transparent;
-  padding: 4px;
-  transition: all 0.3s ease-in-out;
-
 }
 
 .book-modal__close-btn:hover{

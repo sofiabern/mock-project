@@ -2,7 +2,7 @@
   <div class="container">
     <h2 class="rooms__title">Available Rooms</h2>
     <div *ngIf="loading" class="rooms__loading">
-      <mat-spinner [diameter]="60"></mat-spinner>
+      <mat-spinner diameter="60"></mat-spinner>
     </div>
     <ul *ngIf="!loading" class="rooms__list">
       <li class="room-card" *ngFor="let room of rooms$ | async">

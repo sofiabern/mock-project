@@ -77,6 +77,23 @@ body {
   padding: 4px;
 }
 
+.mat-form-field-appearance-outline.mat-mdc-form-field{
+  display: inline;
+}
+
+/* .mat-mdc-text-field-wrapper.mdc-text-field{
+  border-radius: 0px;
+} */
+
+
+.mdc-text-field--outlined .mdc-notched-outline__leading {
+  border-radius: 0px !important;
+}
+
+.mdc-text-field--outlined .mdc-notched-outline__trailing{
+  border-radius: 0px !important;
+}
+
 /* Styles for loader */
 .mat-mdc-progress-spinner
   .mdc-circular-progress__indeterminate-circle-graphic

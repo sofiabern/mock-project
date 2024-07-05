@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Client } from '../models/client.model';
-import { ClientsService} from '../services/clients.service';
+import { ClientsService } from '../services/clients.service';
 import { CommonModule } from '@angular/common';
+
 
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
@@ -19,7 +20,7 @@ export class ClientsComponent implements OnInit {
   clients$!: Observable<Client[]>;
   loading = true;
 
-  constructor(private clientService: ClientsService) { }
+  constructor(private clientService: ClientsService,) { }
 
   ngOnInit() {
     this.fetchClients();
@@ -50,4 +51,5 @@ export class ClientsComponent implements OnInit {
     });
   }
 
+  
 }
