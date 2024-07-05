@@ -34,51 +34,23 @@ export class BookModalComponent {
 
   submitForm(form: NgForm): void {
     if (form.valid) {
-      const clientData = {
+
+      const bookData = {
         last_name: form.value.lastName,
         first_name: form.value.firstName,
         middle_name: form.value.middleName,
         passport_details: form.value.passportNumber,
-        comment: form.value.comment
+        room: this.data.roomId,
+        check_in_date: form.value.startDate,
+        check_out_date: form.value.endDate,
+        comment: form.value.comment || 'No comment',
+        note: form.value.comment || 'No note'
       };
 
-      const checkInData = {
-        room_id: this.data.roomId,
-        client: clientData,
-        check_in_date: form.value.checkInDate,
-        check_out_date: form.value.checkOutDate,
-        note: form.value.comment,
-      }
-
-      console.log(clientData);
-
-      this.clientsService.createClient(clientData).subscribe({
-        next: (response) => {
-          console.log('Client created:', response);
-          this.updateRoomAvailability(this.data.roomId, { isAvailable: false });
-          this.dialogRef.close(true); // Close dialog and pass true to indicate success
-        },
-        error: (error) => {
-          console.error('Error creating client:', error);
-        },
-        complete: () => {
-          console.log('Request completed');
-        }
-      });
+      console.log(bookData);
     }
+
+
   }
 
-  private updateRoomAvailability(roomId: string, updateData: any): void {
-    this.roomsService.updateRoom(roomId, updateData).subscribe({
-      next: (response) => {
-        console.log('Room updated:', response);
-      },
-      error: (error) => {
-        console.error('Error updating room:', error);
-      },
-      complete: () => {
-        console.log('Room update request completed');
-      }
-    });
-  }
 }
