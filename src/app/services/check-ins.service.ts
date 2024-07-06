@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { CheckIn } from '../models/check-in.model';
+import { BookData } from '../models/book-data.model';
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +15,8 @@ export class CheckInsService {
     return this.http.get<CheckIn[]>(`${this.apiUrl}/check-ins`);
   }
 
-  createCheckIn(checkIn: CheckIn): Observable<CheckIn> {
-    return this.http.post<CheckIn>(`${this.apiUrl}/check-ins`, checkIn);
+  createCheckInClient(bookData: BookData): Observable<BookData> {
+    return this.http.post<BookData>(`${this.apiUrl}/check-ins`, bookData);
   }
 
   deleteCheckIn(checkInId: string): Observable<void> {

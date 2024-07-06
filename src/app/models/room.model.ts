@@ -8,6 +8,6 @@ export interface Room {
 }
 
 export interface Booking {
-  check_in_date: string;
-  check_out_date: string;
+  check_in_date: Date;
+  check_out_date: Date;
 }

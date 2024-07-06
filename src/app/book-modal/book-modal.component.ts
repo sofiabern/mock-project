@@ -35,6 +35,8 @@ export class BookModalComponent {
   submitForm(form: NgForm): void {
     if (form.valid) {
 
+
+
       const bookData = {
         last_name: form.value.lastName,
         first_name: form.value.firstName,
@@ -47,10 +49,30 @@ export class BookModalComponent {
         note: form.value.comment || 'No note'
       };
 
-      console.log(bookData);
+
+console.log(form.value.startDate, )
+      this.checkInsService.createCheckInClient(bookData).subscribe({
+        next: (response) => {
+          console.log('Check-in created successfully:', response);
+          this.roomsService.addBooking(this.data.roomId, {
+            check_in_date: bookData.check_in_date,
+            check_out_date: bookData.check_out_date
+          }).subscribe({
+            next: (room) => {
+              console.log('Room bookings updated successfully:', room);
+              this.dialogRef.close(true); // Close the modal window with success
+            },
+            error: (error) => {
+              console.error('Error updating room bookings:', error);
+              // Optional: Handle error and display a message to the user
+            }
+          });
+        },
+        error: (error) => {
+          console.error('Error creating check-in:', error);
+          // Optional: Handle error and display a message to the user
+        }
+      });
     }
-
-
   }
-
 }
