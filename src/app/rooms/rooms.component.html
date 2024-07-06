@@ -4,6 +4,20 @@
     <div *ngIf="loading" class="rooms__loading">
       <mat-spinner diameter="60"></mat-spinner>
     </div>
+    <form #filterForm="ngForm" (ngSubmit)="filterRooms()" class="rooms__date-wrapper">
+      <mat-form-field class="rooms__field" appearance="outline">
+        <mat-label>Enter dates</mat-label>
+        <mat-date-range-input [rangePicker]="picker">
+          <input required matStartDate placeholder="Check-in date" [(ngModel)]="startDate" name="startDate">
+          <input required matEndDate placeholder="Check-out date" [(ngModel)]="endDate" name="endDate">
+        </mat-date-range-input>
+        <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-date-range-picker #picker></mat-date-range-picker>
+      </mat-form-field>
+      <button class="rooms__filter-button" type="submit">Filter</button>
+    </form>
+
     <ul *ngIf="!loading" class="rooms__list">
       <li class="room-card" *ngFor="let room of rooms$ | async">
         <!-- Додання дефолтного фото -->
@@ -11,12 +25,12 @@
 
         <div class="room-card__bottom">
           <ul class="room-card__details">
-            <li class="room-details__info room-details__info-bold">Room {{ room.room_number}}</li>
-            <li class="room-details__info"><span class="room-details__info-bold">Capacity:</span> {{ room.capacity }}<li>
-            <li class="room-details__info"><span class="room-details__info-bold">Comfort:</span> {{ room.comfort_level }}<li>
-            <li class="room-details__info"><span class="room-details__info-bold">Price:</span> ${{ room.price }}<li>
+            <li class="room-details__info room-details__info-bold">Room {{ room.room_number }}</li>
+            <li class="room-details__info"><span class="room-details__info-bold">Capacity:</span> {{ room.capacity }}</li>
+            <li class="room-details__info"><span class="room-details__info-bold">Comfort:</span> {{ room.comfort_level }}</li>
+            <li class="room-details__info"><span class="room-details__info-bold">Price:</span> ${{ room.price }}</li>
           </ul>
-          <button class="room-card__button" (click)="openBookModal(room._id)" >Check-in & Book</button>
+          <button class="room-card__button" (click)="openBookModal(room._id)">Check-in & Book</button>
         </div>
       </li>
     </ul>
