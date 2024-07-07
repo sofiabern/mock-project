@@ -12,7 +12,7 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { provideNativeDateAdapter } from '@angular/material/core';
-import { isBefore, isAfter } from 'date-fns';
+import { isBefore, isAfter, isEqual } from 'date-fns';
 
 @Component({
   selector: 'app-rooms',
@@ -82,12 +82,20 @@ export class RoomsComponent implements OnInit {
     // Конвертація введених дат в об'єкти Date
     const checkInDate = new Date(this.startDate);
     const checkOutDate = new Date(this.endDate);
+    console.log(checkOutDate)
 
     // Фільтрація кімнат на основі введених дат заїзду і виїзду
     this.filteredRooms = this.allRooms.filter(room => {
-      return !room.bookings.some(booking =>
-        (isBefore(checkInDate, new Date(booking.check_out_date)) && isAfter(checkOutDate, new Date(booking.check_in_date)))
-      );
+      return !room.bookings.some(booking => {
+        const bookingCheckInDate = new Date(booking.check_in_date);
+        const bookingCheckOutDate = new Date(booking.check_out_date);
+        console.log(bookingCheckInDate)
+        // Перевірка, чи є перекриття з існуючими бронюваннями
+        return (isBefore(checkInDate, bookingCheckOutDate) && isAfter(checkOutDate, bookingCheckInDate)) ||
+          isEqual(checkInDate, bookingCheckInDate) || isEqual(checkOutDate, bookingCheckOutDate) || isEqual(checkOutDate, bookingCheckInDate) ||
+          (isBefore(checkInDate, bookingCheckOutDate) && isAfter(checkInDate, bookingCheckInDate)) ||
+          (isBefore(checkOutDate, bookingCheckOutDate) && isAfter(checkOutDate, bookingCheckInDate));
+      });
     });
 
     // Оновлення Observable для відображення відфільтрованих кімнат
