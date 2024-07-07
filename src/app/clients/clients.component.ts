@@ -28,7 +28,7 @@ export class ClientsComponent implements OnInit {
 
   fetchClients() {
     this.clients$ = this.clientService.getClients().pipe(
-      map((response: any) => response.data),
+      map((response: any) => response.data.clients),
       catchError(error => {
         console.error('Error fetching clients:', error);
         this.loading = false;
@@ -51,5 +51,5 @@ export class ClientsComponent implements OnInit {
     });
   }
 
-  
+
 }
