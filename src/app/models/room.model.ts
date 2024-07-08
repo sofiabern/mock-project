@@ -4,10 +4,11 @@ export interface Room {
   capacity: number;
   comfort_level: string;
   price: number;
-  bookings: Booking[];
+  bookingsAndCheckIns: Booking[];
 }
 
 export interface Booking {
+  _id: string;
   check_in_date: Date;
   check_out_date: Date;
 }

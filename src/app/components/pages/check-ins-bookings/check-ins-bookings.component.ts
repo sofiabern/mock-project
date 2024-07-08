@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { CheckIn } from '../models/check-in.model';
-import { CheckInsService } from '../services/check-ins.service';
+import { CheckIn } from '../../../models/check-in.model';
+import { CheckInsService } from '../../../services/check-ins.service';
 import { CommonModule } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
-import { CancelBookModalComponent } from '../cancel-book-modal/cancel-book-modal.component';
+import { CancelBookModalComponent } from '../../modals/cancel-book-modal/cancel-book-modal.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';

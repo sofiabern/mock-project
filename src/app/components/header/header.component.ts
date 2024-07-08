@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 import { MatDialog } from '@angular/material/dialog';
-import { SignUpModalComponent } from '../sign-up-modal/sign-up-modal.component';
-import { LogInModalComponent } from '../log-in-modal/log-in-modal.component';
+import { SignUpModalComponent } from '../modals/sign-up-modal/sign-up-modal.component';
+import { LogInModalComponent } from '../modals/log-in-modal/log-in-modal.component';
 import { ComponentType } from '@angular/cdk/portal';
 
 @Component({

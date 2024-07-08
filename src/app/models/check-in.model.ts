@@ -11,4 +11,5 @@ export interface CheckIn {
   check_in_date: string;
   check_out_date: string;
   note: string;
+  isCheckIn: boolean;
 }

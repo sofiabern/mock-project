@@ -1,0 +1,55 @@
+.checkIn-modal__close-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  border: none;
+  background-color: transparent;
+  padding: 4px;
+  transition: all 0.3s ease-in-out;
+}
+
+.checkIn-modal__title {
+  margin-bottom: 12px;
+}
+
+.checkIn-modal__form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.checkIn-modal__name-wrapper {
+  display: flex;
+  gap: 12px;
+}
+
+.checkIn-modal__field {
+  width: 60%;
+}
+
+.checkIn-modal__comment {
+  resize: none;
+}
+
+.checkIn-modal__submit-btn {
+  position: absolute;
+  bottom: 16px;
+  right: 48px;
+  padding: 6px 0 6px 0;
+  width: 72px;
+  color: #ffffff;
+  background-color: #000000;
+  border: 1px solid #000000;
+  transition: all 0.3s ease-in-out;
+}
+
+.checkIn-modal__close-btn:hover{
+ transform: scale(1.1);
+}
+
+.checkIn-modal__submit-btn:hover {
+  background-color: #62ae62;
+  border-color: #62ae62;
+  color: #ffffff;
+  transform: scale(1.1);
+}

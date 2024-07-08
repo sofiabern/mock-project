@@ -1,0 +1,24 @@
+<section class="clients">
+  <div class="container">
+    <h2 class="clients__title">Our Clients</h2>
+    @if(loading){
+    <div class="clients__loading">
+      <mat-spinner diameter="60"></mat-spinner>
+    </div>
+    }
+    <ul class="clients__list">
+      @for (client of clients$ | async; track client._id){
+      <li class="client-card">
+        <ul class="client-details__list">
+          <li class="client-details__info"><span class="client-details__info-bold">Name:</span> {{ client.first_name }}
+            {{ client.middle_name }} {{ client.last_name }}</li>
+          <li class="client-details__info"><span class="client-details__info-bold">Passport number:</span> {{
+            client.passport_details }}</li>
+          <li class="client-details__info"><span class="client-details__info-bold">Comment:</span> {{ client.comment }}
+          </li>
+        </ul>
+      </li>
+      }
+    </ul>
+  </div>
+</section>

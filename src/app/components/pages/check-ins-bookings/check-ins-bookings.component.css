@@ -40,7 +40,13 @@
   font-weight: 500;
 }
 
-.check-in-card__cancel-btn {
+.check-in-card__button-wrapper{
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.check-in-card__buttons {
   padding: 6px 0 6px 0;
   width: 64px;
   font-size: 14px;
@@ -48,10 +54,24 @@
   background-color: #000000;
   border: 1px solid #000000;
 
-  transition: all 0.3s;
+  transition: all 0.3s ease-in-out;
 }
 
-.check-in-card__cancel-btn:hover {
+.check-in-card__btn--approve,
+.check-in-card__btn--cancel{
+  color: #ffffff;
+  background-color: #000000;
+  border: 1px solid #000000;
+
+}
+
+.check-in-card__btn--change{
+  color: #000000;
+  background-color: #ffffff;
+  border: 1px solid #000000;
+}
+
+.check-in-card__buttons:hover {
   background-color: #62ae62;
   border-color: #62ae62;
   color: #ffffff;

@@ -9,9 +9,9 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 
-import { ClientsService } from '../services/clients.service';
-import { RoomsService } from '../services/rooms.service';
-import { CheckInsService } from '../services/check-ins.service';
+import { ClientsService } from '../../../services/clients.service';
+import { RoomsService } from '../../../services/rooms.service';
+import { CheckInsService } from '../../../services/check-ins.service';
 
 @Component({
   selector: 'app-book-modal',
@@ -43,35 +43,23 @@ export class BookModalComponent {
         middle_name: form.value.middleName,
         passport_details: form.value.passportNumber,
         room: this.data.roomId,
-        check_in_date: form.value.startDate,
-        check_out_date: form.value.endDate,
+        check_in_date: new Date(form.value.startDate),
+        check_out_date: new Date(form.value.endDate),
         comment: form.value.comment || 'No comment',
-        note: form.value.comment || 'No note'
+        note: form.value.comment || 'No note',
+        isCheckIn: false
       };
 
+      console.log(form.value.startDate, form.value.endDate);
 
-console.log(form.value.startDate, )
+
       this.checkInsService.createCheckInClient(bookData).subscribe({
         next: (response) => {
           console.log('Check-in created successfully:', response);
           this.dialogRef.close(true);
-          // this.roomsService.addBooking(this.data.roomId, {
-          //   check_in_date: bookData.check_in_date,
-          //   check_out_date: bookData.check_out_date
-          // }).subscribe({
-          //   next: (room) => {
-          //     console.log('Room bookings updated successfully:', room);
-          //     this.dialogRef.close(true); // Close the modal window with success
-          //   },
-          //   error: (error) => {
-          //     console.error('Error updating room bookings:', error);
-          //     // Optional: Handle error and display a message to the user
-          //   }
-          // });
         },
         error: (error) => {
           console.error('Error creating check-in:', error);
-          // Optional: Handle error and display a message to the user
         }
       });
     }

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { CheckIn } from '../models/check-in.model';
-import { BookData } from '../models/book-data.model';
+import { CheckInBookData } from '../models/checkIn-book-data.model';
 
 @Injectable({
   providedIn: 'root'
@@ -15,8 +15,8 @@ export class CheckInsService {
     return this.http.get<CheckIn[]>(`${this.apiUrl}/check-ins`);
   }
 
-  createCheckInClient(bookData: BookData): Observable<BookData> {
-    return this.http.post<BookData>(`${this.apiUrl}/check-ins`, bookData);
+  createCheckInClient(checkInBookData: CheckInBookData): Observable<CheckInBookData> {
+    return this.http.post<CheckInBookData>(`${this.apiUrl}/check-ins`, checkInBookData);
   }
 
   deleteCheckIn(checkInId: string): Observable<void> {

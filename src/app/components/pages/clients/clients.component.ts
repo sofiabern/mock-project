@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { Client } from '../models/client.model';
-import { ClientsService } from '../services/clients.service';
+import { Client } from '../../../models/client.model';
+import { ClientsService } from '../../../services/clients.service';
 import { CommonModule } from '@angular/common';
 
 
@@ -44,9 +44,6 @@ export class ClientsComponent implements OnInit {
       error: (error) => {
         console.error('Error in subscription:', error);
         this.loading = false;
-      },
-      complete: () => {
-        console.log('Client subscription completed');
       }
     });
   }

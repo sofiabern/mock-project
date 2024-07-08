@@ -65,16 +65,18 @@
   font-weight: 500;
 }
 
+.room-card__btn-wrapper{
+display: flex;
+justify-content: space-between;
+}
+
 .room-card__button {
-  padding: 6px 0 6px 0;
-  width: 86%;
+  padding: 6px 8px 6px 8px;
   transition: all 0.3s;
   font-size: 14px;
   color: #ffffff;
   background-color: #000000;
   border: 1px solid #000000;
-  display: block;
-  margin: 0 auto;
 }
 
 .room-card__button:hover {
