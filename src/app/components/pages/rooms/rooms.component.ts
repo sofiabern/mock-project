@@ -117,12 +117,12 @@ export class RoomsComponent implements OnInit {
     });
   }
 
-  openCheckInModal(roomId: string): void {
+  openCheckInModal(roomId: string, roomPrice: number): void {
     const dialogCheckInRef = this.dialog.open(CheckInModalComponent, {
       width: '600px',
       height: '80vh',
       disableClose: false,
-      data: { roomId }
+      data: { roomId, roomPrice }
     });
 
     dialogCheckInRef.afterClosed().subscribe(result => {

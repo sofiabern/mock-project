@@ -12,4 +12,6 @@ export interface CheckIn {
   check_out_date: string;
   note: string;
   isCheckIn: boolean;
+  totalDayPrice: number;
+  totalPrice: number;
 }

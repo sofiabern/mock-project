@@ -15,7 +15,6 @@
 .checkIn-modal__form {
   display: flex;
   flex-direction: column;
-  gap: 12px;
 }
 
 .checkIn-modal__name-wrapper {
@@ -23,8 +22,48 @@
   gap: 12px;
 }
 
-.checkIn-modal__field {
-  width: 60%;
+.checkIn-modal__other-wrapper {
+  display: flex;
+  gap: 16px;
+}
+
+
+
+.checkIn-modal__field{
+  display: block;
+}
+
+
+.checkIn-modal__discont-form {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.checkIn-modal__dicounts{
+  display: flex;
+  flex-direction: column;
+}
+
+.checkIn-modal__discount-wrapper {
+  flex-grow: 1;
+}
+
+.checkIn-modal__check-btn {
+  padding: 6px 0 6px 0;
+  width: 124px;
+  color: #000000;
+  background-color: #ffffff;
+  border: 1px solid #000000;
+  display: block;
+  margin: 0 auto;
+  transition: all 0.3s ease-in-out;
+}
+
+.checkIn-modal__check-btn:hover {
+  background-color: #62ae62;
+  border-color: #62ae62;
+  color: #ffffff;
 }
 
 .checkIn-modal__comment {
@@ -43,13 +82,12 @@
   transition: all 0.3s ease-in-out;
 }
 
-.checkIn-modal__close-btn:hover{
- transform: scale(1.1);
+.checkIn-modal__close-btn:hover {
+  transform: scale(1.1);
 }
 
 .checkIn-modal__submit-btn:hover {
   background-color: #62ae62;
   border-color: #62ae62;
   color: #ffffff;
-  transform: scale(1.1);
 }

@@ -22,7 +22,7 @@
   gap: 12px;
 }
 
-.book_modal__other-wrapper {
+.book-modal__other-wrapper {
   display: flex;
   gap: 16px;
 }
@@ -35,11 +35,6 @@
   display: block;
 }
 
-/* .book-modal__dates,
-.book-modal__comment,
-.book-modal__passport{
-width: 60%;
-} */
 
 .book-modal__discont-form {
   display: flex;

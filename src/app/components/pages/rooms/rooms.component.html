@@ -36,7 +36,7 @@
             <li class="room-details__info"><span class="room-details__info-bold">Price:</span> ${{ room.price }}</li>
           </ul>
           <div class="room-card__btn-wrapper">
-            <button class="room-card__button" (click)="openCheckInModal(room._id)">Check-in</button>
+            <button class="room-card__button" (click)="openCheckInModal(room._id, room.price)">Check-in</button>
             <button class="room-card__button" (click)="openBookModal(room._id, room.price)">Book</button>
           </div>
         </div>
