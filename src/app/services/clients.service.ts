@@ -20,7 +20,7 @@ export class ClientsService {
     return this.http.post<Client>(`${this.apiUrl}/clients`, client);
   }
 
-  getClientVisits(clientPassword: string) :Observable<{ data: number }>{
-    return this.http.get<{ data: number }>(`${this.apiUrl}/clients/${clientPassword}`)
+  getClientVisits(passportDetails: { passport_details: string }) :Observable<{ data: number }>{
+    return this.http.post<{ data: number }>(`${this.apiUrl}/clients/visits`, passportDetails)
   }
 }

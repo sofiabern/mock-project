@@ -5,5 +5,6 @@ export interface Client {
   middle_name: string;
   passport_details: string;
   comment: string;
+  visitsAmount: number;
 }
 

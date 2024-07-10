@@ -69,7 +69,7 @@ export class BookModalComponent {
         totalPrice: this.totalPrice
       };
 
-      if(!this.passportNumber || !this.discounts || this.totalPrice){
+      if(!this.passportNumber || !this.discounts || !this.totalPrice){
         alert('You must fill all required fields and calculate discount!')
         return
       }
@@ -90,7 +90,7 @@ export class BookModalComponent {
     if (discountForm.valid) {
       this.passportNumber = discountForm.value.passportNumber;
 
-      this.clientsService.getClientVisits(this.passportNumber).subscribe({
+      this.clientsService.getClientVisits({passport_details: this.passportNumber}).subscribe({
         next: (response: any) => {
           this.visitsAmount = response.data;
           console.log('Visits amount:', this.visitsAmount);
