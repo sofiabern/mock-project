@@ -42,7 +42,6 @@ export class RoomsService {
           },
           error: (error) => {
             console.error('Error updating room bookings:', error);
-            // Optional: Handle error and display a message to the user
           }
         });
       })

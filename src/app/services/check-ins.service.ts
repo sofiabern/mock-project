@@ -19,6 +19,10 @@ export class CheckInsService {
     return this.http.post<CheckInBookData>(`${this.apiUrl}/check-ins`, checkInBookData);
   }
 
+  updateCheckIn(checkInId: string, updateData:Partial<CheckIn>):Observable<CheckIn>{
+    return this.http.patch<CheckIn>(`${this.apiUrl}/check-ins/${checkInId}`, updateData);
+  }
+
   deleteCheckIn(checkInId: string): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/check-ins/${checkInId}`);
   }

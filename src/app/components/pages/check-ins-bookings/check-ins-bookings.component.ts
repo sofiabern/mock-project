@@ -81,8 +81,9 @@ export class CheckInsBookingsComponent implements OnInit {
     const dialogRef = this.dialog.open(CancelBookModalComponent, {
       width: '50%',
       disableClose: false,
-      data: {checkInId, clientFirstName, clientMiddleName, clientLastName, roomNumber }
+      data: { checkInId, clientFirstName, clientMiddleName, clientLastName, roomNumber }
     });
+
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
@@ -92,4 +93,29 @@ export class CheckInsBookingsComponent implements OnInit {
       }
     });
   }
+
+  onApprove(checkInId: string,) {
+    this.loading = true;
+    const updateData: Partial<CheckIn> = {
+      isCheckIn: true
+    };
+
+    this.checkInService.updateCheckIn(checkInId, updateData).subscribe({
+      next: (updatedCheckIn: CheckIn) => {
+        console.log('Check-in updated:', updatedCheckIn);
+        this.loading = false;
+
+        this.fetchCheckIns();
+      },
+      error: (err) => {
+        console.error('Error updating check-in:', err);
+        this.loading = false;
+      }
+    });
+  }
+
+
 }
+
+
+

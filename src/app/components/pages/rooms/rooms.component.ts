@@ -102,12 +102,12 @@ export class RoomsComponent implements OnInit {
     console.log(this.rooms$);
   }
 
-  openBookModal(roomId: string): void {
+  openBookModal(roomId: string, roomPrice: number): void {
     const dialogBookRef = this.dialog.open(BookModalComponent, {
       width: '600px',
       height: '80vh',
       disableClose: false,
-      data: { roomId }
+      data: { roomId, roomPrice }
     });
 
     dialogBookRef.afterClosed().subscribe(result => {
