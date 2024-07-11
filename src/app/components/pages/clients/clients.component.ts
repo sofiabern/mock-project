@@ -20,7 +20,7 @@ export class ClientsComponent implements OnInit {
   clients$!: Observable<Client[]>;
   loading = true;
 
-  constructor(private clientService: ClientsService,) { }
+  constructor(private clientService: ClientsService) { }
 
   ngOnInit() {
     this.fetchClients();
@@ -28,7 +28,7 @@ export class ClientsComponent implements OnInit {
 
   fetchClients() {
     this.clients$ = this.clientService.getClients().pipe(
-      map((response: any) => response.data.clients),
+      map((response: any) => response.data),
       catchError(error => {
         console.error('Error fetching clients:', error);
         this.loading = false;

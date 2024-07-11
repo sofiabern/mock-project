@@ -1,3 +1,7 @@
+.clients{
+  padding: 0 0 32px 0;
+}
+
 .clients__title{
   margin-bottom: 12px;
 }

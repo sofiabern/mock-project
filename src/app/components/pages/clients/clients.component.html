@@ -16,8 +16,14 @@
             client.passport_details }}</li>
           <li class="client-details__info"><span class="client-details__info-bold">Comment:</span> {{ client.comment }}</li>
           <li class="client-details__info"><span class="client-details__info-bold">Amount of visits:</span> {{ client.visitsAmount }}</li>
-          <!-- <li class="client-details__info"><span class="client-details__info-bold">Discounts: {{}}</span> -->
-          <!-- </li> -->
+          <li class="client-details__info"><span class="client-details__info-bold">Regular customer discount:</span> {{client.discounts.regularCustomer  || 0}}%
+          </li>
+          <li class="client-details__info"><span class="client-details__info-bold">Military discount:</span> {{client.discounts.military  || 0}}%
+          </li>
+          <li class="client-details__info"><span class="client-details__info-bold">Guardian discount:</span> {{client.discounts.guardian   || 0}}%
+          </li>
+          <li class="client-details__info"><span class="client-details__info-bold">Total discount:</span> {{client.totalDiscount  || 0}}%
+          </li>
         </ul>
       </li>
       }

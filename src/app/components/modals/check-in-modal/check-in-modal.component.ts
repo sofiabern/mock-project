@@ -9,6 +9,9 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 
+import { ToastrService } from 'ngx-toastr';
+
+
 import { ClientsService } from '../../../services/clients.service';
 import { RoomsService } from '../../../services/rooms.service';
 import { CheckInsService } from '../../../services/check-ins.service';
@@ -41,7 +44,7 @@ export class CheckInModalComponent {
   totalDayPrice:number = this.data.roomPrice;
   totalPrice:number = 0;
   passportNumber!:string
-  constructor(public dialogRef: MatDialogRef<CheckInModalComponent>, private clientsService: ClientsService, @Inject(MAT_DIALOG_DATA) public data: { roomId: string, roomPrice: number }, private roomsService: RoomsService, private checkInsService: CheckInsService) { }
+  constructor(public dialogRef: MatDialogRef<CheckInModalComponent>, private clientsService: ClientsService, @Inject(MAT_DIALOG_DATA) public data: { roomId: string, roomPrice: number }, private roomsService: RoomsService, private checkInsService: CheckInsService,  private toastr: ToastrService) { }
 
   submitForm(form: NgForm): void {
     if (form.valid) {
@@ -68,7 +71,7 @@ export class CheckInModalComponent {
       };
 
       if(!this.passportNumber || !this.discounts || !this.totalPrice){
-        alert('You must fill all required fields and calculate discount!')
+        this.toastr.error('You must fill all required fields, marked by *, and check discount!');
         return
       }
 

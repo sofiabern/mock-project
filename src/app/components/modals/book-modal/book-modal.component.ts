@@ -8,7 +8,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import {MatCheckboxModule} from '@angular/material/checkbox';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+
+import { ToastrService } from 'ngx-toastr';
+
 
 import { ClientsService } from '../../../services/clients.service';
 import { RoomsService } from '../../../services/rooms.service';
@@ -26,24 +29,24 @@ import { CheckInsService } from '../../../services/check-ins.service';
     MatIconModule,
     MatDialogModule,
     MatDatepickerModule,
-    MatCheckboxModule
+    MatCheckboxModule,
   ],
   styleUrls: ['./book-modal.component.css'],
   providers: [provideNativeDateAdapter()],
 })
 export class BookModalComponent {
 
-  visitsAmount! : number;
+  visitsAmount!: number;
   totalDiscount: number = 0;
   discounts = {
     regularCustomer: 0,
     military: 0,
     guardian: 0,
   };
-  totalDayPrice:number = this.data.roomPrice;
-  totalPrice:number = 0;
-  passportNumber!:string
-  constructor(public dialogRef: MatDialogRef<BookModalComponent>, private clientsService: ClientsService, @Inject(MAT_DIALOG_DATA) public data: { roomId: string, roomPrice: number }, private roomsService: RoomsService, private checkInsService: CheckInsService) { }
+  totalDayPrice: number = this.data.roomPrice;
+  totalPrice: number = 0;
+  passportNumber!: string
+  constructor(public dialogRef: MatDialogRef<BookModalComponent>, private clientsService: ClientsService, @Inject(MAT_DIALOG_DATA) public data: { roomId: string, roomPrice: number }, private roomsService: RoomsService, private checkInsService: CheckInsService, private toastr: ToastrService) { }
 
 
   submitForm(form: NgForm): void {
@@ -69,9 +72,10 @@ export class BookModalComponent {
         totalPrice: this.totalPrice
       };
 
-      if(!this.passportNumber || !this.discounts || !this.totalPrice){
-        alert('You must fill all required fields and calculate discount!')
+      if (!this.passportNumber || !this.discounts || !this.totalPrice) {
+        this.toastr.error('You must fill all required fields, marked by *, and check discount!');
         return
+
       }
 
       this.checkInsService.createCheckInClient(bookData).subscribe({
@@ -90,7 +94,7 @@ export class BookModalComponent {
     if (discountForm.valid) {
       this.passportNumber = discountForm.value.passportNumber;
 
-      this.clientsService.getClientVisits({passport_details: this.passportNumber}).subscribe({
+      this.clientsService.getClientVisits({ passport_details: this.passportNumber }).subscribe({
         next: (response: any) => {
           this.visitsAmount = response.data;
           console.log('Visits amount:', this.visitsAmount);
@@ -126,7 +130,7 @@ export class BookModalComponent {
     const days = Math.ceil(difference / (1000 * 60 * 60 * 24));
     console.log(difference, days)
 
-    this.totalDayPrice = this.totalDiscount ? Math.round( (this.data.roomPrice * (1 - this.totalDiscount / 100))) : this.data.roomPrice;
+    this.totalDayPrice = this.totalDiscount ? Math.round((this.data.roomPrice * (1 - this.totalDiscount / 100))) : this.data.roomPrice;
     this.totalPrice = this.totalDayPrice * days;
   }
 }

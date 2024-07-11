@@ -6,5 +6,11 @@ export interface Client {
   passport_details: string;
   comment: string;
   visitsAmount: number;
-}
+  discounts: {
+    regularCustomer: number;
+    military: number;
+    guardian: number;
 
+  }
+  totalDiscount: number;
+}

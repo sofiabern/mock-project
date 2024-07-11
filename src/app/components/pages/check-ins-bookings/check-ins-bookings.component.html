@@ -9,7 +9,7 @@
       </mat-form-field>
     </div>
     @if(loading){
-    <div class="check_ins__loading">
+    <div class="check-ins__loading">
       <mat-spinner diameter="60"></mat-spinner>
     </div>
     }
@@ -32,8 +32,8 @@
               checkIn.check_in_date | date:'dd-MM-yyyy' }}</li>
             <li class="check-in-details__info"><span class="check-in-details__info-bold">Check-out date:</span> {{
               checkIn.check_out_date | date:'dd-MM-yyyy' }}</li>
-            <li class="check-in-details__info"><span class="check-in-details__info-bold">Total price per day:</span> {{ checkIn.totalDayPrice}}</li>
-            <li class="check-in-details__info"><span class="check-in-details__info-bold">Total price:</span> {{ checkIn.totalPrice}}</li>
+            <li class="check-in-details__info"><span class="check-in-details__info-bold">Total price per day:</span> ${{ checkIn.totalDayPrice}}</li>
+            <li class="check-in-details__info"><span class="check-in-details__info-bold">Total price:</span> ${{ checkIn.totalPrice}}</li>
 
             <li class="check-in-details__info"><span class="check-in-details__info-bold">Note:</span> {{ checkIn.note }}
             </li>
