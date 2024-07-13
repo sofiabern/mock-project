@@ -105,9 +105,10 @@ export class RoomsComponent implements OnInit {
   openBookModal(roomId: string, roomPrice: number): void {
     const dialogBookRef = this.dialog.open(BookModalComponent, {
       width: '600px',
-      height: '80vh',
       disableClose: false,
+      autoFocus: false,
       data: { roomId, roomPrice }
+
     });
 
     dialogBookRef.afterClosed().subscribe(result => {
@@ -120,8 +121,8 @@ export class RoomsComponent implements OnInit {
   openCheckInModal(roomId: string, roomPrice: number): void {
     const dialogCheckInRef = this.dialog.open(CheckInModalComponent, {
       width: '600px',
-      height: '80vh',
       disableClose: false,
+      autoFocus: false,
       data: { roomId, roomPrice }
     });
 

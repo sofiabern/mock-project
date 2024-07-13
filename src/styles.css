@@ -39,27 +39,30 @@ body {
   margin: 0 auto;
   padding-right: 16px;
   padding-left: 16px;
-  max-width: 428px;
 }
 
 /* Tablet screen */
-@media screen and (min-width: 768px) {
+@media (min-width: 768px) {
   .container {
     max-width: 768px;
   }
 }
 
-@media screen and (min-width: 1158px) {
+@media (min-width: 1158px) {
   .container {
     max-width: 1158px;
   }
 }
 
 /* Desktop screen */
-@media screen and (min-width: 1440px) {
+@media (min-width: 1440px) {
   .container {
     max-width: 1440px;
   }
+}
+
+.no-scroll {
+  overflow: hidden;
 }
 
 /* Styles for modals */
@@ -77,22 +80,29 @@ body {
   padding: 4px;
 }
 
-.mat-form-field-appearance-outline.mat-mdc-form-field{
+.mat-form-field-appearance-outline.mat-mdc-form-field {
   display: inline;
 }
 
-/* .mat-mdc-text-field-wrapper.mdc-text-field{
-  border-radius: 0px;
-} */
-
+.mat-mdc-form-field-subscript-wrapper.mat-mdc-form-field-bottom-align{
+  display: none !important;
+}
 
 .mdc-text-field--outlined .mdc-notched-outline__leading {
   border-radius: 0px !important;
 }
 
-.mdc-text-field--outlined .mdc-notched-outline__trailing{
+.mdc-text-field--outlined .mdc-notched-outline__trailing {
   border-radius: 0px !important;
 }
+
+@media (max-width: 309.9px) {
+  .mat-mdc-form-field-subscript-wrapper,
+  .mat-mdc-form-field-bottom-align::before {
+    font-size: 10px !important;
+  }
+}
+
 
 /* Styles for loader */
 .mat-mdc-progress-spinner
@@ -155,10 +165,10 @@ body {
 }
 .toast-message a,
 .toast-message label {
-  color: #FFFFFF;
+  color: #ffffff;
 }
 .toast-message a:hover {
-  color: #CCCCCC;
+  color: #cccccc;
   text-decoration: none;
 }
 .toast-close-button {
@@ -168,7 +178,7 @@ body {
   float: right;
   font-size: 20px;
   font-weight: bold;
-  color: #FFFFFF;
+  color: #ffffff;
   text-shadow: 0 1px 0 #ffffff;
   /* opacity: 0.8; */
 }
@@ -207,11 +217,11 @@ button.toast-close-button {
   background-repeat: no-repeat;
   background-size: 24px;
   box-shadow: 0 0 12px #999999;
-  color: #FFFFFF;
+  color: #ffffff;
   transition: transform 300ms ease-in-out;
 }
 .toast-container .ngx-toastr:hover {
-transform: scale(1.05);
+  transform: scale(1.05);
   cursor: pointer;
 }
 /* https://github.com/FortAwesome/Font-Awesome-Pro/blob/master/advanced-options/raw-svg/regular/info-circle.svg */
@@ -247,16 +257,16 @@ transform: scale(1.05);
   pointer-events: auto;
 }
 .toast-success {
-  background-color: #51A351;
+  background-color: #51a351;
 }
 .toast-error {
   background-color: #ba1a1a;
 }
 .toast-info {
-  background-color: #2F96B4;
+  background-color: #2f96b4;
 }
 .toast-warning {
-  background-color: #F89406;
+  background-color: #f89406;
 }
 .toast-progress {
   position: absolute;

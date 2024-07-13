@@ -18,18 +18,18 @@
     </div>
     <div class="checkIn-modal__other-wrapper">
       <div class="checkIn-modal__info-wrapper">
-    <form #discountForm="ngForm" (ngSubmit)="onCheckVisits(discountForm)" class="checkIn-modal__discont-form">
+    <div class="checkIn-modal__discount-form">
     <mat-form-field appearance="outline" class="checkIn-modal__field">
       <mat-label>Passport Number</mat-label>
-      <input matInput type="text" required name="passportNumber" ngModel />
+      <input matInput type="text" required name="passportNumber" [(ngModel)]="passportNumber" />
     </mat-form-field>
-    <button type="submit" class="checkIn-modal__check-btn">Check discount</button>
-  </form>
+    <button type="button" class="checkIn-modal__check-btn" (click)="onCheckDiscount()">Check discount</button>
+  </div>
     <mat-form-field class="checkIn-modal__field" appearance="outline">
       <mat-label>Enter dates*</mat-label>
       <mat-date-range-input [rangePicker]="picker">
-        <input required matStartDate placeholder="Check-in date" ngModel name="startDate" id="startDate" (dateChange)="calculateTotalDiscountAndPrice()">
-        <input  required matEndDate placeholder="Check-out date" ngModel name="endDate" id="endDate" (dateChange)="calculateTotalDiscountAndPrice()">
+        <input required matStartDate placeholder="Check-in date" ngModel name="startDate" [(ngModel)]="startDate" (dateChange)="calculateTotalDiscountAndPrice()">
+        <input  required matEndDate placeholder="Check-out date" ngModel name="endDate" [(ngModel)]="endDate"  (dateChange)="calculateTotalDiscountAndPrice()">
       </mat-date-range-input>
       <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
       <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>

@@ -15,13 +15,23 @@
 }
 
 .rooms__filter-button {
-  padding: 6px 0 6px 0;
-  width: 72px;
+  font-size: 14px;
+  padding: 5px 0 5px 0;
+  width: 54px;
   color: #000000;
   background-color: #ffffff;
   border: 1px solid #000000;
   transition: all 0.3s ease-in-out;
 }
+
+
+@media (min-width: 768px){
+.rooms__filter-button  {
+  padding: 6px 0 6px 0;
+  width: 72px;
+}
+}
+
 
 .rooms__filter-button:hover {
   background-color: #62ae62;
@@ -33,7 +43,20 @@
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 30px;
+  gap: 12px;
+}
+
+@media(min-width:768px){
+  .rooms__list {
+    gap: 24px;
+  }
+}
+
+.rooms__list {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 24px;
 }
 
 .room-card {

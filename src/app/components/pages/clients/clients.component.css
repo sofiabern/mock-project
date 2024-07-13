@@ -10,13 +10,13 @@
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 30px;
+  gap: 24px;
 }
 
 .client-card {
   border: 1px solid #000000;
   padding: 12px;
-  width: 24%;
+  width: 296px;
 }
 
 .client-details__info-bold{

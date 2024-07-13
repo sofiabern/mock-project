@@ -3,6 +3,7 @@
     <div class="header__brand">
       <a class="header__logo" routerLink="/">Serenity Hotel</a>
     </div>
+
     <nav class="header__nav">
       <ul class="header__list">
         <li class="header__item">
@@ -20,8 +21,32 @@
       </ul>
     </nav>
     <div class="header__auth-buttons">
-      <button class="auth-buttons__button auth-buttons__button--login" (click)="openLogInDialog()" >Log In</button>
-      <button class="auth-buttons__button  auth-buttons__button--signup" (click)=" openSignUpDialog()" >Sign Up</button>
+      <button class="auth-buttons__button auth-buttons__button--login" (click)="openLogInDialog()">Log In</button>
+      <button class="auth-buttons__button auth-buttons__button--signup" (click)="openSignUpDialog()">Sign Up</button>
     </div>
+    <button class="header__menu-btn" (click)="openMobileMenu()">
+      <mat-icon aria-hidden="false" aria-label="Burger menu icon" fontIcon="menu"></mat-icon>
+    </button>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div class="mob-header__container" [class.mob-header__container--open] = "isMobileMenuOpen" (click)="closeMobileMenu()">
+    <button class="mob-header__close-button" (click)="closeMobileMenu()">
+      <mat-icon aria-hidden="false" aria-label="Close icon" fontIcon="close"></mat-icon>
+    </button>
+    <ul class="mob-header__list">
+      <li class="mob-header__item">
+        <a class="mob-header__link" routerLink="/" (click)="closeMobileMenu()">Home</a>
+      </li>
+      <li class="mob-header__item">
+        <a class="mob-header__link" routerLink="/rooms" (click)="closeMobileMenu()">Available Rooms</a>
+      </li>
+      <li class="mob-header__item">
+        <a class="mob-header__link" routerLink="/check-ins-bookings" (click)="closeMobileMenu()">Check-ins & Bookings</a>
+      </li>
+      <li class="mob-header__item">
+        <a class="mob-header__link" routerLink="/clients" (click)="closeMobileMenu()">Clients</a>
+      </li>
+    </ul>
   </div>
 </header>

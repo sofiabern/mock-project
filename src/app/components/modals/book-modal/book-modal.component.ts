@@ -44,23 +44,31 @@ export class BookModalComponent {
     guardian: 0,
   };
   totalDayPrice: number = this.data.roomPrice;
-  totalPrice: number = 0;
+  totalPrice!: number;
   passportNumber!: string
+  startDate!: Date;
+  endDate!: Date;
+  discountChecked: boolean = false;
   constructor(public dialogRef: MatDialogRef<BookModalComponent>, private clientsService: ClientsService, @Inject(MAT_DIALOG_DATA) public data: { roomId: string, roomPrice: number }, private roomsService: RoomsService, private checkInsService: CheckInsService, private toastr: ToastrService) { }
 
 
-  submitForm(form: NgForm): void {
-    if (form.valid) {
+  submitForm(bookForm: NgForm): void {
+    if (!this.discountChecked) {
+      this.toastr.error('Please fill all required fields and check discount.');
+      return;
+    }
+
+    if (bookForm.valid) {
       const bookData = {
-        last_name: form.value.lastName,
-        first_name: form.value.firstName,
-        middle_name: form.value.middleName,
+        last_name: bookForm.value.lastName,
+        first_name: bookForm.value.firstName,
+        middle_name: bookForm.value.middleName,
         passport_details: this.passportNumber,
         room: this.data.roomId,
-        check_in_date: new Date(form.value.startDate),
-        check_out_date: new Date(form.value.endDate),
-        comment: form.value.comment || 'No comment',
-        note: form.value.comment || 'No note',
+        check_in_date: this.startDate,
+        check_out_date: this.endDate,
+        comment: bookForm.value.comment || 'No comment',
+        note: bookForm.value.comment || 'No note',
         isCheckIn: false,
         discounts: {
           regularCustomer: this.discounts.regularCustomer,
@@ -71,12 +79,6 @@ export class BookModalComponent {
         totalDayPrice: this.totalDayPrice,
         totalPrice: this.totalPrice
       };
-
-      if (!this.passportNumber || !this.discounts || !this.totalPrice) {
-        this.toastr.error('You must fill all required fields, marked by *, and check discount!');
-        return
-
-      }
 
       this.checkInsService.createCheckInClient(bookData).subscribe({
         next: (response) => {
@@ -90,20 +92,22 @@ export class BookModalComponent {
     }
   }
 
-  onCheckVisits(discountForm: NgForm): void {
-    if (discountForm.valid) {
-      this.passportNumber = discountForm.value.passportNumber;
-
-      this.clientsService.getClientVisits({ passport_details: this.passportNumber }).subscribe({
-        next: (response: any) => {
-          this.visitsAmount = response.data;
-          console.log('Visits amount:', this.visitsAmount);
-        },
-        error: (error) => {
-          console.error('Error fetching visits:', error);
-        }
-      });
+  onCheckDiscount(): void {
+    if (!this.passportNumber) {
+      this.toastr.error('Please enter passport number to check discount.');
+      return;
     }
+
+    this.clientsService.getClientVisits({ passport_details: this.passportNumber }).subscribe({
+      next: (response: any) => {
+        this.visitsAmount = response.data;
+        console.log('Visits amount:', this.visitsAmount);
+        this.discountChecked = true;
+      },
+      error: (error) => {
+        console.error('Error fetching visits:', error);
+      }
+    });
   }
 
   onDiscountChange(type: string, isChecked: boolean): void {
@@ -124,13 +128,11 @@ export class BookModalComponent {
   calculateTotalDiscountAndPrice(): void {
     this.totalDiscount = this.discounts.regularCustomer + this.discounts.military + this.discounts.guardian;
 
-    const startDate = new Date((document.getElementById('startDate') as HTMLInputElement).value).getTime();
-    const endDate = new Date((document.getElementById('endDate') as HTMLInputElement).value).getTime();
-    const difference = endDate - startDate;
-    const days = Math.ceil(difference / (1000 * 60 * 60 * 24));
-    console.log(difference, days)
-
-    this.totalDayPrice = this.totalDiscount ? Math.round((this.data.roomPrice * (1 - this.totalDiscount / 100))) : this.data.roomPrice;
-    this.totalPrice = this.totalDayPrice * days;
+    if (this.startDate && this.endDate) {
+      const difference = this.endDate.getTime() - this.startDate.getTime();
+      const days = Math.ceil(difference / (1000 * 60 * 60 * 24));
+      this.totalDayPrice = this.totalDiscount ? Math.round(this.data.roomPrice * (1 - this.totalDiscount / 100)) : this.data.roomPrice;
+      this.totalPrice = this.totalDayPrice * days;
+    }
   }
 }
