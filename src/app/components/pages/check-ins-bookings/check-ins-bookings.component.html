@@ -35,7 +35,7 @@
             <li class="check-in-details__info"><span class="check-in-details__info-bold">Total price per day:</span> ${{ checkIn.totalDayPrice}}</li>
             <li class="check-in-details__info"><span class="check-in-details__info-bold">Total price:</span> ${{ checkIn.totalPrice}}</li>
 
-            <li class="check-in-details__info"><span class="check-in-details__info-bold">Note:</span> {{ checkIn.note }}
+            <li class="check-in-details__info"><span class="check-in-details__info-bold">Note:</span> {{ checkIn.note ? checkIn.note : "No note" }}
             </li>
           </ul>
         </div>

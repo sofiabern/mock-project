@@ -22,7 +22,6 @@ export class HeaderComponent {
 
   openDialog(component: ComponentType<SignUpModalComponent | LogInModalComponent>): void {
     this.dialog.open(component, {
-      width: '24vw',
       disableClose: false
     });
   }

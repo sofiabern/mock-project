@@ -16,6 +16,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ClientsService } from '../../../services/clients.service';
 import { RoomsService } from '../../../services/rooms.service';
 import { CheckInsService } from '../../../services/check-ins.service';
+import { CheckInBookData } from '../../../models/checkIn-book-data.model';
 
 @Component({
   selector: 'app-book-modal',
@@ -59,7 +60,7 @@ export class BookModalComponent {
     }
 
     if (bookForm.valid) {
-      const bookData = {
+      const bookData: CheckInBookData = {
         last_name: bookForm.value.lastName,
         first_name: bookForm.value.firstName,
         middle_name: bookForm.value.middleName,
@@ -67,8 +68,6 @@ export class BookModalComponent {
         room: this.data.roomId,
         check_in_date: this.startDate,
         check_out_date: this.endDate,
-        comment: bookForm.value.comment || 'No comment',
-        note: bookForm.value.comment || 'No note',
         isCheckIn: false,
         discounts: {
           regularCustomer: this.discounts.regularCustomer,
@@ -80,13 +79,22 @@ export class BookModalComponent {
         totalPrice: this.totalPrice
       };
 
+      if (bookForm.value.comment) {
+        bookData.comment = bookForm.value.comment;
+      }
+
+      if (bookForm.value.note) {
+        bookData.note = bookForm.value.note;
+      }
+
       this.checkInsService.createCheckInClient(bookData).subscribe({
-        next: (response) => {
-          console.log('Check-in created successfully:', response);
+        next: () => {
           this.dialogRef.close(true);
+          this.toastr.success('Booking created successfully!');
         },
         error: (error) => {
-          console.error('Error creating check-in:', error);
+          console.error(error)
+          this.toastr.error('Failed to create booking.');
         }
       });
     }
@@ -101,11 +109,11 @@ export class BookModalComponent {
     this.clientsService.getClientVisits({ passport_details: this.passportNumber }).subscribe({
       next: (response: any) => {
         this.visitsAmount = response.data;
-        console.log('Visits amount:', this.visitsAmount);
         this.discountChecked = true;
       },
       error: (error) => {
-        console.error('Error fetching visits:', error);
+        console.error( error);
+        this.toastr.error('Error fetching client visits. Please try again later.');
       }
     });
   }
@@ -127,11 +135,11 @@ export class BookModalComponent {
 
   calculateTotalDiscountAndPrice(): void {
     this.totalDiscount = this.discounts.regularCustomer + this.discounts.military + this.discounts.guardian;
+    this.totalDayPrice = this.totalDiscount ? Math.round(this.data.roomPrice * (1 - this.totalDiscount / 100)) : this.data.roomPrice;
 
     if (this.startDate && this.endDate) {
       const difference = this.endDate.getTime() - this.startDate.getTime();
       const days = Math.ceil(difference / (1000 * 60 * 60 * 24));
-      this.totalDayPrice = this.totalDiscount ? Math.round(this.data.roomPrice * (1 - this.totalDiscount / 100)) : this.data.roomPrice;
       this.totalPrice = this.totalDayPrice * days;
     }
   }

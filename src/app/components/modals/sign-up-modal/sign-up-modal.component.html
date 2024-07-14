@@ -1,6 +1,6 @@
 <h1>Sign Up</h1>
 <div mat-dialog-content>
-  <form #signUpForm="ngForm" (ngSubmit)="submitForm(signUpForm)">
+  <form #signUpForm="ngForm" (ngSubmit)="submitForm(signUpForm)" class="sign-up-modal__form">
     <mat-form-field appearance="outline">
       <mat-label>Username</mat-label>
       <input matInput type="text" name="username" ngModel required>

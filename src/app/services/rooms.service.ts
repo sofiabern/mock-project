@@ -25,26 +25,26 @@ export class RoomsService {
     return this.http.patch<Room>(`${this.apiUrl}/rooms/${roomId}`, updateData);
   }
 
-  addBooking(roomId: string, newBooking: any): Observable<Room> {
-    return this.getRoom(roomId).pipe(
-      tap((response: any) => {
-        const room = response.data;
-        console.log('Room:', room);
-        if (!room.bookings) {
-          room.bookings = [];
-        }
-        room.bookings.push(newBooking);
-        console.log(room.bookings);
+  // addBooking(roomId: string, newBooking: any): Observable<Room> {
+  //   return this.getRoom(roomId).pipe(
+  //     tap((response: any) => {
+  //       const room = response.data;
+  //       console.log('Room:', room);
+  //       if (!room.bookings) {
+  //         room.bookings = [];
+  //       }
+  //       room.bookings.push(newBooking);
+  //       console.log(room.bookings);
 
-        this.updateRoom(roomId, { bookings: room.bookings }).subscribe({
-          next: (updatedRoom) => {
-            console.log('Room bookings updated successfully:', updatedRoom);
-          },
-          error: (error) => {
-            console.error('Error updating room bookings:', error);
-          }
-        });
-      })
-    );
-  }
+  //       this.updateRoom(roomId, { bookings: room.bookings }).subscribe({
+  //         next: (updatedRoom) => {
+  //           console.log('Room bookings updated successfully:', updatedRoom);
+  //         },
+  //         error: (error) => {
+  //           console.error('Error updating room bookings:', error);
+  //         }
+  //       });
+  //     })
+  //   );
+  // }
 }

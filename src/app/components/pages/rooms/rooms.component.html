@@ -2,27 +2,15 @@
   <div class="container">
     <h2 class="rooms__title">Available Rooms</h2>
     @if(loading){
-      <div class="rooms__loading">
-        <mat-spinner diameter="60"></mat-spinner>
-      </div>
+    <div class="rooms__loading">
+      <mat-spinner diameter="60"></mat-spinner>
+    </div>
     }
 
-    <form #filterForm="ngForm" (ngSubmit)="filterRooms()" class="rooms__date-wrapper">
-      <mat-form-field class="rooms__field" appearance="outline">
-        <mat-label>Enter dates</mat-label>
-        <mat-date-range-input [rangePicker]="picker">
-          <input required matStartDate placeholder="Check-in" [(ngModel)]="startDate" name="startDate">
-          <input required matEndDate placeholder="Check-out" [(ngModel)]="endDate" name="endDate">
-        </mat-date-range-input>
-        <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
-        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-date-range-picker #picker></mat-date-range-picker>
-      </mat-form-field>
-      <button class="rooms__filter-button" type="submit">Filter</button>
-    </form>
+    <app-rooms-filter (filteredRoomsChange)="filterRooms($event)" [fetchedRooms]="fetchedRooms"></app-rooms-filter>
 
     <ul class="rooms__list">
-      @for(room of rooms$ | async; track room._id ){
+      @for(room of fetchedRooms; track room._id ){
       <li class="room-card">
         <img src="defaultroom.jpg" alt="Room Image" class="room-image" lazy-loading>
 

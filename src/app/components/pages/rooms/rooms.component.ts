@@ -15,10 +15,13 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { isBefore, isAfter, isEqual } from 'date-fns';
 
+// Components
+import { RoomsFilterComponent } from './rooms-filter/rooms-filter.component';
+
 @Component({
   selector: 'app-rooms',
   standalone: true,
-  imports: [CommonModule, MatProgressSpinnerModule, FormsModule, MatFormFieldModule, MatDatepickerModule],
+  imports: [CommonModule, MatProgressSpinnerModule, FormsModule, RoomsFilterComponent],
   templateUrl: './rooms.component.html',
   styleUrls: ['./rooms.component.css'],
   providers: [provideNativeDateAdapter()],
@@ -26,21 +29,16 @@ import { isBefore, isAfter, isEqual } from 'date-fns';
 
 export class RoomsComponent implements OnInit {
 
-  rooms$!: Observable<Room[]>;
-  allRooms: Room[] = [];
+  fetchedRooms: Room[] = [];
+  filteredRooms: Room[] = [];
+  startDate: Date | null = null;
+  endDate: Date | null = null;
   loading = true;
-  startDate: Date | null;
-  endDate: Date | null;
-  filteredRooms: Room[];
 
   constructor(
     private roomsService: RoomsService,
     private dialog: MatDialog
-  ) {
-    this.startDate = null;
-    this.endDate = null;
-    this.filteredRooms = [];
-  }
+  ) { }
 
   ngOnInit() {
     this.fetchRooms();
@@ -48,63 +46,29 @@ export class RoomsComponent implements OnInit {
 
   fetchRooms() {
     this.loading = true;
-    this.rooms$ = this.roomsService.getRooms().pipe(
-      map((response: any) => response.data),
-      catchError(error => {
-        console.error('Error fetching rooms:', error);
-        this.loading = false;
-        return of([]);
-      })
-    );
 
-    this.rooms$.subscribe({
-      next: (rooms: Room[]) => {
-        console.log('Received rooms:', rooms);
-        this.allRooms = rooms;
-        this.filteredRooms = rooms;
+    this.roomsService.getRooms().subscribe({
+      next: (response: any) => {
+        this.fetchedRooms = response.data;
+        this.filteredRooms = response.data;
         this.loading = false;
       },
       error: (error) => {
         console.error('Error in subscription:', error);
         this.loading = false;
       },
-      complete: () => {
-        console.log('Room subscription completed');
-        this.loading = false;
-      }
     });
   }
 
-  filterRooms() {
-
-    // Конвертація введених дат в об'єкти Date
-    const checkInDate = this.startDate!;
-    const checkOutDate = this.endDate!;
-
-    // Фільтрація кімнат на основі введених дат заїзду і виїзду
-    this.filteredRooms = this.allRooms.filter(room => {
-      return !room.bookingsAndCheckIns.some(item => {
-        const bookingCheckInDate = item.check_in_date;
-        const bookingCheckOutDate = item.check_out_date;
-        console.log(bookingCheckInDate)
-        // Перевірка, чи є перекриття з існуючими бронюваннями
-        return (isBefore(checkInDate, bookingCheckOutDate) && isAfter(checkOutDate, bookingCheckInDate)) ||
-          isEqual(checkInDate, bookingCheckInDate) || isEqual(checkOutDate, bookingCheckOutDate) ||
-          isEqual(checkOutDate, bookingCheckInDate) || isEqual(checkInDate,  bookingCheckOutDate) ||
-          (isBefore(checkInDate, bookingCheckOutDate) && isAfter(checkInDate, bookingCheckInDate)) ||
-          (isBefore(checkOutDate, bookingCheckOutDate) && isAfter(checkOutDate, bookingCheckInDate));
-      });
-    });
-
-    // Оновлення Observable для відображення відфільтрованих кімнат
-    this.rooms$ = of(this.filteredRooms);
-    console.log(this.filteredRooms);
-    console.log(this.rooms$);
+  filterRooms(filteredRooms: Room[]) {
+    this.filteredRooms = filteredRooms;
+    console.log(this.filteredRooms)
+    this.fetchedRooms = this.filteredRooms;
   }
 
   openBookModal(roomId: string, roomPrice: number): void {
     const dialogBookRef = this.dialog.open(BookModalComponent, {
-      width: '600px',
+
       disableClose: false,
       autoFocus: false,
       data: { roomId, roomPrice }
@@ -120,7 +84,6 @@ export class RoomsComponent implements OnInit {
 
   openCheckInModal(roomId: string, roomPrice: number): void {
     const dialogCheckInRef = this.dialog.open(CheckInModalComponent, {
-      width: '600px',
       disableClose: false,
       autoFocus: false,
       data: { roomId, roomPrice }

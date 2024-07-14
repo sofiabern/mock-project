@@ -1,0 +1,32 @@
+.rooms__date-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.rooms__filter-button {
+  font-size: 14px;
+  padding: 5px 0 5px 0;
+  width: 54px;
+  color: #000000;
+  background-color: #ffffff;
+  border: 1px solid #000000;
+  transition: all 0.3s ease-in-out;
+}
+
+
+@media (min-width: 768px){
+.rooms__filter-button  {
+  padding: 6px 0 6px 0;
+  width: 72px;
+}
+}
+
+
+.rooms__filter-button:hover {
+  background-color: #62ae62;
+  border-color: #62ae62;
+  color: #ffffff;
+}

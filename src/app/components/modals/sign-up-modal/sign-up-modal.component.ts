@@ -21,10 +21,9 @@ export class SignUpModalComponent {
     this.dialogRef.close();
   }
 
-  submitForm(form: NgForm): void {
-    if (form.valid) {
-      // Ваш код для відправки форми, наприклад, до сервера
-      console.log('Form submitted:', form.value);
+  submitForm(signUpForm: NgForm): void {
+    if (signUpForm.valid) {
+      console.log('Form submitted:', signUpForm.value);
       this.dialogRef.close();
     }
   }

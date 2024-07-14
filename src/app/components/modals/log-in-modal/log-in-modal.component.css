@@ -1,6 +1,10 @@
 .log-in-modal__form{
-  position: relative;
-}
+  display: flex;
+  gap: 12px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+ }
 
 
 .log-in-modal__close-btn{
@@ -21,8 +25,9 @@
 .log-in-modal__submit-btn {
   display: block;
   margin: 0 auto;
+  font-size: 16px;
   padding: 6px 0 6px 0;
-  width: 72px;
+  width: 80px;
   color: #ffffff;
   background-color: #000000;
   border: 1px solid #000000;
