@@ -86,7 +86,7 @@ export class CheckInModalComponent {
       }
 
 
-      this.checkInsService.createCheckInClient(checkInData).subscribe({
+      this.checkInsService.createCheckIn(checkInData).subscribe({
         next: () => {
           this.dialogRef.close(true);
           this.toastr.success('Check-in created successfully!');

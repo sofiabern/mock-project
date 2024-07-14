@@ -16,8 +16,8 @@ export class RoomsComponentsService {
   constructor(private roomsService: RoomsService, private toastr: ToastrService) {}
 
   fetchRooms() {
-    this.loadingSubject.next(true);
     this.roomsSubject.next([]);
+    this.loadingSubject.next(true);
     this.roomsService.getRooms().subscribe({
       next: (response) => {
         this.roomsSubject.next(response.data);

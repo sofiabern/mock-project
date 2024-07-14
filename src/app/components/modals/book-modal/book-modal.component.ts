@@ -87,7 +87,7 @@ export class BookModalComponent {
         bookData.note = bookForm.value.note;
       }
 
-      this.checkInsService.createCheckInClient(bookData).subscribe({
+      this.checkInsService.createCheckIn(bookData).subscribe({
         next: () => {
           this.dialogRef.close(true);
           this.toastr.success('Booking created successfully!');

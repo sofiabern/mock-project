@@ -8,10 +8,51 @@ export interface CheckIn {
   room: {
     room_number: number;
   };
-  check_in_date: string;
-  check_out_date: string;
+  check_in_date: Date;
+  check_out_date: Date;
   note: string;
   isCheckIn: boolean;
   totalDayPrice: number;
   totalPrice: number;
+}
+
+export interface CheckInsResponseApi {
+  status: number;
+  message: string;
+  data: CheckIn[];
+}
+
+export interface CheckInAndBookData {
+  last_name: string;
+  first_name: string;
+  middle_name?: string;
+  passport_details: string;
+  room: string;
+  isCheckIn: boolean;
+  check_in_date: Date;
+  check_out_date: Date;
+  discounts: {
+    regularCustomer: number;
+    military: number;
+    guardian: number;
+
+  },
+  totalDiscount: number;
+  totalDayPrice: number;
+  totalPrice: number;
+  comment?: string;
+  note?: string;
+}
+
+
+export interface createCheckInResponseApi {
+  status: number;
+  message: string;
+  data: {
+    checkIn: CheckIn
+}
+}
+
+export interface UpdateCheckInResponseApi{
+  
 }

@@ -4,7 +4,7 @@ export interface Client {
   first_name: string;
   middle_name: string;
   passport_details: string;
-  comment: string;
+  comment?: string;
   visitsAmount: number;
   discounts: {
     regularCustomer: number;
@@ -13,4 +13,10 @@ export interface Client {
 
   }
   totalDiscount: number;
+}
+
+export interface RoomApiResponse {
+  status: number;
+  message: string;
+  data: Client[];
 }

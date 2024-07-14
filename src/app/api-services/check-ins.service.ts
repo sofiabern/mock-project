@@ -1,8 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { CheckIn } from '../models/check-in.model';
-import { CheckInBookData } from '../models/checkIn-book-data.model';
+
+// Types
+import { CheckIn, CheckInsResponseApi, CheckInAndBookData, createCheckInResponseApi } from '../models/check-in.model';
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -11,12 +14,12 @@ export class CheckInsService {
   private apiUrl = 'https://mock-beckend.onrender.com';
 
   constructor(private http: HttpClient) { }
-  getCheckIns(): Observable<CheckIn[]> {
-    return this.http.get<CheckIn[]>(`${this.apiUrl}/check-ins`);
+  getCheckIns(): Observable<CheckInsResponseApi> {
+    return this.http.get<CheckInsResponseApi>(`${this.apiUrl}/check-ins`);
   }
 
-  createCheckInClient(checkInBookData: CheckInBookData): Observable<CheckInBookData> {
-    return this.http.post<CheckInBookData>(`${this.apiUrl}/check-ins`, checkInBookData);
+  createCheckIn(formData: CheckInAndBookData): Observable<createCheckInResponseApi> {
+    return this.http.post<createCheckInResponseApi>(`${this.apiUrl}/check-ins`, formData);
   }
 
   updateCheckIn(checkInId: string, updateData:Partial<CheckIn>):Observable<CheckIn>{

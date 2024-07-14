@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Client } from '../models/client.model';
-
+import { Client, RoomApiResponse } from '../components/pages/clients/client.types';
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +11,8 @@ export class ClientsService {
 
   constructor(private http: HttpClient) { }
 
-  getClients(): Observable<Client[]> {
-    return this.http.get<Client[]>(`${this.apiUrl}/clients`);
+  getClients(): Observable<RoomApiResponse> {
+    return this.http.get<RoomApiResponse>(`${this.apiUrl}/clients`);
   }
 
   createClient(client: Client): Observable<Client> {
