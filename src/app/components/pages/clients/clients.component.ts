@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Client } from '../../../models/client.model';
-import { ClientsService } from '../../../services/clients.service';
+import { ClientsService } from '../../../api-services/clients.service';
 import { CommonModule } from '@angular/common';
 
 

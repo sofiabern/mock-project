@@ -1,12 +1,16 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Room } from '../../../../models/room.model';
-import { isBefore, isAfter, isEqual } from 'date-fns';
 
 // Form
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { provideNativeDateAdapter } from '@angular/material/core';
+
+// Types
+import { Room } from '../rooms.types';
+
+// Dates filtering
+import { isBefore, isAfter, isEqual } from 'date-fns';
 
 
 
@@ -19,10 +23,10 @@ import { provideNativeDateAdapter } from '@angular/material/core';
   providers: [provideNativeDateAdapter()],
 })
 export class RoomsFilterComponent {
-  @Input() fetchedRooms!: Room[];
+  @Input() rooms!: Room[];
   @Output() filteredRoomsChange = new EventEmitter<Room[]>();
- startDate!: Date | null;
-endDate!: Date | null;
+  startDate!: Date | null;
+  endDate!: Date | null;
 
   constructor() { }
 
@@ -35,7 +39,7 @@ endDate!: Date | null;
   }
 
   private filterRoomsByDate(startDate: Date, endDate: Date): Room[] {
-    return this.fetchedRooms.filter(room => {
+    return this.rooms.filter(room => {
       return !room.bookingsAndCheckIns.some((item: { check_in_date: Date, check_out_date: Date }) => {
 
         const bookingCheckInDate = new Date(item.check_in_date);

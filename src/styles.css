@@ -70,6 +70,7 @@ body {
   border-radius: 0;
   border: 1px solid #111111;
   padding: 24px;
+  background-color: #ffffff;
 }
 .cdk-overlay-container .cdk-overlay-pane.mat-mdc-dialog-panel {
   max-width: 100%;

@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA,} from '@angular/material/dialog';
-import { CheckInsService } from '../../../services/check-ins.service';
+import { CheckInsService } from '../../../api-services/check-ins.service';
 
 @Component({
   selector: 'app-cancel-book-modal',

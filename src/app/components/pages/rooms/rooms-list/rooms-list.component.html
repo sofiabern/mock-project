@@ -1,1 +1,5 @@
-<p>rooms-list works!</p>
+<ul class="rooms__list">
+  @for(room of rooms; track room._id ){
+  <app-room-card [room]="room" />
+  }
+</ul>

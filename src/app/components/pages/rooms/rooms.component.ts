@@ -1,98 +1,46 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { finalize } from 'rxjs/operators';
-import { catchError, map } from 'rxjs/operators';
-import { Room } from '../../../models/room.model';
-import { RoomsService } from '../../../services/rooms.service';
 import { CommonModule } from '@angular/common';
-import { MatDialog } from '@angular/material/dialog';
-import { BookModalComponent } from '../../modals/book-modal/book-modal.component';
-import { CheckInModalComponent } from '../../modals/check-in-modal/check-in-modal.component';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { FormsModule, NgForm } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { provideNativeDateAdapter } from '@angular/material/core';
-import { isBefore, isAfter, isEqual } from 'date-fns';
+import { FormsModule } from '@angular/forms';
 
 // Components
 import { RoomsFilterComponent } from './rooms-filter/rooms-filter.component';
+import { RoomsListComponent } from './rooms-list/rooms-list.component';
+
+// Services
+import { RoomsService } from '../../../api-services/rooms.service';
+import { RoomsComponentsService } from './rooms.service';
+
+// Types
+import { Room } from './rooms.types';
+
+// Etc
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ToastrService } from 'ngx-toastr';
+
 
 @Component({
   selector: 'app-rooms',
   standalone: true,
-  imports: [CommonModule, MatProgressSpinnerModule, FormsModule, RoomsFilterComponent],
+  imports: [CommonModule, MatProgressSpinnerModule, FormsModule, RoomsFilterComponent, RoomsListComponent],
   templateUrl: './rooms.component.html',
   styleUrls: ['./rooms.component.css'],
-  providers: [provideNativeDateAdapter()],
 })
 
 export class RoomsComponent implements OnInit {
-
-  fetchedRooms: Room[] = [];
-  filteredRooms: Room[] = [];
-  startDate: Date | null = null;
-  endDate: Date | null = null;
+  rooms: Room[] = [];
   loading = true;
 
   constructor(
-    private roomsService: RoomsService,
-    private dialog: MatDialog
-  ) { }
+    private roomsComponentsService: RoomsComponentsService
+  ) {}
 
   ngOnInit() {
-    this.fetchRooms();
-  }
-
-  fetchRooms() {
-    this.loading = true;
-
-    this.roomsService.getRooms().subscribe({
-      next: (response: any) => {
-        this.fetchedRooms = response.data;
-        this.filteredRooms = response.data;
-        this.loading = false;
-      },
-      error: (error) => {
-        console.error('Error in subscription:', error);
-        this.loading = false;
-      },
-    });
+    this.roomsComponentsService.loading$.subscribe(loading => this.loading = loading);
+    this.roomsComponentsService.rooms$.subscribe(rooms => this.rooms = rooms);
+    this.roomsComponentsService.fetchRooms();
   }
 
   filterRooms(filteredRooms: Room[]) {
-    this.filteredRooms = filteredRooms;
-    console.log(this.filteredRooms)
-    this.fetchedRooms = this.filteredRooms;
-  }
-
-  openBookModal(roomId: string, roomPrice: number): void {
-    const dialogBookRef = this.dialog.open(BookModalComponent, {
-
-      disableClose: false,
-      autoFocus: false,
-      data: { roomId, roomPrice }
-
-    });
-
-    dialogBookRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.fetchRooms();
-      }
-    });
-  }
-
-  openCheckInModal(roomId: string, roomPrice: number): void {
-    const dialogCheckInRef = this.dialog.open(CheckInModalComponent, {
-      disableClose: false,
-      autoFocus: false,
-      data: { roomId, roomPrice }
-    });
-
-    dialogCheckInRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.fetchRooms();
-      }
-    });
+    this.rooms = filteredRooms;
   }
 }

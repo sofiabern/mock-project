@@ -1,36 +1,13 @@
 <section class="rooms">
   <div class="container">
     <h2 class="rooms__title">Available Rooms</h2>
-    @if(loading){
-    <div class="rooms__loading">
-      <mat-spinner diameter="60"></mat-spinner>
-    </div>
-    }
-
-    <app-rooms-filter (filteredRoomsChange)="filterRooms($event)" [fetchedRooms]="fetchedRooms"></app-rooms-filter>
-
-    <ul class="rooms__list">
-      @for(room of fetchedRooms; track room._id ){
-      <li class="room-card">
-        <img src="defaultroom.jpg" alt="Room Image" class="room-image" lazy-loading>
-
-        <div class="room-card__bottom">
-          <ul class="room-card__details">
-            <li class="room-details__info room-details__info-bold">Room {{ room.room_number }}</li>
-            <li class="room-details__info"><span class="room-details__info-bold">Capacity:</span> {{ room.capacity }}
-            </li>
-            <li class="room-details__info"><span class="room-details__info-bold">Comfort:</span> {{ room.comfort_level
-              }}</li>
-            <li class="room-details__info"><span class="room-details__info-bold">Price:</span> ${{ room.price }}</li>
-          </ul>
-          <div class="room-card__btn-wrapper">
-            <button class="room-card__button" (click)="openCheckInModal(room._id, room.price)">Check-in</button>
-            <button class="room-card__button" (click)="openBookModal(room._id, room.price)">Book</button>
-          </div>
-        </div>
-      </li>
-      }
-
-    </ul>
+    <app-rooms-filter (filteredRoomsChange)="filterRooms($event)" [rooms]="rooms"></app-rooms-filter>
+    <app-rooms-list [rooms]="rooms"/>
   </div>
 </section>
+
+@if(loading){
+<div class="rooms__loading">
+  <mat-spinner diameter="60"></mat-spinner>
+</div>
+}

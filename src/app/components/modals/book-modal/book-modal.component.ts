@@ -13,9 +13,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { ToastrService } from 'ngx-toastr';
 
 
-import { ClientsService } from '../../../services/clients.service';
-import { RoomsService } from '../../../services/rooms.service';
-import { CheckInsService } from '../../../services/check-ins.service';
+import { ClientsService } from '../../../api-services/clients.service';
+import { RoomsService } from '../../../api-services/rooms.service';
+import { CheckInsService } from '../../../api-services/check-ins.service';
 import { CheckInBookData } from '../../../models/checkIn-book-data.model';
 
 @Component({
