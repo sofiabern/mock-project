@@ -5,7 +5,7 @@ import { BookModalComponent } from '../../../modals/book-modal/book-modal.compon
 import { CheckInModalComponent } from '../../../modals/check-in-modal/check-in-modal.component';
 
 // Services
-import { RoomsComponentsService } from '../rooms.service';
+import { RoomsService } from '../rooms.service';
 
 // Types
 import { Room } from '../rooms.types';
@@ -27,7 +27,7 @@ export class RoomButtonsComponent {
 
   constructor(
     private dialog: MatDialog,
-    private roomsComponentsService: RoomsComponentsService
+    private roomsService: RoomsService
   ) {}
 
   openBookModal(roomId: string, roomPrice: number): void {
@@ -39,7 +39,7 @@ export class RoomButtonsComponent {
 
     dialogBookRef.afterClosed().subscribe(result => {
       if (result) {
-        this.roomsComponentsService.fetchRooms();
+        this.roomsService.fetchRooms();
       }
     });
   }
@@ -53,7 +53,7 @@ export class RoomButtonsComponent {
 
     dialogCheckInRef.afterClosed().subscribe(result => {
       if (result) {
-        this.roomsComponentsService.fetchRooms();
+        this.roomsService.fetchRooms();
       }
     });
   }

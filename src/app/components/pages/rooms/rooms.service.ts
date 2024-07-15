@@ -7,7 +7,7 @@ import { Room } from './rooms.types';
 @Injectable({
   providedIn: 'root'
 })
-export class RoomsComponentsService {
+export class RoomsService {
   private roomsSubject = new BehaviorSubject<Room[]>([]);
   rooms$ = this.roomsSubject.asObservable();
   private loadingSubject = new BehaviorSubject<boolean>(false);

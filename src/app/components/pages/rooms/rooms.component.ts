@@ -7,7 +7,7 @@ import { RoomsFilterComponent } from './rooms-filter/rooms-filter.component';
 import { RoomsListComponent } from './rooms-list/rooms-list.component';
 
 // Services
-import { RoomsComponentsService } from './rooms.service';
+import { RoomsService } from './rooms.service';
 
 // Types
 import { Room } from './rooms.types';
@@ -30,13 +30,13 @@ export class RoomsComponent implements OnInit {
   loading = true;
 
   constructor(
-    private roomsComponentsService: RoomsComponentsService
+    private roomsService: RoomsService
   ) {}
 
   ngOnInit() {
-    this.roomsComponentsService.loading$.subscribe(loading => this.loading = loading);
-    this.roomsComponentsService.rooms$.subscribe(rooms => this.rooms = rooms);
-    this.roomsComponentsService.fetchRooms();
+    this.roomsService.loading$.subscribe(loading => this.loading = loading);
+    this.roomsService.rooms$.subscribe(rooms => this.rooms = rooms);
+    this.roomsService.fetchRooms();
   }
 
   filterRooms(filteredRooms: Room[]) {
