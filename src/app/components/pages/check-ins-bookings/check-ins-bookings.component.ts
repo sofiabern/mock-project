@@ -69,7 +69,7 @@ export class CheckInsBookingsComponent implements OnInit {
       const lowerCaseTerm = this.searchTerm.toLowerCase();
       this.filteredCheckIns = this.checkIns.filter(checkIn => {
         const firstName = checkIn.client.first_name?.toLowerCase();
-        const middleName = checkIn.client.middle_name?.toLowerCase();
+        const middleName = checkIn.client.middle_name?.toLowerCase() || '' ;
         const lastName = checkIn.client.last_name?.toLowerCase();
         const roomNumber = checkIn.room.room_number.toString();
         const note = checkIn.note?.toLowerCase() || '';

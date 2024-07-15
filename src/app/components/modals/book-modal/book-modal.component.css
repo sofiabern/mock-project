@@ -43,6 +43,12 @@
   margin-bottom: 12px;
 }
 
+@media(max-width: 359.9px){
+  .book-modal__title {
+   font-size: 24px;
+  }
+}
+
 .book-modal__form {
   display: flex;
   gap: 12px;

@@ -62,7 +62,6 @@ export class BookModalComponent {
       const bookData: CheckInAndBookingData = {
         last_name: bookForm.value.lastName,
         first_name: bookForm.value.firstName,
-        middle_name: bookForm.value.middleName,
         passport_details: this.passportNumber,
         room: this.data.roomId,
         check_in_date: this.startDate,
@@ -85,6 +84,12 @@ export class BookModalComponent {
       if (bookForm.value.note) {
         bookData.note = bookForm.value.note;
       }
+
+      if(bookForm.value.middleName){
+        bookData.middle_name = bookForm.value.middleName;
+      }
+
+      console.log(bookData)
 
       this.checkInsAbdBookingsApiService.createCheckIn(bookData).subscribe({
         next: () => {
