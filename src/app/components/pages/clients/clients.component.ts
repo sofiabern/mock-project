@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
 
 // Components
@@ -10,7 +8,7 @@ import { ClientsListComponent } from './clients-list/clients-list.component';
 import { Client } from './client.types';
 
 // Services
-import { ClientsService } from '../../../api-services/clients.service';
+import { ClientsApiService } from '../../../api-services/clients.service';
 
 // Etc
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -29,7 +27,7 @@ export class ClientsComponent implements OnInit {
   clients: Client[] = [];
   loading = true;
 
-  constructor(private clientService: ClientsService, private toastr: ToastrService) { }
+  constructor(private clientApiService: ClientsApiService, private toastr: ToastrService) { }
 
   ngOnInit() {
     this.fetchClients();
@@ -37,7 +35,7 @@ export class ClientsComponent implements OnInit {
 
   fetchClients() {
 
-    this.clientService.getClients().subscribe({
+    this.clientApiService.getClients().subscribe({
       next: (response) => {
         this.clients = response.data;
       },

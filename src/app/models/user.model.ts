@@ -4,7 +4,7 @@ export interface User{
   email: string;
 }
 
-export interface SignupResponseApi {
+export interface SignupApiResponse {
   status: number;
   message: string;
   data: {
@@ -12,7 +12,7 @@ export interface SignupResponseApi {
   };
 }
 
-export interface LoginResponseApi {
+export interface LoginApiResponse {
   status: number;
   message: string;
   data: {
@@ -20,7 +20,7 @@ export interface LoginResponseApi {
   };
 }
 
-export interface LogoutResponseApi {
+export interface LogoutApiResponse {
   status: number;
   message: string;
 }

@@ -15,8 +15,18 @@ export interface Client {
   totalDiscount: number;
 }
 
-export interface RoomApiResponse {
+export interface PassportDetails {
+  passport_details: string;
+}
+
+export interface ClientsApiResponse {
   status: number;
   message: string;
   data: Client[];
+}
+
+export interface VisitsApiResponse {
+  status: number;
+  message: string;
+  data: number;
 }

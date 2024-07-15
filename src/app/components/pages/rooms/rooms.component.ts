@@ -7,7 +7,6 @@ import { RoomsFilterComponent } from './rooms-filter/rooms-filter.component';
 import { RoomsListComponent } from './rooms-list/rooms-list.component';
 
 // Services
-import { RoomsService } from '../../../api-services/rooms.service';
 import { RoomsComponentsService } from './rooms.service';
 
 // Types

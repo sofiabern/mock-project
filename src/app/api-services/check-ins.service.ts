@@ -3,27 +3,27 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 // Types
-import { CheckIn, CheckInsResponseApi, CheckInAndBookData, createCheckInResponseApi } from '../models/check-in.model';
+import { CheckInBooking, CheckInsBookingsApiResponse, CheckInAndBookingData, CheckInBookingApiResponse } from '../components/pages/check-ins-bookings/check-ins-bookings.types';
 
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class CheckInsService {
+export class CheckInsAndBookingsApiService {
   private apiUrl = 'https://mock-beckend.onrender.com';
 
   constructor(private http: HttpClient) { }
-  getCheckIns(): Observable<CheckInsResponseApi> {
-    return this.http.get<CheckInsResponseApi>(`${this.apiUrl}/check-ins`);
+  getCheckIns(): Observable<CheckInsBookingsApiResponse> {
+    return this.http.get<CheckInsBookingsApiResponse>(`${this.apiUrl}/check-ins`);
   }
 
-  createCheckIn(formData: CheckInAndBookData): Observable<createCheckInResponseApi> {
-    return this.http.post<createCheckInResponseApi>(`${this.apiUrl}/check-ins`, formData);
+  createCheckIn(formData: CheckInAndBookingData): Observable<CheckInBookingApiResponse> {
+    return this.http.post<CheckInBookingApiResponse>(`${this.apiUrl}/check-ins`, formData);
   }
 
-  updateCheckIn(checkInId: string, updateData:Partial<CheckIn>):Observable<CheckIn>{
-    return this.http.patch<CheckIn>(`${this.apiUrl}/check-ins/${checkInId}`, updateData);
+  updateCheckIn(checkInId: string, updateData:Partial<CheckInBooking>):Observable<CheckInBookingApiResponse>{
+    return this.http.patch<CheckInBookingApiResponse>(`${this.apiUrl}/check-ins/${checkInId}`, updateData);
   }
 
   deleteCheckIn(checkInId: string): Observable<void> {

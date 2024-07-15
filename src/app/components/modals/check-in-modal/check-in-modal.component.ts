@@ -12,11 +12,10 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { ToastrService } from 'ngx-toastr';
 
 
-import { ClientsService } from '../../../api-services/clients.service';
-import { RoomsService } from '../../../api-services/rooms.service';
-import { CheckInsService } from '../../../api-services/check-ins.service';
+import { ClientsApiService } from '../../../api-services/clients.service';
+import { CheckInsAndBookingsApiService } from '../../../api-services/check-ins.service';
 import {MatCheckboxModule} from '@angular/material/checkbox';
-import { CheckInBookData } from '../../../models/checkIn-book-data.model';
+import { CheckInAndBookingData } from '../../pages/check-ins-bookings/check-ins-bookings.types';
 @Component({
   selector: 'app-check-in-modal',
   standalone: true,
@@ -48,7 +47,7 @@ export class CheckInModalComponent {
   startDate!: Date;
   endDate!: Date;
   discountChecked: boolean = false;
-  constructor(public dialogRef: MatDialogRef<CheckInModalComponent>, private clientsService: ClientsService, @Inject(MAT_DIALOG_DATA) public data: { roomId: string, roomPrice: number }, private roomsService: RoomsService, private checkInsService: CheckInsService,  private toastr: ToastrService) { }
+  constructor(public dialogRef: MatDialogRef<CheckInModalComponent>, private clientsApiService: ClientsApiService, @Inject(MAT_DIALOG_DATA) public data: { roomId: string, roomPrice: number }, private checkInsAndBookingsApiService: CheckInsAndBookingsApiService,  private toastr: ToastrService) { }
 
   submitForm(checkIForm: NgForm): void {
     if (!this.discountChecked) {
@@ -58,7 +57,7 @@ export class CheckInModalComponent {
 
     if (checkIForm.valid) {
 
-      const checkInData: CheckInBookData = {
+      const checkInData: CheckInAndBookingData = {
         last_name: checkIForm.value.lastName,
         first_name: checkIForm.value.firstName,
         middle_name: checkIForm.value.middleName,
@@ -86,7 +85,7 @@ export class CheckInModalComponent {
       }
 
 
-      this.checkInsService.createCheckIn(checkInData).subscribe({
+      this.checkInsAndBookingsApiService.createCheckIn(checkInData).subscribe({
         next: () => {
           this.dialogRef.close(true);
           this.toastr.success('Check-in created successfully!');
@@ -106,7 +105,7 @@ export class CheckInModalComponent {
       return;
     }
 
-    this.clientsService.getClientVisits({ passport_details: this.passportNumber }).subscribe({
+    this.clientsApiService.getClientVisits({ passport_details: this.passportNumber }).subscribe({
       next: (response) => {
         this.visitsAmount = response.data;
         this.discountChecked = true;

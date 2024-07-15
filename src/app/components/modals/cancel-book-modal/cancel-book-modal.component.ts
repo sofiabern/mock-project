@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA,} from '@angular/material/dialog';
-import { CheckInsService } from '../../../api-services/check-ins.service';
+import { CheckInsAndBookingsApiService } from '../../../api-services/check-ins.service';
 
 @Component({
   selector: 'app-cancel-book-modal',
@@ -12,7 +12,7 @@ export class CancelBookModalComponent {
   constructor(
     public dialogRef: MatDialogRef<CancelBookModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: {checkInId: string, clientFirstName: string, clientMiddleName: undefined | string, clientLastName: string, roomNumber: number },
-    private checkInsService: CheckInsService,
+    private checkInsAndBookingsApiService: CheckInsAndBookingsApiService,
   ) {}
 
   onNoClick(): void {
@@ -20,7 +20,7 @@ export class CancelBookModalComponent {
   }
 
   onConfirmClick(): void {
-    this.checkInsService.deleteCheckIn(this.data.checkInId).subscribe({
+    this.checkInsAndBookingsApiService.deleteCheckIn(this.data.checkInId).subscribe({
 
       next: () => {
         console.log(this.data.checkInId);

@@ -1,4 +1,4 @@
-export interface CheckIn {
+export interface CheckInBooking {
   _id: string;
   client: {
     first_name: string;
@@ -16,13 +16,13 @@ export interface CheckIn {
   totalPrice: number;
 }
 
-export interface CheckInsResponseApi {
+export interface CheckInsBookingsApiResponse {
   status: number;
   message: string;
-  data: CheckIn[];
+  data: CheckInBooking[];
 }
 
-export interface CheckInAndBookData {
+export interface CheckInAndBookingData {
   last_name: string;
   first_name: string;
   middle_name?: string;
@@ -45,14 +45,11 @@ export interface CheckInAndBookData {
 }
 
 
-export interface createCheckInResponseApi {
+export interface CheckInBookingApiResponse {
   status: number;
   message: string;
   data: {
-    checkIn: CheckIn
+    checkIn: CheckInBooking
 }
 }
 
-export interface UpdateCheckInResponseApi{
-  
-}

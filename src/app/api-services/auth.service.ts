@@ -3,28 +3,28 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 // Types
-import { User, SignupResponseApi, LoginResponseApi, LogoutResponseApi } from '../models/user.model';
+import { User, SignupApiResponse, LoginApiResponse, LogoutApiResponse } from '../models/user.model';
 
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class AuthApiService {
   private apiUrl = 'https://mock-beckend.onrender.com/auth';
 
   constructor(private http: HttpClient) { }
 
-  signup(user: User): Observable<SignupResponseApi> {
-    return this.http.post<SignupResponseApi>(`${this.apiUrl}/signup`, user);
+  signup(user: User): Observable<SignupApiResponse> {
+    return this.http.post<SignupApiResponse>(`${this.apiUrl}/signup`, user);
   }
 
-  login(user: Omit<User, 'name'>): Observable<LoginResponseApi> {
-    return this.http.post<LoginResponseApi>(`${this.apiUrl}/login`, user);
+  login(user: Omit<User, 'name'>): Observable<LoginApiResponse> {
+    return this.http.post<LoginApiResponse>(`${this.apiUrl}/login`, user);
   }
 
-  logout(userId: string): Observable<LogoutResponseApi> {
-    return this.http.post<LogoutResponseApi>(`${this.apiUrl}/logout`, userId);
+  logout(userId: string): Observable<LogoutApiResponse> {
+    return this.http.post<LogoutApiResponse>(`${this.apiUrl}/logout`, userId);
 
   }
 }

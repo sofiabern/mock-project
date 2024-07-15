@@ -13,10 +13,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { ToastrService } from 'ngx-toastr';
 
 
-import { ClientsService } from '../../../api-services/clients.service';
-import { RoomsService } from '../../../api-services/rooms.service';
-import { CheckInsService } from '../../../api-services/check-ins.service';
-import { CheckInBookData } from '../../../models/checkIn-book-data.model';
+import { ClientsApiService } from '../../../api-services/clients.service';
+import { CheckInsAndBookingsApiService } from '../../../api-services/check-ins.service';
+import { CheckInAndBookingData } from '../../pages/check-ins-bookings/check-ins-bookings.types';
 
 @Component({
   selector: 'app-book-modal',
@@ -50,7 +49,7 @@ export class BookModalComponent {
   startDate!: Date;
   endDate!: Date;
   discountChecked: boolean = false;
-  constructor(public dialogRef: MatDialogRef<BookModalComponent>, private clientsService: ClientsService, @Inject(MAT_DIALOG_DATA) public data: { roomId: string, roomPrice: number }, private roomsService: RoomsService, private checkInsService: CheckInsService, private toastr: ToastrService) { }
+  constructor(public dialogRef: MatDialogRef<BookModalComponent>, private clientsApiService: ClientsApiService, @Inject(MAT_DIALOG_DATA) public data: { roomId: string, roomPrice: number }, private checkInsAbdBookingsApiService: CheckInsAndBookingsApiService, private toastr: ToastrService) { }
 
 
   submitForm(bookForm: NgForm): void {
@@ -60,7 +59,7 @@ export class BookModalComponent {
     }
 
     if (bookForm.valid) {
-      const bookData: CheckInBookData = {
+      const bookData: CheckInAndBookingData = {
         last_name: bookForm.value.lastName,
         first_name: bookForm.value.firstName,
         middle_name: bookForm.value.middleName,
@@ -87,7 +86,7 @@ export class BookModalComponent {
         bookData.note = bookForm.value.note;
       }
 
-      this.checkInsService.createCheckIn(bookData).subscribe({
+      this.checkInsAbdBookingsApiService.createCheckIn(bookData).subscribe({
         next: () => {
           this.dialogRef.close(true);
           this.toastr.success('Booking created successfully!');
@@ -106,7 +105,7 @@ export class BookModalComponent {
       return;
     }
 
-    this.clientsService.getClientVisits({ passport_details: this.passportNumber }).subscribe({
+    this.clientsApiService.getClientVisits({ passport_details: this.passportNumber }).subscribe({
       next: (response: any) => {
         this.visitsAmount = response.data;
         this.discountChecked = true;

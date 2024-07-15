@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { CheckIn } from '../../../models/check-in.model';
-import { CheckInsService } from '../../../api-services/check-ins.service';
+import { CheckInBooking } from './check-ins-bookings.types';
+import { CheckInsAndBookingsApiService } from '../../../api-services/check-ins.service';
 import { CommonModule } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { CancelBookModalComponent } from '../../modals/cancel-book-modal/cancel-book-modal.component';
@@ -25,12 +25,12 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./check-ins-bookings.component.css']
 })
 export class CheckInsBookingsComponent implements OnInit {
-  checkIns: CheckIn[] = [];
-  filteredCheckIns: CheckIn[] = [];
+  checkIns: CheckInBooking[] = [];
+  filteredCheckIns: CheckInBooking[] = [];
   searchTerm: string = '';
   loading = true;
 
-  constructor(private checkInService: CheckInsService, private dialog: MatDialog) { }
+  constructor(private checkInsAndBookinsApiService: CheckInsAndBookingsApiService, private dialog: MatDialog) { }
 
   ngOnInit() {
     this.fetchCheckIns();
@@ -38,7 +38,7 @@ export class CheckInsBookingsComponent implements OnInit {
 
   fetchCheckIns() {
     this.loading = true;
-    this.checkInService.getCheckIns().pipe(
+    this.checkInsAndBookinsApiService.getCheckIns().pipe(
       map((response: any) => response.data),
       catchError(error => {
         console.error('Error fetching check-ins:', error);
@@ -46,7 +46,7 @@ export class CheckInsBookingsComponent implements OnInit {
         return of([]);
       })
     ).subscribe({
-      next: (checkIns: CheckIn[]) => {
+      next: (checkIns: CheckInBooking[]) => {
         console.log('Received check-ins:', checkIns);
         this.checkIns = checkIns;
         this.filteredCheckIns = checkIns;
@@ -96,12 +96,12 @@ export class CheckInsBookingsComponent implements OnInit {
 
   onApprove(checkInId: string,) {
     this.loading = true;
-    const updateData: Partial<CheckIn> = {
+    const updateData: Partial<CheckInBooking> = {
       isCheckIn: true
     };
 
-    this.checkInService.updateCheckIn(checkInId, updateData).subscribe({
-      next: (updatedCheckIn: CheckIn) => {
+    this.checkInsAndBookinsApiService.updateCheckIn(checkInId, updateData).subscribe({
+      next: (updatedCheckIn) => {
         console.log('Check-in updated:', updatedCheckIn);
         this.loading = false;
 

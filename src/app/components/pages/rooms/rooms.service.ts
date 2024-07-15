@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { RoomsService } from '../../../api-services/rooms.service';
+import { RoomsApiService } from '../../../api-services/rooms.service';
 import { ToastrService } from 'ngx-toastr';
 import { Room } from './rooms.types';
 
@@ -13,12 +13,12 @@ export class RoomsComponentsService {
   private loadingSubject = new BehaviorSubject<boolean>(false);
   loading$ = this.loadingSubject.asObservable();
 
-  constructor(private roomsService: RoomsService, private toastr: ToastrService) {}
+  constructor(private roomsApiService: RoomsApiService, private toastr: ToastrService) {}
 
   fetchRooms() {
     this.roomsSubject.next([]);
     this.loadingSubject.next(true);
-    this.roomsService.getRooms().subscribe({
+    this.roomsApiService.getRooms().subscribe({
       next: (response) => {
         this.roomsSubject.next(response.data);
       },

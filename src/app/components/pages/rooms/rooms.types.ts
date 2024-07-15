@@ -4,16 +4,16 @@ export interface Room {
   capacity: number;
   comfort_level: string;
   price: number;
-  bookingsAndCheckIns: Booking[];
+  bookingsAndCheckIns: CheckInOrBooking[];
 }
 
-export interface Booking {
+export interface CheckInOrBooking {
   _id: string;
   check_in_date: Date;
   check_out_date: Date;
 }
 
-export interface RoomApiResponse {
+export interface RoomsApiResponse {
   status: number;
   message: string;
   data: Room[];
