@@ -67,13 +67,21 @@ export class CheckInsBookingsComponent implements OnInit {
       this.filteredCheckIns = this.checkIns;
     } else {
       const lowerCaseTerm = this.searchTerm.toLowerCase();
-      this.filteredCheckIns = this.checkIns.filter(checkIn =>
-        checkIn.client.first_name.toLowerCase().includes(lowerCaseTerm) ||
-        (checkIn.client.middle_name && checkIn.client.middle_name.toLowerCase().includes(lowerCaseTerm)) ||
-        checkIn.client.last_name.toLowerCase().includes(lowerCaseTerm) ||
-        checkIn.room.room_number.toString().includes(this.searchTerm) ||
-        checkIn.note.toLowerCase().includes(lowerCaseTerm)
-      );
+      this.filteredCheckIns = this.checkIns.filter(checkIn => {
+        const firstName = checkIn.client.first_name?.toLowerCase();
+        const middleName = checkIn.client.middle_name?.toLowerCase();
+        const lastName = checkIn.client.last_name?.toLowerCase();
+        const roomNumber = checkIn.room.room_number.toString();
+        const note = checkIn.note?.toLowerCase() || '';
+
+        return (
+          firstName.includes(lowerCaseTerm) ||
+          middleName.includes(lowerCaseTerm) ||
+          lastName.includes(lowerCaseTerm) ||
+          roomNumber.includes(this.searchTerm) ||
+          note.includes(lowerCaseTerm)
+        );
+      });
     }
   }
 
