@@ -1,18 +1,9 @@
 <section class="check-ins">
   <div class="container">
     <h2 class="check-ins__title">Check-Ins</h2>
-    <div class="check-ins__filter-container">
-      <mat-form-field appearance="outline">
-        <mat-label>Search</mat-label>
-        <input matInput type="text" [(ngModel)]="searchTerm" (input)="filterCheckIns()"
-          placeholder="Search by name, room number or note" class="check-ins__filter" />
-      </mat-form-field>
-    </div>
-    @if(loading){
-    <div class="check-ins__loading">
-      <mat-spinner diameter="60"></mat-spinner>
-    </div>
-    }
+
+    <app-check-ins-bookings-filter  [checkInsBookings]="checkInsBookings"
+    (filteredCheckInsBookings)="onFilteredCheckInsBookings($event)"/>
     <ul class="check-ins__list">
       @for(checkIn of filteredCheckIns; track checkIn._id){
       <li class="check-in-card">
@@ -56,3 +47,8 @@
     </ul>
   </div>
 </section>
+@if(loading){
+  <div class="check-ins__loading">
+    <mat-spinner diameter="60"></mat-spinner>
+  </div>
+  }

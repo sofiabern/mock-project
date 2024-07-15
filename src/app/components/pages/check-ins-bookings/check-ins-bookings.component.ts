@@ -1,15 +1,24 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
-import { CheckInBooking } from './check-ins-bookings.types';
-import { CheckInsAndBookingsApiService } from '../../../api-services/check-ins.service';
 import { CommonModule } from '@angular/common';
-import { MatDialog } from '@angular/material/dialog';
+import { FormsModule } from '@angular/forms';
+
+// Componenets
 import { CancelBookModalComponent } from '../../modals/cancel-book-modal/cancel-book-modal.component';
+import { CheckInsBookingsFilterComponent } from './check-ins-bookings-filter/check-ins-bookings-filter.component';
+
+// Types
+import { CheckInBooking } from './check-ins-bookings.types';
+
+// Services
+import { CheckInsBookingsApiService } from '../../../api-services/check-ins-bookings.service';
+
+// Modal
+import { MatDialog } from '@angular/material/dialog';
+
+// Etc
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-check-ins-bookings',
@@ -19,18 +28,18 @@ import { FormsModule } from '@angular/forms';
     MatProgressSpinnerModule,
     MatInputModule,
     MatFormFieldModule,
-    FormsModule
+    FormsModule,
+    CheckInsBookingsFilterComponent
   ],
   templateUrl: './check-ins-bookings.component.html',
   styleUrls: ['./check-ins-bookings.component.css']
 })
 export class CheckInsBookingsComponent implements OnInit {
-  checkIns: CheckInBooking[] = [];
+  checkInsBookings: CheckInBooking[] = [];
   filteredCheckIns: CheckInBooking[] = [];
-  searchTerm: string = '';
   loading = true;
 
-  constructor(private checkInsAndBookinsApiService: CheckInsAndBookingsApiService, private dialog: MatDialog) { }
+  constructor(private checkInsBookinsApiService: CheckInsBookingsApiService, private dialog: MatDialog) { }
 
   ngOnInit() {
     this.fetchCheckIns();
@@ -38,22 +47,14 @@ export class CheckInsBookingsComponent implements OnInit {
 
   fetchCheckIns() {
     this.loading = true;
-    this.checkInsAndBookinsApiService.getCheckIns().pipe(
-      map((response: any) => response.data),
-      catchError(error => {
-        console.error('Error fetching check-ins:', error);
-        this.loading = false;
-        return of([]);
-      })
-    ).subscribe({
-      next: (checkIns: CheckInBooking[]) => {
-        console.log('Received check-ins:', checkIns);
-        this.checkIns = checkIns;
-        this.filteredCheckIns = checkIns;
+
+    this.checkInsBookinsApiService.getCheckIns().subscribe({
+      next: (response) => {
+        this.checkInsBookings = response.data;
         this.loading = false;
       },
       error: (error) => {
-        console.error('Error in subscription:', error);
+        console.error('Error fetching check-ins:', error);
         this.loading = false;
       },
       complete: () => {
@@ -62,28 +63,28 @@ export class CheckInsBookingsComponent implements OnInit {
     });
   }
 
-  filterCheckIns() {
-    if (!this.searchTerm) {
-      this.filteredCheckIns = this.checkIns;
-    } else {
-      const lowerCaseTerm = this.searchTerm.toLowerCase();
-      this.filteredCheckIns = this.checkIns.filter(checkIn => {
-        const firstName = checkIn.client.first_name?.toLowerCase();
-        const middleName = checkIn.client.middle_name?.toLowerCase();
-        const lastName = checkIn.client.last_name?.toLowerCase();
-        const roomNumber = checkIn.room.room_number.toString();
-        const note = checkIn.note?.toLowerCase() || '';
+  // filterCheckIns() {
+  //   if (!this.searchTerm) {
+  //     this.filteredCheckIns = this.checkInsBookings;
+  //   } else {
+  //     const lowerCaseTerm = this.searchTerm.toLowerCase();
+  //     this.filteredCheckIns = this.checkInsBookings.filter(checkInBooking => {
+  //       const firstName = checkInBooking.client.first_name?.toLowerCase();
+  //       const middleName = checkInBooking.client.middle_name?.toLowerCase();
+  //       const lastName = checkInBooking.client.last_name?.toLowerCase();
+  //       const roomNumber = checkInBooking.room.room_number.toString();
+  //       const note = checkInBooking.note?.toLowerCase() || '';
 
-        return (
-          firstName.includes(lowerCaseTerm) ||
-          middleName.includes(lowerCaseTerm) ||
-          lastName.includes(lowerCaseTerm) ||
-          roomNumber.includes(this.searchTerm) ||
-          note.includes(lowerCaseTerm)
-        );
-      });
-    }
-  }
+  //       return (
+  //         firstName.includes(lowerCaseTerm) ||
+  //         middleName.includes(lowerCaseTerm) ||
+  //         lastName.includes(lowerCaseTerm) ||
+  //         roomNumber.includes(this.searchTerm) ||
+  //         note.includes(lowerCaseTerm)
+  //       );
+  //     });
+  //   }
+  // }
 
   openCancelBookModal(checkInId: string, clientFirstName: string, clientMiddleName: undefined | string, clientLastName: string, roomNumber: number): void {
     const dialogRef = this.dialog.open(CancelBookModalComponent, {
@@ -108,7 +109,7 @@ export class CheckInsBookingsComponent implements OnInit {
       isCheckIn: true
     };
 
-    this.checkInsAndBookinsApiService.updateCheckIn(checkInId, updateData).subscribe({
+    this.checkInsBookinsApiService.updateCheckIn(checkInId, updateData).subscribe({
       next: (updatedCheckIn) => {
         console.log('Check-in updated:', updatedCheckIn);
         this.loading = false;
@@ -122,7 +123,9 @@ export class CheckInsBookingsComponent implements OnInit {
     });
   }
 
-
+  onFilteredCheckInsBookings(filteredCheckInsBookings: CheckInBooking[]) {
+    this.checkInsBookings = filteredCheckInsBookings;
+  }
 }
 
 

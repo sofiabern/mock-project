@@ -10,7 +10,7 @@ import { CheckInBooking, CheckInsBookingsApiResponse, CheckInAndBookingData, Che
 @Injectable({
   providedIn: 'root'
 })
-export class CheckInsAndBookingsApiService {
+export class CheckInsBookingsApiService {
   private apiUrl = 'https://mock-beckend.onrender.com';
 
   constructor(private http: HttpClient) { }

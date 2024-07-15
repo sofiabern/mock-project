@@ -14,7 +14,7 @@ import { ToastrService } from 'ngx-toastr';
 
 
 import { ClientsApiService } from '../../../api-services/clients.service';
-import { CheckInsAndBookingsApiService } from '../../../api-services/check-ins.service';
+import { CheckInsBookingsApiService } from '../../../api-services/check-ins-bookings.service';
 import { CheckInAndBookingData } from '../../pages/check-ins-bookings/check-ins-bookings.types';
 
 @Component({
@@ -49,7 +49,7 @@ export class BookModalComponent {
   startDate!: Date;
   endDate!: Date;
   discountChecked: boolean = false;
-  constructor(public dialogRef: MatDialogRef<BookModalComponent>, private clientsApiService: ClientsApiService, @Inject(MAT_DIALOG_DATA) public data: { roomId: string, roomPrice: number }, private checkInsAbdBookingsApiService: CheckInsAndBookingsApiService, private toastr: ToastrService) { }
+  constructor(public dialogRef: MatDialogRef<BookModalComponent>, private clientsApiService: ClientsApiService, @Inject(MAT_DIALOG_DATA) public data: { roomId: string, roomPrice: number }, private checkInsBookingsApiService: CheckInsBookingsApiService, private toastr: ToastrService) { }
 
 
   submitForm(bookForm: NgForm): void {
@@ -62,7 +62,6 @@ export class BookModalComponent {
       const bookData: CheckInAndBookingData = {
         last_name: bookForm.value.lastName,
         first_name: bookForm.value.firstName,
-        middle_name: bookForm.value.middleName,
         passport_details: this.passportNumber,
         room: this.data.roomId,
         check_in_date: this.startDate,
@@ -86,7 +85,12 @@ export class BookModalComponent {
         bookData.note = bookForm.value.note;
       }
 
-      this.checkInsAbdBookingsApiService.createCheckIn(bookData).subscribe({
+      if (bookForm.value.middleName) {
+        bookData.middle_name = bookForm.value.middleName
+      }
+
+
+      this.checkInsBookingsApiService.createCheckIn(bookData).subscribe({
         next: () => {
           this.dialogRef.close(true);
           this.toastr.success('Booking created successfully!');

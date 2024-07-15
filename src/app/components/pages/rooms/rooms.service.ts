@@ -1,13 +1,21 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { RoomsApiService } from '../../../api-services/rooms.service';
-import { ToastrService } from 'ngx-toastr';
+
+// Types
 import { Room } from './rooms.types';
+
+// Service
+import { RoomsApiService } from '../../../api-services/rooms.service';
+
+// Etc
+import { ToastrService } from 'ngx-toastr';
+
+
 
 @Injectable({
   providedIn: 'root'
 })
-export class RoomsComponentsService {
+export class RoomsService {
   private roomsSubject = new BehaviorSubject<Room[]>([]);
   rooms$ = this.roomsSubject.asObservable();
   private loadingSubject = new BehaviorSubject<boolean>(false);

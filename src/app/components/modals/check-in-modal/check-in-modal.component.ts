@@ -13,7 +13,7 @@ import { ToastrService } from 'ngx-toastr';
 
 
 import { ClientsApiService } from '../../../api-services/clients.service';
-import { CheckInsAndBookingsApiService } from '../../../api-services/check-ins.service';
+import { CheckInsBookingsApiService } from '../../../api-services/check-ins-bookings.service';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { CheckInAndBookingData } from '../../pages/check-ins-bookings/check-ins-bookings.types';
 @Component({
@@ -47,20 +47,19 @@ export class CheckInModalComponent {
   startDate!: Date;
   endDate!: Date;
   discountChecked: boolean = false;
-  constructor(public dialogRef: MatDialogRef<CheckInModalComponent>, private clientsApiService: ClientsApiService, @Inject(MAT_DIALOG_DATA) public data: { roomId: string, roomPrice: number }, private checkInsAndBookingsApiService: CheckInsAndBookingsApiService,  private toastr: ToastrService) { }
+  constructor(public dialogRef: MatDialogRef<CheckInModalComponent>, private clientsApiService: ClientsApiService, @Inject(MAT_DIALOG_DATA) public data: { roomId: string, roomPrice: number }, private checkInsBookingsApiService: CheckInsBookingsApiService,  private toastr: ToastrService) { }
 
-  submitForm(checkIForm: NgForm): void {
+  submitForm(checkInForm: NgForm): void {
     if (!this.discountChecked) {
       this.toastr.error('Please fill all required fields and check discount.');
       return;
     }
 
-    if (checkIForm.valid) {
+    if (checkInForm.valid) {
 
       const checkInData: CheckInAndBookingData = {
-        last_name: checkIForm.value.lastName,
-        first_name: checkIForm.value.firstName,
-        middle_name: checkIForm.value.middleName,
+        last_name: checkInForm.value.lastName,
+        first_name: checkInForm.value.firstName,
         passport_details: this.passportNumber,
         room: this.data.roomId,
         check_in_date: this.startDate,
@@ -76,16 +75,19 @@ export class CheckInModalComponent {
         totalPrice: this.totalPrice
       };
 
-      if (checkIForm.value.comment) {
-        checkInData.comment = checkIForm.value.comment;
+      if (checkInForm.value.comment) {
+        checkInData.comment = checkInForm.value.comment;
       }
 
-      if (checkIForm.value.note) {
-        checkInData.note = checkIForm.value.note;
+      if (checkInForm.value.note) {
+        checkInData.note = checkInForm.value.note;
+      }
+      if (checkInForm.value.middleName) {
+        checkInData.middle_name = checkInForm.value.middleName
       }
 
 
-      this.checkInsAndBookingsApiService.createCheckIn(checkInData).subscribe({
+      this.checkInsBookingsApiService.createCheckIn(checkInData).subscribe({
         next: () => {
           this.dialogRef.close(true);
           this.toastr.success('Check-in created successfully!');
