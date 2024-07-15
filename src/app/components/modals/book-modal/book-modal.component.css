@@ -1,3 +1,34 @@
+@media(max-width: 767.9px){
+::ng-deep.mdc-dialog--open .mat-mdc-dialog-surface{
+    width: 80% ;
+  }
+}
+
+@media(max-width: 767.9px){
+  ::ng-deep mat-label{
+    font-size: 13px;
+  }
+}
+
+@media(max-width: 364.9px){
+  ::ng-deep .mat-mdc-form-field-infix{
+    font-size: 11px !important;
+  }
+}
+
+@media(min-width: 365px) and (max-width: 767.9px){
+  ::ng-deep .mat-mdc-form-field-infix{
+    font-size: 13px !important;
+  }
+}
+
+@media(max-height: 799.9px){
+  ::ng-deep.mdc-dialog--open .mat-mdc-dialog-surface{
+    max-height: 468px;
+}
+}
+
+ 
 .book-modal__close-btn {
   position: absolute;
   top: 8px;
@@ -20,22 +51,44 @@
 
 .book-modal__name-wrapper {
   display: flex;
+  flex-direction: column;
   gap: 12px;
 }
 
+@media(min-width: 768px) {
+  .book-modal__name-wrapper {
+    flex-direction: row;
+  }
+
+}
+
 .book-modal__other-wrapper {
-  display: flex;
-  gap: 12px;
+  display: block;
+ 
+}
+
+@media(min-width: 768px) {
+  .book-modal__other-wrapper {
+    display: flex;
+    gap: 12px;
+  }
+
 }
 
 .book-modal__info-wrapper {
   display: flex;
   flex-direction: column;
- gap: 12px;
+  gap: 12px;
 }
 
 
-.book-modal__field{
+@media(max-width: 767.9px) {
+  .book-modal__info-wrapper  {
+    margin-bottom: 12px;
+  }
+}
+
+.book-modal__field {
   display: block;
 }
 
@@ -46,24 +99,29 @@
   gap: 12px;
 }
 
-.book-modal__dicounts{
+.book-modal__dicounts {
   display: flex;
   flex-direction: column;
 }
 
-.book-modal__discount-text:not(:last-of-type){
+.book-modal__discount-text:not(:last-of-type) {
   margin-bottom: 3px;
 }
 
 .book-modal__check-btn {
   padding: 6px 0 6px 0;
-  width: 88px;
   color: #000000;
   background-color: #ffffff;
   border: 1px solid #000000;
   display: block;
   margin: 0 auto;
   transition: all 0.3s ease-in-out;
+}
+
+@media (min-width: 768px){
+  .book-modal__check-btn {
+    width: 88px;
+}
 }
 
 .book-modal__check-btn:hover {

@@ -104,6 +104,36 @@ body {
   }
 }
 
+.mat-datepicker-content{
+  background-color: #ffffff !important;
+  border-radius: 0px !important;
+  border: 1px solid #000000;
+}
+
+
+@media(max-width: 339.9px){
+  .mat-datepicker-content .mat-calendar{
+    width: 236px !important;
+    height: 302px !important;
+  }
+}
+
+@media(max-width: 289.9px){
+  .mat-mdc-form-field-infix{
+  font-size: 12px !important;
+  }
+}
+
+
+
+@media(max-width: 327.9px){
+  .mat-mdc-form-field-infix{
+  font-size: 14px !important;
+  }
+}
+
+
+
 
 /* Styles for loader */
 .mat-mdc-progress-spinner
