@@ -62,7 +62,6 @@ export class CheckInsBookingsComponent implements OnInit {
       }
     });
   }
-
   // filterCheckIns() {
   //   if (!this.searchTerm) {
   //     this.filteredCheckIns = this.checkInsBookings;

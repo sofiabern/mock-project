@@ -45,7 +45,7 @@
 
   @media(max-width: 359.9px){
     .checkIn-modal__title {
-     width: 205px;
+      font-size: 24px;
     }
   }
 

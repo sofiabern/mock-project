@@ -2,7 +2,7 @@ export interface CheckInBooking {
   _id: string;
   client: {
     first_name: string;
-    middle_name: string;
+    middle_name?: string;
     last_name: string;
   };
   room: {
@@ -10,7 +10,7 @@ export interface CheckInBooking {
   };
   check_in_date: Date;
   check_out_date: Date;
-  note: string;
+  note?: string;
   isCheckIn: boolean;
   totalDayPrice: number;
   totalPrice: number;
