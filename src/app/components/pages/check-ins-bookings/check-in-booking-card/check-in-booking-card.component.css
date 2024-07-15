@@ -1,0 +1,19 @@
+.check-in-card {
+  border: 1px solid #000000;
+  padding: 12px;
+  width: 340px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.check-in-details__list{
+  margin-right: 6px;
+}
+
+.check-in-details__info-bold {
+  font-weight: 500;
+}
+
+

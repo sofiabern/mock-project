@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 // Componenets
 import { CancelBookModalComponent } from '../../modals/cancel-book-modal/cancel-book-modal.component';
 import { CheckInsBookingsFilterComponent } from './check-ins-bookings-filter/check-ins-bookings-filter.component';
+import { CheckInsBookingsListComponent } from './check-ins-bookings-list/check-ins-bookings-list.component';
 
 // Types
 import { CheckInBooking } from './check-ins-bookings.types';
@@ -29,14 +30,15 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatInputModule,
     MatFormFieldModule,
     FormsModule,
-    CheckInsBookingsFilterComponent
+    CheckInsBookingsFilterComponent,
+    CheckInsBookingsListComponent
   ],
   templateUrl: './check-ins-bookings.component.html',
   styleUrls: ['./check-ins-bookings.component.css']
 })
 export class CheckInsBookingsComponent implements OnInit {
   checkInsBookings: CheckInBooking[] = [];
-  filteredCheckIns: CheckInBooking[] = [];
+  filteredCheckInsBookings: CheckInBooking[] = [];
   loading = true;
 
   constructor(private checkInsBookinsApiService: CheckInsBookingsApiService, private dialog: MatDialog) { }
@@ -51,6 +53,7 @@ export class CheckInsBookingsComponent implements OnInit {
     this.checkInsBookinsApiService.getCheckIns().subscribe({
       next: (response) => {
         this.checkInsBookings = response.data;
+        this.filteredCheckInsBookings = [...this.checkInsBookings];
         this.loading = false;
       },
       error: (error) => {
@@ -123,7 +126,7 @@ export class CheckInsBookingsComponent implements OnInit {
   }
 
   onFilteredCheckInsBookings(filteredCheckInsBookings: CheckInBooking[]) {
-    this.checkInsBookings = filteredCheckInsBookings;
+    this.filteredCheckInsBookings = filteredCheckInsBookings;
   }
 }
 

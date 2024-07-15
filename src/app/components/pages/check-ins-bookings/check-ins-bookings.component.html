@@ -4,47 +4,8 @@
 
     <app-check-ins-bookings-filter  [checkInsBookings]="checkInsBookings"
     (filteredCheckInsBookings)="onFilteredCheckInsBookings($event)"/>
-    <ul class="check-ins__list">
-      @for(checkIn of filteredCheckIns; track checkIn._id){
-      <li class="check-in-card">
-        <div class="check-in-card__details">
-          <ul class="check-in-details__list">
-            <li class="check-in-details__info-bold">@if(checkIn.isCheckIn === true){
-              Check-in
-              }@else{
-              Booking
-              }
-            </li>
-            <li class="check-in-details__info"><span class="check-in-details__info-bold">Client name:</span> {{
-              checkIn.client.first_name }} {{ checkIn.client.middle_name }} {{ checkIn.client.last_name }}</li>
-            <li class="check-in-details__info"><span class="check-in-details__info-bold">Room number:</span> {{
-              checkIn.room.room_number }}</li>
-            <li class="check-in-details__info"><span class="check-in-details__info-bold">Check-in date:</span> {{
-              checkIn.check_in_date | date:'dd-MM-yyyy' }}</li>
-            <li class="check-in-details__info"><span class="check-in-details__info-bold">Check-out date:</span> {{
-              checkIn.check_out_date | date:'dd-MM-yyyy' }}</li>
-            <li class="check-in-details__info"><span class="check-in-details__info-bold">Total price per day:</span> ${{ checkIn.totalDayPrice}}</li>
-            <li class="check-in-details__info"><span class="check-in-details__info-bold">Total price:</span> ${{ checkIn.totalPrice}}</li>
 
-            <li class="check-in-details__info"><span class="check-in-details__info-bold">Note:</span> {{ checkIn.note ? checkIn.note : "No note" }}
-            </li>
-          </ul>
-        </div>
-        <div class="check-in-card__button-wrapper">
-          @if(checkIn.isCheckIn === false){
-          <button class="check-in-card__buttons check-in-card__btn--approve" (click) ="onApprove(checkIn._id)">Approve</button>
-          }
-          <button class="check-in-card__buttons check-in-card__btn--change">Change Time</button>
-          <button class="check-in-card__buttons check-in-card__btn--cancel"
-            (click)="openCancelBookModal(checkIn._id, checkIn.client.first_name, checkIn.client.middle_name, checkIn.client.last_name, checkIn.room.room_number )">Cancel</button>
-
-        </div>
-
-
-      </li>
-      }
-
-    </ul>
+<app-check-ins-bookings-list [checkInsBookings]="filteredCheckInsBookings"/>
   </div>
 </section>
 @if(loading){
