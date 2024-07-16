@@ -53,15 +53,23 @@ export class BookModalComponent {
 
 
   submitForm(bookForm: NgForm): void {
+
     if (!this.discountChecked) {
-      this.toastr.error('Please fill all required fields and check discount.');
+      this.toastr.error('Please fill all required fields marked by * and check discount.');
+      return;
+    }
+
+    const { firstName, lastName, passportNumber, comment, middleName } = bookForm.value;
+
+    if (!firstName.trim() || !lastName.trim() || !passportNumber.trim()) {
+      this.toastr.error('Fields cannot contain only spaces.');
       return;
     }
 
     if (bookForm.valid) {
       const bookData: CheckInAndBookingData = {
-        last_name: bookForm.value.lastName,
-        first_name: bookForm.value.firstName,
+        last_name: lastName,
+        first_name: firstName,
         passport_details: this.passportNumber,
         room: this.data.roomId,
         check_in_date: this.startDate,
@@ -77,16 +85,12 @@ export class BookModalComponent {
         totalPrice: this.totalPrice
       };
 
-      if (bookForm.value.comment) {
-        bookData.comment = bookForm.value.comment;
+      if (comment) {
+        bookData.comment = comment;
       }
 
-      if (bookForm.value.note) {
-        bookData.note = bookForm.value.note;
-      }
-
-      if (bookForm.value.middleName) {
-        bookData.middle_name = bookForm.value.middleName
+      if (middleName) {
+        bookData.middle_name = middleName
       }
 
 

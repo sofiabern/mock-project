@@ -11,7 +11,7 @@ import { CheckInsBookingsApiService } from '../../../api-services/check-ins-book
 export class CancelBookModalComponent {
   constructor(
     public dialogRef: MatDialogRef<CancelBookModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: {checkInId: string, clientFirstName: string, clientMiddleName: undefined | string, clientLastName: string, roomNumber: number },
+    @Inject(MAT_DIALOG_DATA) public data: {checkInBookingId: string, checkInBookingFirstName: string, checkInBookingMiddleName: undefined | string, checkInBookingLastName: string, checkInBookingRoomNumber: number },
     private checkInsBookingsApiService: CheckInsBookingsApiService,
   ) {}
 
@@ -20,11 +20,11 @@ export class CancelBookModalComponent {
   }
 
   onConfirmClick(): void {
-    this.checkInsBookingsApiService.deleteCheckIn(this.data.checkInId).subscribe({
+    this.checkInsBookingsApiService.deleteCheckIn(this.data.checkInBookingId).subscribe({
 
       next: () => {
-        console.log(this.data.checkInId);
-        console.log('Booking cancelled for room:', this.data.roomNumber);
+        console.log(this.data.checkInBookingId);
+        console.log('Booking cancelled for room:', this.data.checkInBookingRoomNumber);
         this.dialogRef.close(true);
       },
       error: (error) => {

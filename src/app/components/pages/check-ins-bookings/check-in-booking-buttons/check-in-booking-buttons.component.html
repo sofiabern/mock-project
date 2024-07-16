@@ -1,10 +1,9 @@
-<p>check-in-booking-buttons works!</p>
-  <!-- <div class="check-in-card__button-wrapper">
-    @if(checkIn.isCheckIn === false){
-    <button class="check-in-card__buttons check-in-card__btn--approve" (click) ="onApprove(checkIn._id)">Approve</button>
+  <div class="check-in-card__button-wrapper">
+    @if(checkInBooking.isCheckIn === false){
+    <button class="check-in-card__buttons check-in-card__btn--approve" (click) ="onApprove(checkInBooking._id)">Approve</button>
     }
     <button class="check-in-card__buttons check-in-card__btn--change">Change Time</button>
     <button class="check-in-card__buttons check-in-card__btn--cancel"
-      (click)="openCancelBookModal(checkIn._id, checkIn.client.first_name, checkIn.client.middle_name, checkIn.client.last_name, checkIn.room.room_number )">Cancel</button>
+      (click)="openCancelModal(checkInBooking._id, checkInBooking.client.first_name, checkInBooking.client.middle_name, checkInBooking.client.last_name, checkInBooking.room.room_number )">Cancel</button>
 
-  </div> -->
+  </div>

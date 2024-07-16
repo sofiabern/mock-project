@@ -1,11 +1,7 @@
 <li class="check-in-card">
   <div class="check-in-card__details">
     <ul class="check-in-details__list">
-      <li class="check-in-details__info-bold">@if(checkInBooking.isCheckIn === true){
-        Check-in
-        }@else{
-        Booking
-        }
+      <li class="check-in-details__info-bold">{{ checkInBooking.isCheckIn ? 'Check-in' : 'Booking' }}
       </li>
       <li class="check-in-details__info"><span class="check-in-details__info-bold">Client name:</span> {{
         checkInBooking.client.first_name }} {{ checkInBooking.client.middle_name }} {{ checkInBooking.client.last_name }}</li>
@@ -23,7 +19,6 @@
     </ul>
 
   </div>
-<app-check-in-booking-buttons/>
-
+<app-check-in-booking-buttons [checkInBooking]="checkInBooking"/>
 
 </li>

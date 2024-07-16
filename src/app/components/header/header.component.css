@@ -16,10 +16,9 @@
   transition: color 0.3s ease-in-out;
 }
 
-@media(min-width: 768px){
+@media (min-width: 768px) {
   .header__logo {
     font-size: 20px;
-
   }
 }
 
@@ -45,6 +44,12 @@
 
   position: relative;
   text-decoration: none;
+}
+
+@media (min-width: 1158px) {
+  .header__link {
+    font-size: 18px;
+  }
 }
 
 .header__link::after,
@@ -73,27 +78,32 @@
   gap: 8px;
 }
 
-@media(min-width: 768px){
+@media (min-width: 768px) {
   .header__auth-buttons {
     gap: 12px;
   }
 }
 
+.auth-buttons__button {
+  padding: 6px 0px 6px 0px;
+  width: 62px;
+  transition: all 0.3s ease-in-out;
+}
+
+@media (min-width: 768px) {
   .auth-buttons__button {
-    font-size: 14px;
-    padding: 5px 0 5px 0;
-    width: 54px;
-    transition: all 0.3s ease-in-out;
-  }
-
-
-
-@media (min-width: 768px){
-  .auth-buttons__button {
-    padding: 6px 0 6px 0;
-    width: 72px;
+    padding: 8px 0px 8px 0px;
+    width: 68px;
   }
 }
+
+@media (min-width: 1158px) {
+  .auth-buttons__button {
+  font-size: 18px;
+    width: 76px;
+  }
+}
+
 
 .auth-buttons__button--login {
   color: #000000;
@@ -161,14 +171,17 @@
   padding: 0;
 }
 
-
 .mob-header__link {
-  font-size: 24px;
-
+  font-size: 20px;
   color: #000000;
   position: relative;
-  padding: 8px
+  padding: 8px;
+}
 
+@media (min-width:321px) {
+  .mob-header__link {
+    font-size: 24px;
+  }
 }
 
 .mob-header__close-button {
