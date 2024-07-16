@@ -2,8 +2,7 @@
   <div class="container">
     <h2 class="check-ins__title">Check-Ins</h2>
 
-    <app-check-ins-bookings-filter  [checkInsBookings]="checkInsBookings"
-    (filteredCheckInsBookings)="onFilteredCheckInsBookings($event)"/>
+    <app-check-ins-bookings-filter />
 
 <app-check-ins-bookings-list [checkInsBookings]="filteredCheckInsBookings"/>
   </div>

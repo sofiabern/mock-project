@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Observable } from 'rxjs';
 import { FormsModule } from '@angular/forms';
 
 // Componenets
@@ -12,14 +13,13 @@ import { CheckInBooking } from './check-ins-bookings.types';
 
 // Services
 import { CheckInsBookingsApiService } from '../../../api-services/check-ins-bookings.service';
+import { CheckInsBookingsService } from './check-ins-bookings.service';
 
 // Modal
 import { MatDialog } from '@angular/material/dialog';
 
 // Etc
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({
   selector: 'app-check-ins-bookings',
@@ -27,8 +27,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
   imports: [
     CommonModule,
     MatProgressSpinnerModule,
-    MatInputModule,
-    MatFormFieldModule,
     FormsModule,
     CheckInsBookingsFilterComponent,
     CheckInsBookingsListComponent
@@ -39,96 +37,23 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 export class CheckInsBookingsComponent implements OnInit {
   checkInsBookings: CheckInBooking[] = [];
   filteredCheckInsBookings: CheckInBooking[] = [];
-  loading = true;
+  loading: boolean = false;
 
-  constructor(private checkInsBookinsApiService: CheckInsBookingsApiService, private dialog: MatDialog) { }
+  constructor(private checkInsBookingsService: CheckInsBookingsService) {}
 
   ngOnInit() {
-    this.fetchCheckIns();
+    this.checkInsBookingsService.loading$.subscribe(loading => this.loading = loading);
+    this.checkInsBookingsService.checkInsBookings$.subscribe(checkInsBookings => {
+      this.checkInsBookings = checkInsBookings;
+      this.updateFilteredCheckIns();
+    });
+    this.checkInsBookingsService.filteredCheckIns$.subscribe(filteredCheckIns => {
+      this.filteredCheckInsBookings = filteredCheckIns || this.checkInsBookings; // Якщо фільтровані дані є null, використовуємо всі дані
+    });
+    this.checkInsBookingsService.fetchCheckIns();
   }
 
-  fetchCheckIns() {
-    this.loading = true;
-
-    this.checkInsBookinsApiService.getCheckIns().subscribe({
-      next: (response) => {
-        this.checkInsBookings = response.data;
-        this.filteredCheckInsBookings = [...this.checkInsBookings];
-        this.loading = false;
-      },
-      error: (error) => {
-        console.error('Error fetching check-ins:', error);
-        this.loading = false;
-      },
-      complete: () => {
-        console.log('Check-in subscription completed');
-      }
-    });
-  }
-  // filterCheckIns() {
-  //   if (!this.searchTerm) {
-  //     this.filteredCheckIns = this.checkInsBookings;
-  //   } else {
-  //     const lowerCaseTerm = this.searchTerm.toLowerCase();
-  //     this.filteredCheckIns = this.checkInsBookings.filter(checkInBooking => {
-  //       const firstName = checkInBooking.client.first_name?.toLowerCase();
-  //       const middleName = checkInBooking.client.middle_name?.toLowerCase();
-  //       const lastName = checkInBooking.client.last_name?.toLowerCase();
-  //       const roomNumber = checkInBooking.room.room_number.toString();
-  //       const note = checkInBooking.note?.toLowerCase() || '';
-
-  //       return (
-  //         firstName.includes(lowerCaseTerm) ||
-  //         middleName.includes(lowerCaseTerm) ||
-  //         lastName.includes(lowerCaseTerm) ||
-  //         roomNumber.includes(this.searchTerm) ||
-  //         note.includes(lowerCaseTerm)
-  //       );
-  //     });
-  //   }
-  // }
-
-  openCancelBookModal(checkInId: string, clientFirstName: string, clientMiddleName: undefined | string, clientLastName: string, roomNumber: number): void {
-    const dialogRef = this.dialog.open(CancelBookModalComponent, {
-      width: '50%',
-      disableClose: false,
-      data: { checkInId, clientFirstName, clientMiddleName, clientLastName, roomNumber }
-    });
-
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.fetchCheckIns();
-      } else {
-        console.log('Cancellation aborted');
-      }
-    });
-  }
-
-  onApprove(checkInId: string,) {
-    this.loading = true;
-    const updateData: Partial<CheckInBooking> = {
-      isCheckIn: true
-    };
-
-    this.checkInsBookinsApiService.updateCheckIn(checkInId, updateData).subscribe({
-      next: (updatedCheckIn) => {
-        console.log('Check-in updated:', updatedCheckIn);
-        this.loading = false;
-
-        this.fetchCheckIns();
-      },
-      error: (err) => {
-        console.error('Error updating check-in:', err);
-        this.loading = false;
-      }
-    });
-  }
-
-  onFilteredCheckInsBookings(filteredCheckInsBookings: CheckInBooking[]) {
-    this.filteredCheckInsBookings = filteredCheckInsBookings;
+  updateFilteredCheckIns() {
+    this.filteredCheckInsBookings = this.checkInsBookingsService.getCheckIns(); // Оновлюємо фільтровані дані після завантаження всіх даних
   }
 }
-
-
-

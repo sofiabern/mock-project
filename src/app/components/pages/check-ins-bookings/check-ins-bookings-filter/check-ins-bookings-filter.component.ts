@@ -4,6 +4,9 @@ import { FormsModule } from '@angular/forms';
 // Types
 import { CheckInBooking } from '../check-ins-bookings.types';
 
+// Services
+import { CheckInsBookingsService } from '../check-ins-bookings.service';
+
 // Etc
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -16,20 +19,21 @@ import { MatInputModule } from '@angular/material/input';
   styleUrl: './check-ins-bookings-filter.component.css'
 })
 export class CheckInsBookingsFilterComponent {
-  @Input() checkInsBookings: CheckInBooking[] = [];
-  @Output() filteredCheckInsBookings = new EventEmitter<CheckInBooking[]>();
   searchTerm: string = '';
+
+  constructor(private checkInsBookingsService: CheckInsBookingsService) {}
 
   onSearchChange() {
     this.filterCheckInsBookings();
   }
 
   filterCheckInsBookings() {
+    const checkInsBookings = this.checkInsBookingsService.getCheckIns();
     if (!this.searchTerm) {
-      this.filteredCheckInsBookings.emit(this.checkInsBookings);
+      this.checkInsBookingsService.setFilteredCheckIns(checkInsBookings);
     } else {
       const lowerCaseTerm = this.searchTerm.toLowerCase();
-      const filtered = this.checkInsBookings.filter(checkInBooking => {
+      const filtered = checkInsBookings.filter(checkInBooking => {
         const firstName = checkInBooking.client.first_name?.toLowerCase();
         const middleName = checkInBooking.client.middle_name?.toLowerCase() || '';
         const lastName = checkInBooking.client.last_name?.toLowerCase();
@@ -44,7 +48,7 @@ export class CheckInsBookingsFilterComponent {
           note.includes(lowerCaseTerm)
         );
       });
-      this.filteredCheckInsBookings.emit(filtered);
+      this.checkInsBookingsService.setFilteredCheckIns(filtered);
     }
   }
 }
