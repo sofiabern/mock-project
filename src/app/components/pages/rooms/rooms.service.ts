@@ -20,8 +20,12 @@ export class RoomsService {
   rooms$ = this.roomsSubject.asObservable();
   private loadingSubject = new BehaviorSubject<boolean>(false);
   loading$ = this.loadingSubject.asObservable();
+  private startDateSubject = new BehaviorSubject<Date | null>(null);
+  private endDateSubject = new BehaviorSubject<Date | null>(null);
+  startDate$ = this.startDateSubject.asObservable();
+  endDate$ = this.endDateSubject.asObservable();
 
-  constructor(private roomsApiService: RoomsApiService, private toastr: ToastrService) {}
+  constructor(private roomsApiService: RoomsApiService, private toastr: ToastrService) { }
 
   fetchRooms() {
     this.roomsSubject.next([]);
@@ -36,7 +40,10 @@ export class RoomsService {
         this.toastr.error('Oops! Something went wrong while fetching rooms.');
       },
       complete: () => {
+        this.startDateSubject.next(null);
+        this.endDateSubject.next(null);
         this.loadingSubject.next(false);
+
       }
     });
   }
@@ -47,5 +54,13 @@ export class RoomsService {
 
   isLoading(): boolean {
     return this.loadingSubject.value;
+  }
+
+  setStartDate(startDate: Date | null) {
+    this.startDateSubject.next(startDate);
+  }
+
+  setEndDate(endDate: Date | null) {
+    this.endDateSubject.next(endDate);
   }
 }

@@ -10,12 +10,20 @@ import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 
-import { ToastrService } from 'ngx-toastr';
 
-
+// Services
 import { ClientsApiService } from '../../../api-services/clients.service';
 import { CheckInsBookingsApiService } from '../../../api-services/check-ins-bookings.service';
+
+
+// Types
+import { Room } from '../../pages/rooms/rooms.types';
 import { CheckInAndBookingData } from '../../pages/check-ins-bookings/check-ins-bookings.types';
+
+// Etc
+import { ToastrService } from 'ngx-toastr';
+import { isBefore, isAfter, isEqual } from 'date-fns';
+
 
 @Component({
   selector: 'app-book-modal',
@@ -43,13 +51,13 @@ export class BookModalComponent {
     military: 0,
     guardian: 0,
   };
-  totalDayPrice: number = this.data.roomPrice;
+  totalDayPrice: number = this.data.room.price;
   totalPrice!: number;
   passportNumber!: string
   startDate!: Date;
   endDate!: Date;
   discountChecked: boolean = false;
-  constructor(public dialogRef: MatDialogRef<BookModalComponent>, private clientsApiService: ClientsApiService, @Inject(MAT_DIALOG_DATA) public data: { roomId: string, roomPrice: number }, private checkInsBookingsApiService: CheckInsBookingsApiService, private toastr: ToastrService) { }
+  constructor(public dialogRef: MatDialogRef<BookModalComponent>, private clientsApiService: ClientsApiService, @Inject(MAT_DIALOG_DATA) public data: { room: Room }, private checkInsBookingsApiService: CheckInsBookingsApiService, private toastr: ToastrService) { }
 
 
   submitForm(bookForm: NgForm): void {
@@ -67,11 +75,31 @@ export class BookModalComponent {
     }
 
     if (bookForm.valid) {
+
+      const hasIntersection = this.data.room.bookingsAndCheckIns.some((item: any) => {
+        const bookingCheckInDate = new Date(item.check_in_date);
+        const bookingCheckOutDate = new Date(item.check_out_date);
+        return (
+          (isBefore(this.startDate, bookingCheckOutDate) && isAfter(this.endDate, bookingCheckInDate)) ||
+          isEqual(this.startDate, bookingCheckInDate) ||
+          isEqual(this.endDate, bookingCheckOutDate) ||
+          isEqual(this.endDate, bookingCheckInDate) ||
+          isEqual(this.startDate, bookingCheckOutDate) ||
+          (isBefore(this.startDate, bookingCheckOutDate) && isAfter(this.startDate, bookingCheckInDate)) ||
+          (isBefore(this.endDate, bookingCheckOutDate) && isAfter(this.endDate, bookingCheckInDate))
+        );
+      });
+
+      if (hasIntersection) {
+        this.toastr.error('Selected dates intersect with existing bookings or check-ins. Please filter rooms before choosing.');
+        return;
+      }
+
       const bookData: CheckInAndBookingData = {
         last_name: lastName,
         first_name: firstName,
         passport_details: this.passportNumber,
-        room: this.data.roomId,
+        room: this.data.room._id,
         check_in_date: this.startDate,
         check_out_date: this.endDate,
         isCheckIn: false,
@@ -119,7 +147,7 @@ export class BookModalComponent {
         this.discountChecked = true;
       },
       error: (error) => {
-        console.error( error);
+        console.error(error);
         this.toastr.error('Error fetching client visits. Please try again later.');
       }
     });
@@ -142,7 +170,7 @@ export class BookModalComponent {
 
   calculateTotalDiscountAndPrice(): void {
     this.totalDiscount = this.discounts.regularCustomer + this.discounts.military + this.discounts.guardian;
-    this.totalDayPrice = this.totalDiscount ? Math.round(this.data.roomPrice * (1 - this.totalDiscount / 100)) : this.data.roomPrice;
+    this.totalDayPrice = this.totalDiscount ? Math.round(this.data.room.price * (1 - this.totalDiscount / 100)) : this.data.room.price;
 
     if (this.startDate && this.endDate) {
       const difference = this.endDate.getTime() - this.startDate.getTime();

@@ -4,6 +4,9 @@ import { Component, Input } from '@angular/core';
 import { BookModalComponent } from '../../../modals/book-modal/book-modal.component';
 import { CheckInModalComponent } from '../../../modals/check-in-modal/check-in-modal.component';
 
+// Types
+import { Room } from '../rooms.types';
+
 // Services
 import { RoomsService } from '../rooms.service';
 
@@ -18,20 +21,19 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrl: './room-buttons.component.css'
 })
 export class RoomButtonsComponent {
-  @Input() roomPrice!: number;
-  @Input() roomId!: string;
 
+  @Input() room!: Room;
 
   constructor(
     private dialog: MatDialog,
     private roomsService: RoomsService
   ) {}
 
-  openBookModal(roomId: string, roomPrice: number): void {
+  openBookModal(room: Room): void {
     const dialogBookRef = this.dialog.open(BookModalComponent, {
       disableClose: false,
       autoFocus: false,
-      data: { roomId, roomPrice }
+      data: {room}
     });
 
     dialogBookRef.afterClosed().subscribe(result => {
@@ -41,11 +43,11 @@ export class RoomButtonsComponent {
     });
   }
 
-  openCheckInModal(roomId: string, roomPrice: number): void {
+  openCheckInModal(room: Room): void {
     const dialogCheckInRef = this.dialog.open(CheckInModalComponent, {
       disableClose: false,
       autoFocus: false,
-      data: { roomId, roomPrice }
+      data: { room }
     });
 
     dialogCheckInRef.afterClosed().subscribe(result => {

@@ -3,8 +3,8 @@
       <mat-form-field class="rooms__field" appearance="outline">
         <mat-label>Enter dates</mat-label>
         <mat-date-range-input [rangePicker]="picker">
-          <input required matStartDate placeholder="Check-in" [(ngModel)]="startDate" name="startDate">
-          <input required matEndDate placeholder="Check-out" [(ngModel)]="endDate" name="endDate">
+          <input matStartDate placeholder="Check-in" [(ngModel)]="startDate" name="startDate">
+          <input  matEndDate placeholder="Check-out" [(ngModel)]="endDate" name="endDate">
         </mat-date-range-input>
         <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>

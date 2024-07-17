@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 // Form
 import { FormsModule } from '@angular/forms';
@@ -9,9 +9,14 @@ import { provideNativeDateAdapter } from '@angular/material/core';
 // Types
 import { Room } from '../rooms.types';
 
+// Services
+import { RoomsService } from '../rooms.service';
+
 // Dates filtering
 import { isBefore, isAfter, isEqual } from 'date-fns';
 
+// Etc
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -22,20 +27,31 @@ import { isBefore, isAfter, isEqual } from 'date-fns';
   styleUrls: ['./rooms-filter.component.css'],
   providers: [provideNativeDateAdapter()],
 })
-export class RoomsFilterComponent {
+export class RoomsFilterComponent implements OnInit {
   @Input() rooms!: Room[];
   @Output() filteredRoomsChange = new EventEmitter<Room[]>();
   startDate!: Date | null;
   endDate!: Date | null;
 
-  constructor() { }
+  constructor(private roomsService: RoomsService, private toastr: ToastrService) { }
 
-  onSubmit(): void {
-    if (this.startDate && this.endDate) {
-      const filteredRooms = this.filterRoomsByDate(this.startDate, this.endDate);
-      console.log(filteredRooms)
-      this.filteredRoomsChange.emit(filteredRooms);
+  ngOnInit(): void {
+    this.roomsService.startDate$.subscribe(startDate => {
+      this.startDate = startDate;
+    });
+    this.roomsService.endDate$.subscribe(endDate => {
+      this.endDate = endDate;
+    });
+  }
+
+  onSubmit() {
+    if(!this.startDate || !this.endDate){
+      return this.toastr.error('Please specify both start and end dates.');
     }
+
+      const filteredRooms = this.filterRoomsByDate(this.startDate, this.endDate);
+     return this.filteredRoomsChange.emit(filteredRooms);
+
   }
 
   private filterRoomsByDate(startDate: Date, endDate: Date): Room[] {
