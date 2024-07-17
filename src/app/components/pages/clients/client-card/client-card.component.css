@@ -1,8 +1,17 @@
 .client-card {
   border: 1px solid #000000;
+  font-size: 16px;
   padding: 12px;
-  width: 296px;
+  width: 236px;
 }
+
+@media(min-width: 348px){
+  .client-card {
+    width: 296px;
+    font-size: 16px;
+  }
+}
+
 
 .client-details__info-bold{
   font-weight: 500;

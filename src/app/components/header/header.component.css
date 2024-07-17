@@ -22,6 +22,12 @@
   }
 }
 
+@media (min-width: 776px) {
+  .header__logo {
+    font-size: 22px;
+  }
+}
+
 .header__logo:hover {
   color: #62ae62;
 }
