@@ -27,4 +27,9 @@ export class AuthApiService {
     return this.http.post<LogoutApiResponse>(`${this.apiUrl}/logout`, userId);
 
   }
+
+  isAuthenticated(): boolean {
+    const token = localStorage.getItem('token');
+    return !!token;
+  }
 }

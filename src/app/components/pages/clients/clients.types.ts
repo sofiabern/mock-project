@@ -4,7 +4,6 @@ export interface Client {
   first_name: string;
   middle_name: string;
   passport_details: string;
-  comment?: string;
   visitsAmount: number;
   discounts: {
     regularCustomer: number;

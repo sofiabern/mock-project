@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 
 // Types
-import { Client } from '../client.types';
+import { Client } from '../clients.types';
 
 @Component({
   selector: 'app-client-card',

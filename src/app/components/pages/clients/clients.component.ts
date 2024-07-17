@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import { ClientsListComponent } from './clients-list/clients-list.component';
 
 // Types
-import { Client } from './client.types';
+import { Client } from './clients.types';
 
 // Services
 import { ClientsApiService } from '../../../api-services/clients.service';

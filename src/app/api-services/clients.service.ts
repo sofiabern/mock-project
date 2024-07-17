@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 // Types
-import { ClientsApiResponse, VisitsApiResponse, PassportDetails } from '../components/pages/clients/client.types';
+import { ClientsApiResponse, VisitsApiResponse, PassportDetails } from '../components/pages/clients/clients.types';
 
 @Injectable({
   providedIn: 'root'
