@@ -8,9 +8,12 @@
 
     <mat-form-field appearance="outline">
       <mat-label>Email</mat-label>
-      <input matInput type="email" name="email" ngModel required>
+      <input matInput type="email" name="email" ngModel required
+        pattern="[^@\s]+@[^@\s]+\.[^@\s]+" #email="ngModel">
+      <div *ngIf="email.invalid">
+        <div *ngIf="email.hasError('pattern')">Invalid email format.</div>
+      </div>
     </mat-form-field>
-
     <mat-form-field appearance="outline">
       <mat-label>Password</mat-label>
 
