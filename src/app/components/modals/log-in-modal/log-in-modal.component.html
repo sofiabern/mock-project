@@ -3,12 +3,22 @@
   <form #logInForm="ngForm" (ngSubmit)="submitForm(logInForm)" class="log-in-modal__form">
     <mat-form-field appearance="outline">
       <mat-label>Email</mat-label>
-      <input matInput type="text" name="email" ngModel required>
+      <input matInput type="email" name="email" ngModel required
+        pattern="[^@\s]+@[^@\s]+\.[^@\s]+" #email="ngModel">
+      <div *ngIf="email.invalid">
+        <div *ngIf="email.hasError('pattern')">Invalid email format.</div>
+      </div>
     </mat-form-field>
 
     <mat-form-field appearance="outline">
       <mat-label>Password</mat-label>
-      <input matInput type="password" name="password" ngModel required>
+
+      <input matInput type="password" name="password" ngModel minlength="6" required #password="ngModel">
+      <div *ngIf="password.invalid" class="no">
+        <div *ngIf="password.hasError('minlength')">
+          Password must be at least 6 characters long.
+        </div>
+      </div>
     </mat-form-field>
 
     <button type="submit" class="log-in-modal__submit-btn">Log In</button>

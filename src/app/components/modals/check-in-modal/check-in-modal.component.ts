@@ -17,6 +17,7 @@ import { CheckInsBookingsApiService } from '../../../api-services/check-ins-book
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { CheckInAndBookingData } from '../../pages/check-ins-bookings/check-ins-bookings.types';
 import { Room } from '../../pages/rooms/rooms.types';
+import { NgIf } from '@angular/common';
 
 // Etc
 import { isBefore, isAfter, isEqual } from 'date-fns';
@@ -27,6 +28,7 @@ import { isBefore, isAfter, isEqual } from 'date-fns';
   standalone: true,
   imports: [
     FormsModule,
+    NgIf,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,

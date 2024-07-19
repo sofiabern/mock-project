@@ -14,13 +14,14 @@
         <div *ngIf="email.hasError('pattern')">Invalid email format.</div>
       </div>
     </mat-form-field>
+    
     <mat-form-field appearance="outline">
       <mat-label>Password</mat-label>
 
       <input matInput type="password" name="password" ngModel minlength="6" required #password="ngModel">
       <div *ngIf="password.invalid" class="no">
         <div *ngIf="password.hasError('minlength')">
-          Name must be at least 6 characters long.
+          Password must be at least 6 characters long.
         </div>
       </div>
     </mat-form-field>

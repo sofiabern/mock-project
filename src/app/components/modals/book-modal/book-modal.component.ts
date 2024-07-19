@@ -9,6 +9,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { NgIf } from '@angular/common';
 
 
 // Services
@@ -31,6 +32,7 @@ import { isBefore, isAfter, isEqual } from 'date-fns';
   standalone: true,
   imports: [
     FormsModule,
+    NgIf,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
