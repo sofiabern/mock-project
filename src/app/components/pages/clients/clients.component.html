@@ -1,11 +1,12 @@
 <section class="clients">
   <div class="container">
     <h2 class="clients__title">Our Clients</h2>
-    @if(loading){
-    <div class="clients__loading">
-      <mat-spinner diameter="60"></mat-spinner>
-    </div>
-    }
-    <app-clients-list [clients]="clients"/>
+    <app-clients-filter (search)="onSearch($event)"></app-clients-filter>
+    <app-clients-list [clients]="filteredClients"></app-clients-list>
   </div>
 </section>
+@if(loading){
+<div class="clients__loading">
+  <mat-spinner diameter="60"></mat-spinner>
+</div>
+}

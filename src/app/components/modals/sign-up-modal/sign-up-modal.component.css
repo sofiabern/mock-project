@@ -39,5 +39,12 @@
   background-color: #62ae62;
   border-color: #62ae62;
   color: #ffffff;
-  transform: scale(1.1);
 }
+
+@media(max-width: 347.9px){
+  ::ng-deep .mdc-dialog--open .mat-mdc-dialog-surface{
+    width: 92%;
+  }
+}
+
+

@@ -16,7 +16,7 @@ export interface LoginApiResponse {
   status: number;
   message: string;
   data: {
-    userToken: string;
+    token: string;
   };
 }
 

@@ -3,6 +3,7 @@ export interface Room {
   room_number: number;
   capacity: number;
   comfort_level: string;
+  image: string;
   price: number;
   bookingsAndCheckIns: CheckInOrBooking[];
 }

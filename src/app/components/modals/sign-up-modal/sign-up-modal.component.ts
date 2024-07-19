@@ -1,12 +1,19 @@
 import { Component } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
+
+// Services
+import { AuthApiService } from '../../../auth/auth.service';
+
+
+// Modal
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-
 import { MatIconModule } from '@angular/material/icon';
+
 @Component({
   selector: 'app-sign-up-modal',
   standalone: true,
@@ -15,7 +22,12 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrls: ['./sign-up-modal.component.css']
 })
 export class SignUpModalComponent {
-  constructor(public dialogRef: MatDialogRef<SignUpModalComponent>) {}
+  constructor(
+    public dialogRef: MatDialogRef<SignUpModalComponent>,
+    private authService: AuthApiService,
+    private router: Router
+  ) {}
+
 
   closeDialog(): void {
     this.dialogRef.close();
@@ -23,8 +35,15 @@ export class SignUpModalComponent {
 
   submitForm(signUpForm: NgForm): void {
     if (signUpForm.valid) {
-      console.log('Form submitted:', signUpForm.value);
-      this.dialogRef.close();
+      this.authService.signupAndLogin(signUpForm.value).subscribe({
+        next: () => {
+          this.dialogRef.close();
+          this.router.navigate(['/']);
+        },
+        error: (err) => {
+          console.error('Signup failed', err);
+        }
+      });
     }
   }
 }

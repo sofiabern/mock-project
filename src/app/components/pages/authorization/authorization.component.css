@@ -1,0 +1,13 @@
+.authorization{
+  text-align: center;
+}
+
+.authorization__title {
+  font-size: 48px;
+  margin-bottom: 12px;
+}
+
+.authorization__text {
+  font-size: 18px;
+  margin-bottom: 12px;
+}

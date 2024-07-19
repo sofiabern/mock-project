@@ -38,6 +38,10 @@
   color: #ffffff;
   }
 
-::ng-deep .mdc-dialog--open .mat-mdc-dialog-surface{
-  width: 92%;
-}
+  @media(max-width: 347.9px){
+    ::ng-deep .mdc-dialog--open .mat-mdc-dialog-surface{
+      width: 92%;
+    }
+  }
+
+  
