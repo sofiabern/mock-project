@@ -15,6 +15,8 @@ export class AuthApiService {
 
   private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
   isAuthenticated$ = this.isAuthenticatedSubject.asObservable();
+  private currentUsernameSubject = new BehaviorSubject<string | null>(null);
+  currentUsername$ = this.currentUsernameSubject.asObservable();
 
   constructor(private http: HttpClient, private toastr: ToastrService) {
     this.checkInitialAuthentication();
@@ -23,7 +25,15 @@ export class AuthApiService {
   private checkInitialAuthentication(): void {
     const token = localStorage.getItem('token');
     this.isAuthenticatedSubject.next(!!token);
+
+    const storedUserName = localStorage.getItem('currentUsername');
+    if (storedUserName) {
+      this.currentUsernameSubject.next(storedUserName);
+    } else if (token) {
+      this.getCurrentUser().subscribe();
+    }
   }
+
 
   signup(user: User): Observable<SignupApiResponse> {
     return this.http.post<SignupApiResponse>(`${this.apiUrl}/signup`, user).pipe(
@@ -41,20 +51,30 @@ export class AuthApiService {
   login(user: Omit<User, 'name'>): Observable<LoginApiResponse> {
     return this.http.post<LoginApiResponse>(`${this.apiUrl}/login`, user).pipe(
       tap((response: LoginApiResponse) => {
-        if (response.data.token) {
+        if (response) {
           localStorage.setItem('token', response.data.token);
           this.isAuthenticatedSubject.next(true);
-          this.toastr.success('Login successful!');
+          this.getCurrentUser().subscribe();
+          // this.toastr.success('Login successful!');
         }
       }),
       catchError((error: HttpErrorResponse) => this.handleError(error))
     );
   }
 
-  getCurrentUser(): Observable<Omit<User, 'name'>> {
-    return this.http.get<Omit<User, 'name'>>(`${this.apiUrl}/current`);
+  getCurrentUser(): Observable<Omit<User, 'password'>> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get<Omit<User, 'password'>>(`${this.apiUrl}/current`, { headers }).pipe(
+      tap(response => {
+        localStorage.setItem('currentUsername', response.name);
+
+        this.currentUsernameSubject.next(response.name);
+      }),
+      catchError((error: HttpErrorResponse) => this.handleError(error))
+    );
   }
-  
+
   logout(): Observable<LogoutApiResponse> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
@@ -63,7 +83,11 @@ export class AuthApiService {
       tap(() => {
         localStorage.removeItem('token');
         this.isAuthenticatedSubject.next(false);
-        this.toastr.success('Logout successful!');
+
+        localStorage.removeItem('currentUsername');
+        this.currentUsernameSubject.next(null);
+
+        // this.toastr.success('Logout successful!');
       }),
       catchError((error: HttpErrorResponse) => this.handleError(error))
     );

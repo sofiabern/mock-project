@@ -13,7 +13,10 @@
 
     <mat-form-field appearance="outline">
       <mat-label>Password</mat-label>
-      <input matInput type="password" name="password" ngModel required>
+      <input matInput type="password" name="password" ngModel minlength="6" required #password="ngModel" >
+      <div *ngIf="password.hasError('minlength')">
+        Name must be at least 6 characters long.
+      </div>
     </mat-form-field>
 
     <button type="submit" class="sign-up-modal__submit-btn">Sign Up</button>

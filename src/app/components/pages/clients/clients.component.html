@@ -1,7 +1,7 @@
 <section class="clients">
   <div class="container">
     <h2 class="clients__title">Our Clients</h2>
-    <app-clients-filter (search)="onSearch($event)"></app-clients-filter>
+    <app-clients-filter [clients]="clients" (filteredClients)="onFilteredClients($event)"></app-clients-filter>
     <app-clients-list [clients]="filteredClients"></app-clients-list>
   </div>
 </section>

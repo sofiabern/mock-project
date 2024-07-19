@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NgIf } from '@angular/common';
 
 // Services
 import { AuthApiService } from '../../../auth/auth.service';
@@ -17,7 +18,7 @@ import { MatIconModule } from '@angular/material/icon';
 @Component({
   selector: 'app-sign-up-modal',
   standalone: true,
-  imports: [FormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatDialogModule, MatIconModule],
+  imports: [ FormsModule, NgIf, MatFormFieldModule, MatInputModule, MatButtonModule, MatDialogModule, MatIconModule],
   templateUrl: './sign-up-modal.component.html',
   styleUrls: ['./sign-up-modal.component.css']
 })

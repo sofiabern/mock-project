@@ -34,18 +34,12 @@ export class CheckInsBookingsFilterComponent {
     } else {
       const lowerCaseTerm = this.searchTerm.toLowerCase();
       const filtered = checkInsBookings.filter(checkInBooking => {
-        const firstName = checkInBooking.client.first_name?.toLowerCase();
-        const middleName = checkInBooking.client.middle_name?.toLowerCase() || '';
-        const lastName = checkInBooking.client.last_name?.toLowerCase();
+        const fullName = `${checkInBooking.client.first_name} ${checkInBooking.client.middle_name ? checkInBooking.client.middle_name + ' ' : ''}${checkInBooking.client.last_name}`.toLowerCase();
         const roomNumber = checkInBooking.room.room_number.toString();
-        const note = checkInBooking.note?.toLowerCase() || '';
 
         return (
-          firstName.includes(lowerCaseTerm) ||
-          middleName.includes(lowerCaseTerm) ||
-          lastName.includes(lowerCaseTerm) ||
-          roomNumber.includes(this.searchTerm) ||
-          note.includes(lowerCaseTerm)
+          fullName.includes(lowerCaseTerm) ||
+          roomNumber.includes(this.searchTerm)
         );
       });
       this.checkInsBookingsService.setFilteredCheckIns(filtered);

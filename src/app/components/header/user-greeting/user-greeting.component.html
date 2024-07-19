@@ -1,0 +1,5 @@
+@if(isAuthenticated$ && userName$ | async){
+<div>
+  <p>Hello, {{ userName$ | async }}!</p>
+</div>
+}

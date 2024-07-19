@@ -39,7 +39,7 @@ export class ClientsComponent implements OnInit {
     this.clientApiService.getClients().subscribe({
       next: (response) => {
         this.clients = response.data;
-        this.filteredClients = this.clients;  // Initialize filteredClients with all clients
+        this.filteredClients = this.clients;
         this.loading = false;
       },
       error: (error) => {
@@ -50,15 +50,7 @@ export class ClientsComponent implements OnInit {
     });
   }
 
-  onSearch(searchTerm: string) {
-    if (searchTerm) {
-      this.filteredClients = this.clients.filter(client => {
-        const fullName = `${client.first_name} ${client.middle_name ? client.middle_name + ' ' : ''}${client.last_name}`.toLowerCase();
-        return fullName.includes(searchTerm.toLowerCase()) ||
-               client.passport_details.toString().includes(searchTerm);
-      });
-    }  else {
-      this.filteredClients = this.clients;
-    }
+  onFilteredClients(filtered: Client[]) {
+    this.filteredClients = filtered;
   }
 }

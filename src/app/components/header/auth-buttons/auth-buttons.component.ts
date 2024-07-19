@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component} from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { AsyncPipe } from '@angular/common';
 
 import { MatDialog } from '@angular/material/dialog';
 import { SignUpModalComponent } from '../../modals/sign-up-modal/sign-up-modal.component';
@@ -12,21 +14,18 @@ import { AuthApiService } from '../../../auth/auth.service';
 @Component({
   selector: 'app-auth-buttons',
   standalone: true,
-  imports: [],
+  imports: [AsyncPipe],
   templateUrl: './auth-buttons.component.html',
   styleUrl: './auth-buttons.component.css'
 })
-export class AuthButtonsComponent implements OnInit {
-  isAuthenticated: boolean = false;
+export class AuthButtonsComponent {
+  isAuthenticated$: Observable<boolean>;
 
 
-  constructor(public dialog: MatDialog, private authService: AuthApiService, private router: Router){}
-
-  ngOnInit(): void {
-    this.authService.isAuthenticated$.subscribe(isAuthenticated => {
-      this.isAuthenticated = isAuthenticated;
-    });
+  constructor(public dialog: MatDialog, private authService: AuthApiService, private router: Router){
+    this.isAuthenticated$ = this.authService.isAuthenticated$;
   }
+
 
   openDialog(component: ComponentType<SignUpModalComponent | LogInModalComponent>): void {
     this.dialog.open(component, {
