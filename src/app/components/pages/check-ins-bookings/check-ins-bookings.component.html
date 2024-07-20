@@ -7,7 +7,7 @@
       (page)="onPageChange($event)">
     </mat-paginator>
 
-    <app-check-ins-bookings-list [checkInsBookings]="filteredCheckInsBookings" />
+    <app-check-ins-bookings-list [checkInsBookings]="checkInsBookings" />
   </div>
 </section>
 @if(loading){

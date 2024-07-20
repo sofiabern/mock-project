@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Observable } from 'rxjs';
 import { PageEvent } from '@angular/material/paginator';
 
 // Components
@@ -38,7 +37,6 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 })
 export class CheckInsBookingsComponent implements OnInit {
   checkInsBookings: CheckInBooking[] = [];
-  filteredCheckInsBookings: CheckInBooking[] = [];
   loading: boolean = false;
   paginationInfo: any = {}; // To store pagination info
   currentPage: number = 1;
@@ -50,25 +48,19 @@ export class CheckInsBookingsComponent implements OnInit {
     this.checkInsBookingsService.loading$.subscribe(loading => this.loading = loading);
     this.checkInsBookingsService.checkInsBookings$.subscribe(checkInsBookings => {
       this.checkInsBookings = checkInsBookings;
-      this.updateFilteredCheckIns();
-    });
-    this.checkInsBookingsService.filteredCheckIns$.subscribe(filteredCheckIns => {
-      this.filteredCheckInsBookings = filteredCheckIns || this.checkInsBookings;
     });
     this.checkInsBookingsService.paginationInfo$.subscribe(paginationInfo => {
       this.paginationInfo = paginationInfo;
+      this.perPage = paginationInfo.perPage;
     });
     this.loadCheckIns();
   }
 
   loadCheckIns(page: number = this.currentPage) {
-    this.checkInsBookingsService.fetchCheckIns(page, this.perPage);
+    const filter = this.checkInsBookingsService.getFilter(); // Get the current filter
+    this.checkInsBookingsService.fetchCheckIns(page, this.perPage, filter); // Use current perPage value and filter
   }
-
-  updateFilteredCheckIns() {
-    this.filteredCheckInsBookings = this.checkInsBookingsService.getCheckIns();
-  }
-
+  
   nextPage() {
     if (this.paginationInfo.hasNextPage) {
       this.currentPage++;
@@ -82,7 +74,6 @@ export class CheckInsBookingsComponent implements OnInit {
       this.loadCheckIns(this.currentPage);
     }
   }
-
 
   onPageChange(event: PageEvent) {
     this.currentPage = event.pageIndex + 1; // MatPaginator uses 0-based index

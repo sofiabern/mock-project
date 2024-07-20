@@ -24,25 +24,11 @@ export class CheckInsBookingsFilterComponent {
   constructor(private checkInsBookingsService: CheckInsBookingsService) {}
 
   onSearchChange() {
-    this.filterCheckInsBookings();
+    // Optional: handle changes in search term (e.g., debounce)
   }
 
-  filterCheckInsBookings() {
-    const checkInsBookings = this.checkInsBookingsService.getCheckIns();
-    if (!this.searchTerm) {
-      this.checkInsBookingsService.setFilteredCheckIns(checkInsBookings);
-    } else {
-      const lowerCaseTerm = this.searchTerm.toLowerCase();
-      const filtered = checkInsBookings.filter(checkInBooking => {
-        const fullName = `${checkInBooking.client.first_name} ${checkInBooking.client.middle_name ? checkInBooking.client.middle_name + ' ' : ''}${checkInBooking.client.last_name}`.toLowerCase();
-        const roomNumber = checkInBooking.room.room_number.toString();
-
-        return (
-          fullName.includes(lowerCaseTerm) ||
-          roomNumber.includes(this.searchTerm)
-        );
-      });
-      this.checkInsBookingsService.setFilteredCheckIns(filtered);
-    }
+  applyFilter() {
+    this.checkInsBookingsService.setFilter(this.searchTerm); // Save the filter
+    this.checkInsBookingsService.fetchCheckIns(1, this.checkInsBookingsService.getPerPage(), this.searchTerm); // Reset to first page
   }
 }

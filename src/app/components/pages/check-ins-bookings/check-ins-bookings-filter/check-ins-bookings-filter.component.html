@@ -1,7 +1,7 @@
 <div class="check-ins__filter-container">
   <mat-form-field appearance="outline">
     <mat-label>Search</mat-label>
-    <input matInput type="text" [(ngModel)]="searchTerm" (input)="filterCheckInsBookings()"
-      placeholder="Search by name or room number" class="check-ins__filter" />
+    <input matInput type="text" [(ngModel)]="searchTerm" (input)="onSearchChange()" placeholder="Search by name or room number" class="check-ins__filter" />
   </mat-form-field>
+  <button mat-raised-button color="primary" (click)="applyFilter()">Search</button>
 </div>

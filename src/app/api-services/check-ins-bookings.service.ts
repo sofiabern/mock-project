@@ -19,10 +19,14 @@ export class CheckInsBookingsApiService {
     return this.http.get<CheckInsBookingsApiResponse>(`${this.apiUrl}/check-ins/all`);
   }
 
-  getCheckIns(page: number = 1, perPage: number = 6): Observable<CheckInsBookingsPaginationApiResponse> {
+  getCheckIns(page: number = 1, perPage: number = 6, filter: string): Observable<CheckInsBookingsPaginationApiResponse> {
     let params = new HttpParams()
       .set('page', page.toString())
       .set('perPage', perPage.toString());
+
+    if (filter.trim()) {
+      params = params.set('filter', filter);
+    }
 
     return this.http.get<CheckInsBookingsPaginationApiResponse>(`${this.apiUrl}/check-ins`, { params });
   }
