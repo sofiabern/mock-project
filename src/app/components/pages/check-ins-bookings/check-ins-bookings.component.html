@@ -3,12 +3,15 @@
     <h2 class="check-ins__title">Check-Ins</h2>
 
     <app-check-ins-bookings-filter />
+    <mat-paginator [length]="paginationInfo.totalItems" [pageSize]="perPage" [pageSizeOptions]="[3, 6, 9]"
+      (page)="onPageChange($event)">
+    </mat-paginator>
 
-<app-check-ins-bookings-list [checkInsBookings]="filteredCheckInsBookings"/>
+    <app-check-ins-bookings-list [checkInsBookings]="filteredCheckInsBookings" />
   </div>
 </section>
 @if(loading){
-  <div class="check-ins__loading">
-    <mat-spinner diameter="60"></mat-spinner>
-  </div>
-  }
+<div class="check-ins__loading">
+  <mat-spinner diameter="60"></mat-spinner>
+</div>
+}

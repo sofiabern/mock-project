@@ -22,6 +22,20 @@ export interface CheckInsBookingsApiResponse {
   data: CheckInBooking[];
 }
 
+export interface CheckInsBookingsPaginationApiResponse {
+  status: number;
+  message: string;
+  data: {
+    checkIns: CheckInBooking[];
+    page: number;
+    perPage: number;
+    totalItems: number;
+    totalPages: number;
+    hasPreviousPage: boolean;
+    hasNextPage: boolean;
+  };
+}
+
 export interface CheckInAndBookingData {
   last_name: string;
   first_name: string;
