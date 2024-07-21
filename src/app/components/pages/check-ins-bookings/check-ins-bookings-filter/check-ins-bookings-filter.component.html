@@ -1,7 +1,10 @@
 <div class="check-ins__filter-container">
-  <mat-form-field appearance="outline">
+  <mat-form-field appearance="outline" class="check-ins__filter-field">
     <mat-label>Search</mat-label>
     <input matInput type="text" [(ngModel)]="searchTerm" (input)="onSearchChange()" placeholder="Search by name or room number" class="check-ins__filter" />
   </mat-form-field>
-  <button mat-raised-button color="primary" (click)="applyFilter()">Search</button>
+  <div class="check-ins__buttons-wrapper">
+    <button  (click)="applyFilter()" class="check-ins__button  check-ins__filter-button">Search</button>
+    <button (click)="resetFilter()" class=" check-ins__button check-ins__show-button">Show All</button>
+  </div>
 </div>

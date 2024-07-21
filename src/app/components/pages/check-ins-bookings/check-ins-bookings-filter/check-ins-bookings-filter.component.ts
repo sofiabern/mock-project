@@ -31,4 +31,10 @@ export class CheckInsBookingsFilterComponent {
     this.checkInsBookingsService.setFilter(this.searchTerm); // Save the filter
     this.checkInsBookingsService.fetchCheckIns(1, this.checkInsBookingsService.getPerPage(), this.searchTerm); // Reset to first page
   }
+
+  resetFilter() {
+    this.searchTerm = '';
+    this.checkInsBookingsService.setFilter(''); // Clear the filter
+    this.checkInsBookingsService.fetchCheckIns(1, 6); // Reset to first page with default perPage
+  }
 }

@@ -15,10 +15,6 @@ export class CheckInsBookingsApiService {
 
   constructor(private http: HttpClient) { }
 
-  getAllCheckIns(): Observable<CheckInsBookingsApiResponse> {
-    return this.http.get<CheckInsBookingsApiResponse>(`${this.apiUrl}/check-ins/all`);
-  }
-
   getCheckIns(page: number = 1, perPage: number = 6, filter: string): Observable<CheckInsBookingsPaginationApiResponse> {
     let params = new HttpParams()
       .set('page', page.toString())
