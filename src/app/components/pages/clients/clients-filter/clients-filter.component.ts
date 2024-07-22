@@ -1,5 +1,8 @@
-import { Component, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+
+// Services
+import { ClientsService } from '../clients.service';
 
 // Types
 import { Client } from '../clients.types';
@@ -7,34 +10,37 @@ import { Client } from '../clients.types';
 // Etc
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+
 @Component({
   selector: 'app-clients-filter',
   standalone: true,
   imports: [FormsModule, MatFormFieldModule, MatInputModule],
   templateUrl: './clients-filter.component.html',
-  styleUrl: './clients-filter.component.css'
+  styleUrls: ['./clients-filter.component.css']
 })
-
-export class ClientsFilterComponent {
+export class ClientsFilterComponent implements OnInit{
   searchTerm: string = '';
 
-  @Input() clients: Client[] = [];
-  @Output() filteredClients = new EventEmitter<Client[]>();
+  constructor(private clientsService : ClientsService){
 
-  onSearchChange() {
-    const filtered = this.filterClients(this.searchTerm);
-    this.filteredClients.emit(filtered);
   }
 
-  private filterClients(searchTerm: string): Client[] {
-    if (searchTerm) {
-      return this.clients.filter(client => {
-        const fullName = `${client.first_name} ${client.middle_name ? client.middle_name + ' ' : ''}${client.last_name}`.toLowerCase();
-        return fullName.includes(searchTerm.toLowerCase()) ||
-               client.passport_details.toString().includes(searchTerm);
-      });
-    } else {
-      return this.clients;
-    }
+  ngOnInit() {
+    // Initialize searchTerm with the current filter from the service
+    this.searchTerm = this.clientsService.getFilter();
+  }
+
+  onSearchChange() {
+  }
+
+  applyFilter() {
+    this.clientsService.setFilter(this.searchTerm); // Save the filter
+    this.clientsService.fetchClients(1, this.clientsService.getPerPage(), this.searchTerm); // Reset to first page
+  }
+
+  resetFilter() {
+    this.searchTerm = '';
+    this.clientsService.setFilter(''); // Clear the filter
+    this.clientsService.fetchClients(1, 6); // Reset to first page with default perPage
   }
 }

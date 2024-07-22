@@ -1,7 +1,10 @@
 <div class="clients__filter-container">
-  <mat-form-field appearance="outline">
+  <mat-form-field appearance="outline" class="clients__filter-field">
     <mat-label>Search</mat-label>
-    <input matInput type="text" [(ngModel)]="searchTerm" (ngModelChange)="onSearchChange()"
-      placeholder="Search by name or passport number" class="clients__filter" />
+    <input matInput type="text" [(ngModel)]="searchTerm" (input)="onSearchChange()" placeholder="Search by name or room number" class="clients__filter" />
   </mat-form-field>
+  <div class="clients__buttons-wrapper">
+    <button  (click)="applyFilter()" class="clients__button  clients__filter-button">Search</button>
+    <button (click)="resetFilter()" class=" clients__button clients__show-button">Show All</button>
+  </div>
 </div>

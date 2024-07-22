@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 // Types
@@ -18,10 +18,16 @@ import { MatInputModule } from '@angular/material/input';
   templateUrl: './check-ins-bookings-filter.component.html',
   styleUrl: './check-ins-bookings-filter.component.css'
 })
-export class CheckInsBookingsFilterComponent {
+export class CheckInsBookingsFilterComponent implements OnInit {
   searchTerm: string = '';
 
   constructor(private checkInsBookingsService: CheckInsBookingsService) {}
+
+  ngOnInit() {
+    // Initialize searchTerm with the current filter from the service
+    this.searchTerm = this.checkInsBookingsService.getFilter();
+  }
+
 
   onSearchChange() {
     // Optional: handle changes in search term (e.g., debounce)

@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams} from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 // Types
-import { ClientsApiResponse, VisitsApiResponse, PassportDetails } from '../components/pages/clients/clients.types';
+import { ClientsApiResponse, VisitsApiResponse, PassportDetails, ClientsPaginationApiResponse } from '../components/pages/clients/clients.types';
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +13,16 @@ export class ClientsApiService {
 
   constructor(private http: HttpClient) { }
 
-  getClients(): Observable<ClientsApiResponse> {
-    return this.http.get<ClientsApiResponse>(`${this.apiUrl}/clients`);
+  getClients(page: number = 1, perPage: number = 6, filter: string): Observable<ClientsPaginationApiResponse> {
+    let params = new HttpParams()
+      .set('page', page.toString())
+      .set('perPage', perPage.toString());
+
+    if (filter.trim()) {
+      params = params.set('filter', filter);
+    }
+
+    return this.http.get<ClientsPaginationApiResponse>(`${this.apiUrl}/clients`, { params });
   }
 
   getClientVisits(passportDetails: PassportDetails): Observable<VisitsApiResponse> {

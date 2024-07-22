@@ -42,8 +42,6 @@ export class AuthButtonsComponent {
   }
 
   logOut(): void {
-    this.authService.logout().subscribe(() => {
-      this.router.navigate(['/authorization']);
-    });
+    this.authService.logout().subscribe();
   }
 }

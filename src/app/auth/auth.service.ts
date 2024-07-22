@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { catchError, tap, switchMap } from 'rxjs/operators';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
 // Types
@@ -18,7 +19,7 @@ export class AuthApiService {
   private currentUsernameSubject = new BehaviorSubject<string | null>(null);
   currentUsername$ = this.currentUsernameSubject.asObservable();
 
-  constructor(private http: HttpClient, private toastr: ToastrService) {
+  constructor(private http: HttpClient, private toastr: ToastrService, private router: Router) {
     this.checkInitialAuthentication();
   }
 
@@ -34,6 +35,9 @@ export class AuthApiService {
     }
   }
 
+  getToken(): string | null {
+    return localStorage.getItem('token');
+  }
 
   signup(user: User): Observable<SignupApiResponse> {
     return this.http.post<SignupApiResponse>(`${this.apiUrl}/signup`, user).pipe(
@@ -55,7 +59,7 @@ export class AuthApiService {
           localStorage.setItem('token', response.data.token);
           this.isAuthenticatedSubject.next(true);
           this.getCurrentUser().subscribe();
-          // this.toastr.success('Login successful!');
+          this.toastr.success('Login successful!');
         }
       }),
       catchError((error: HttpErrorResponse) => this.handleError(error))
@@ -75,22 +79,54 @@ export class AuthApiService {
     );
   }
 
-  logout(): Observable<LogoutApiResponse> {
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+  // logout(): Observable<LogoutApiResponse> {
 
-    return this.http.post<LogoutApiResponse>(`${this.apiUrl}/logout`, {}, { headers }).pipe(
+  //   return this.http.post<LogoutApiResponse>(`${this.apiUrl}/logout`, {}).pipe(
+  //     tap(() => {
+  //       localStorage.removeItem('token');
+  //       this.isAuthenticatedSubject.next(false);
+
+  //       localStorage.removeItem('currentUsername');
+  //       this.currentUsernameSubject.next(null);
+
+  //       this.toastr.success('Logout successful!');
+  //     }),
+  //     catchError((error: HttpErrorResponse) => this.handleError(error))
+  //   );
+  // }
+
+  logout() {
+    return this.http.post(`${this.apiUrl}/logout`, {}).pipe(
       tap(() => {
-        localStorage.removeItem('token');
-        this.isAuthenticatedSubject.next(false);
-
-        localStorage.removeItem('currentUsername');
-        this.currentUsernameSubject.next(null);
-
-        // this.toastr.success('Logout successful!');
+        // Очистка локального storage
+        this.clearLocalStorage();
+        // Перенаправлення на сторінку авторизації
+        this.router.navigate(['/authorization']);
+        this.toastr.success('Logged out successfully!');
       }),
-      catchError((error: HttpErrorResponse) => this.handleError(error))
+      catchError((error: HttpErrorResponse) => {
+        if (error.status === 401) {
+          // Очистка локального storage і перенаправлення на авторизацію
+          this.clearLocalStorage();
+          this.router.navigate(['/authorization']);
+          // this.toastr.error('Session expired. Please log in again.');
+        }
+        return throwError(() => new Error(error.message));
+      })
     );
+  }
+
+  handleUnauthorized(): void {
+    this.clearLocalStorage();
+    this.router.navigate(['/authorization']);
+    this.toastr.error('Session expired. Please log in again.');
+  }
+
+  private clearLocalStorage(): void {
+    localStorage.removeItem('token');
+    this.isAuthenticatedSubject.next(false);
+    localStorage.removeItem('currentUsername');
+    this.currentUsernameSubject.next(null);
   }
 
   isAuthenticated(): boolean {

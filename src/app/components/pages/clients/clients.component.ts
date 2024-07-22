@@ -1,56 +1,90 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { PageEvent } from '@angular/material/paginator';
 
 // Components
 import { ClientsListComponent } from './clients-list/clients-list.component';
 import { ClientsFilterComponent } from './clients-filter/clients-filter.component';
 
+// Services
+import { ClientsService } from './clients.service';
+
 // Types
 import { Client } from './clients.types';
 
-// Services
-import { ClientsApiService } from '../../../api-services/clients.service';
-
 // Etc
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { ToastrService } from 'ngx-toastr';
-
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-clients',
   standalone: true,
-  imports: [CommonModule, MatProgressSpinnerModule, ClientsListComponent, ClientsFilterComponent],
+  imports: [
+    CommonModule,
+    FormsModule,
+    MatProgressSpinnerModule,
+    MatPaginatorModule,
+    ClientsListComponent,
+    ClientsFilterComponent
+  ],
   templateUrl: './clients.component.html',
   styleUrls: ['./clients.component.css']
 })
-
 export class ClientsComponent implements OnInit {
   clients: Client[] = [];
-  filteredClients: Client[] = [];
-  loading = true;
+  loading: boolean = false;
+  paginationInfo: any = {}; // To store pagination info
+  currentPage: number = 1;
+  perPage: number = 6;
 
-  constructor(private clientApiService: ClientsApiService, private toastr: ToastrService) { }
+  constructor(private clientsService: ClientsService) {}
 
   ngOnInit() {
-    this.fetchClients();
-  }
-
-  fetchClients() {
-    this.clientApiService.getClients().subscribe({
-      next: (response) => {
-        this.clients = response.data;
-        this.filteredClients = this.clients;
-        this.loading = false;
-      },
-      error: (error) => {
-        this.loading = false;
-        console.error(error);
-        this.toastr.error('Oops! Something went wrong while fetching clients.');
-      }
+    this.clientsService.loading$.subscribe(loading => this.loading = loading);
+    this.clientsService.clients$.subscribe(clients => {
+      this.clients = clients;
     });
+    this.clientsService.paginationInfo$.subscribe(paginationInfo => {
+      this.paginationInfo = paginationInfo;
+      this.perPage = paginationInfo.perPage;
+    });
+    this.loadClients();
+
   }
 
-  onFilteredClients(filtered: Client[]) {
-    this.filteredClients = filtered;
+  loadClients(page: number = this.currentPage) {
+    const filter = this.clientsService.getFilter(); // Get the current filter
+    this.clientsService.fetchClients(page, this.perPage, filter); // Use current perPage value and filter
+  }
+
+  nextPage() {
+    if (this.paginationInfo.hasNextPage) {
+      this.currentPage++;
+      this.loadClients(this.currentPage);
+    }
+  }
+
+  previousPage() {
+    if (this.paginationInfo.hasPreviousPage) {
+      this.currentPage--;
+      this.loadClients(this.currentPage);
+    }
+  }
+
+  onPageChange(event: PageEvent) {
+    this.currentPage = event.pageIndex + 1; // MatPaginator uses 0-based index
+    this.perPage = event.pageSize;
+    this.loadClients(this.currentPage);
+  }
+
+  applyFilter(filterValue: string) {
+    this.clientsService.setFilter(filterValue);
+    this.loadClients(1); // Reset to first page
+  }
+
+  resetFilter() {
+    this.clientsService.setFilter('');
+    this.loadClients(1); // Reset to first page
   }
 }

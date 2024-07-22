@@ -23,6 +23,19 @@ export interface ClientsApiResponse {
   message: string;
   data: Client[];
 }
+export interface ClientsPaginationApiResponse {
+  status: number;
+  message: string;
+  data: {
+    clients: Client[];
+    page: number;
+    perPage: number;
+    totalItems: number;
+    totalPages: number;
+    hasPreviousPage: boolean;
+    hasNextPage: boolean;
+  };
+}
 
 export interface VisitsApiResponse {
   status: number;
