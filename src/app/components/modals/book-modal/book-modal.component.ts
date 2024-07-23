@@ -1,29 +1,30 @@
 import { Component, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormsModule, NgForm } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatDialogModule } from '@angular/material/dialog';
-import { provideNativeDateAdapter } from '@angular/material/core';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatCheckboxModule } from '@angular/material/checkbox';
 import { NgIf } from '@angular/common';
-
 
 // Services
 import { ClientsApiService } from '../../../api-services/clients.service';
 import { CheckInsBookingsApiService } from '../../../api-services/check-ins-bookings.service';
 
-
 // Types
 import { Room } from '../../pages/rooms/rooms.types';
 import { CheckInAndBookingData } from '../../pages/check-ins-bookings/check-ins-bookings.types';
 
+// Modal
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+
 // Etc
 import { ToastrService } from 'ngx-toastr';
 import { isBefore, isAfter, isEqual } from 'date-fns';
+import { provideNativeDateAdapter } from '@angular/material/core';
+import { MatIconModule } from '@angular/material/icon';
+
 
 
 @Component({

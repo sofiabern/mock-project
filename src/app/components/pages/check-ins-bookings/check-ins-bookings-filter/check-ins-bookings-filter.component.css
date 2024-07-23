@@ -15,7 +15,7 @@
   .check-ins__filter-container{
     flex-direction: row;
     align-items: stretch;
-    gap: 24px
+    gap: 16px
   }
 }
 
@@ -63,17 +63,31 @@
 }
 
 .check-ins__button{
-  padding: 6px 6px 6px 6px;
+  padding: 6px 8px 6px 8px;
   transition: all 0.3s ease-in-out;
+  border-radius: 24px;
 }
+
+@media (min-width: 768px){
+  .check-ins__button  {
+    font-size: 18px;
+  }
+  }
 
 .check-ins__filter-button{
   color: #000000;
   background-color: #ffffff;
   border: 1px solid #000000;
 }
+
 .check-ins__show-button {
   color: #ffffff;
   background-color: #000000;
   border: 1px solid #000000;
+}
+
+.check-ins__button:hover {
+  background-color: #62ae62;
+  border-color: #62ae62;
+  color: #ffffff;
 }

@@ -6,6 +6,8 @@ import { RoomButtonsComponent } from '../room-buttons/room-buttons.component';
 // Types
 import { Room } from '../rooms.types';
 
+
+
 @Component({
   selector: 'app-room-card',
   standalone: true,

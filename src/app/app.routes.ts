@@ -11,6 +11,8 @@ import { PageNotFoundComponent } from './components/pages/page-not-found/page-no
 // Guards
 import { AuthGuard } from './auth/auth.guard';
 
+
+
 export const routes: Routes = [
     {path: '', component: HomeComponent, canActivate:[AuthGuard]},
     {path: 'rooms', component: RoomsComponent, canActivate:[AuthGuard]},

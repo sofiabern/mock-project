@@ -6,10 +6,6 @@
   margin-bottom: 12px;
 }
 
-:host(.check-ins-bookings-filter) {
-  margin-bottom: 24px;
-}
-
 .check-ins__loading {
   position: absolute;
   top: 50%;

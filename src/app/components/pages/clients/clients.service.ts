@@ -9,8 +9,8 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ClientsService {
 
-  private perPage: number = 6; // Default number of items per page
-  private currentFilter: string = ''; // Current filter term
+  private perPage: number = 6; 
+  private currentFilter: string = '';
 
   private clientsSubject = new BehaviorSubject<Client[]>([]);
   clients$ = this.clientsSubject.asObservable();
@@ -23,10 +23,10 @@ export class ClientsService {
 
   constructor(private clientsApiService: ClientsApiService, private toastr: ToastrService) { }
 
-  // Fetch clients with optional filtering and pagination
+
   fetchClients(page: number = 1, perPage: number = this.perPage, filter: string = this.currentFilter) {
-    this.perPage = perPage; // Update items per page
-    this.currentFilter = filter; // Update the filter
+    this.perPage = perPage; 
+    this.currentFilter = filter; 
     this.loadingSubject.next(true);
     
     this.clientsApiService.getClients(page, perPage, filter).subscribe({
@@ -52,22 +52,18 @@ export class ClientsService {
     });
   }
 
-   // Set the current filter term
    setFilter(filter: string) {
     this.currentFilter = filter;
   }
 
-  // Get the current filter term
   getFilter(): string {
     return this.currentFilter;
   }
 
-  // Get the current number of items per page
   getPerPage(): number {
     return this.perPage;
   }
 
-  // Check if data is loading
   isLoading(): boolean {
     return this.loadingSubject.value;
   }

@@ -1,5 +1,6 @@
 .client-card {
   border: 1px solid #000000;
+  border-radius: 24px;
   font-size: 14px;
   padding: 12px;
   width: 236px;

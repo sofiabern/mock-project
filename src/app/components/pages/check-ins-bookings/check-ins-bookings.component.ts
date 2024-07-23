@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
 
 // Components
-import { CancelBookModalComponent } from '../../modals/cancel-book-modal/cancel-book-modal.component';
 import { CheckInsBookingsFilterComponent } from './check-ins-bookings-filter/check-ins-bookings-filter.component';
 import { CheckInsBookingsListComponent } from './check-ins-bookings-list/check-ins-bookings-list.component';
 
@@ -14,12 +13,11 @@ import { CheckInBooking } from './check-ins-bookings.types';
 // Services
 import { CheckInsBookingsService } from './check-ins-bookings.service';
 
-// Modal
-import { MatDialog } from '@angular/material/dialog';
-
 // Etc
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatPaginatorModule } from '@angular/material/paginator';
+
+
 
 @Component({
   selector: 'app-check-ins-bookings',

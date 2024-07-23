@@ -7,6 +7,8 @@ import { CheckInBookingButtonsComponent } from '../check-in-booking-buttons/chec
 // Types
 import { CheckInBooking } from '../check-ins-bookings.types';
 
+
+
 @Component({
   selector: 'app-check-in-booking-card',
   standalone: true,

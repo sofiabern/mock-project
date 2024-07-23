@@ -7,9 +7,11 @@ import { CheckInBooking } from '../check-ins-bookings.types';
 // Services
 import { CheckInsBookingsService } from '../check-ins-bookings.service';
 
-// Etc
+// Modal
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+
+
 
 @Component({
   selector: 'app-check-ins-bookings-filter',
@@ -24,23 +26,17 @@ export class CheckInsBookingsFilterComponent implements OnInit {
   constructor(private checkInsBookingsService: CheckInsBookingsService) {}
 
   ngOnInit() {
-    // Initialize searchTerm with the current filter from the service
     this.searchTerm = this.checkInsBookingsService.getFilter();
   }
 
-
-  onSearchChange() {
-    // Optional: handle changes in search term (e.g., debounce)
-  }
-
   applyFilter() {
-    this.checkInsBookingsService.setFilter(this.searchTerm); // Save the filter
-    this.checkInsBookingsService.fetchCheckIns(1, this.checkInsBookingsService.getPerPage(), this.searchTerm); // Reset to first page
+    this.checkInsBookingsService.setFilter(this.searchTerm); 
+    this.checkInsBookingsService.fetchCheckIns(1, this.checkInsBookingsService.getPerPage(), this.searchTerm); 
   }
 
   resetFilter() {
     this.searchTerm = '';
-    this.checkInsBookingsService.setFilter(''); // Clear the filter
-    this.checkInsBookingsService.fetchCheckIns(1, 6); // Reset to first page with default perPage
+    this.checkInsBookingsService.setFilter(''); 
+    this.checkInsBookingsService.fetchCheckIns(1, 6);
   }
 }

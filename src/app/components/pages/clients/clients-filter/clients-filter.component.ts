@@ -4,12 +4,11 @@ import { FormsModule } from '@angular/forms';
 // Services
 import { ClientsService } from '../clients.service';
 
-// Types
-import { Client } from '../clients.types';
-
 // Etc
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+
+
 
 @Component({
   selector: 'app-clients-filter',
@@ -27,9 +26,6 @@ export class ClientsFilterComponent implements OnInit{
 
   ngOnInit() {
     this.searchTerm = this.clientsService.getFilter();
-  }
-
-  onSearchChange() {
   }
 
   applyFilter() {

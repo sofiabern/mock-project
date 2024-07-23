@@ -1,7 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
 @import "normalize.css/normalize.css";
-@import "@fontsource/roboto/400.css";
-@import "@fontsource/roboto/700.css";
 
 ul {
   list-style: none;
@@ -35,6 +33,7 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+
 .container {
   margin: 0 auto;
   padding-right: 16px;
@@ -67,7 +66,7 @@ body {
 
 /* Styles for modals */
 .mat-mdc-dialog-surface.mdc-dialog__surface {
-  border-radius: 0;
+  border-radius: 24;
   border: 1px solid #111111;
   padding: 24px;
   background-color: #ffffff;
@@ -89,13 +88,6 @@ body {
   display: none !important;
 }
 
-.mdc-text-field--outlined .mdc-notched-outline__leading {
-  border-radius: 0px !important;
-}
-
-.mdc-text-field--outlined .mdc-notched-outline__trailing {
-  border-radius: 0px !important;
-}
 
 @media (max-width: 309.9px) {
   .mat-mdc-form-field-subscript-wrapper,
@@ -104,12 +96,9 @@ body {
   }
 }
 
-.mat-datepicker-content{
-  background-color: #ffffff !important;
-  border-radius: 0px !important;
-  border: 1px solid #000000;
+.mat-mdc-icon-button svg{
+  fill: #62ae62 !important;
 }
-
 
 @media(max-width: 339.9px){
   .mat-datepicker-content .mat-calendar{
@@ -132,6 +121,12 @@ body {
   }
 }
 
+/* Styles for pagination */
+.mat-mdc-paginator-container{
+  background-color: #ffffff;
+  border: 1px solid #000000;
+  border-radius: 24px;
+}
 
 
 

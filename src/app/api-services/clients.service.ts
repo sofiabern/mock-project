@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 // Types
 import { ClientsApiResponse, VisitsApiResponse, PassportDetails, ClientsPaginationApiResponse } from '../components/pages/clients/clients.types';
 
+
+
 @Injectable({
   providedIn: 'root'
 })

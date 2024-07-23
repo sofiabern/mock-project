@@ -12,11 +12,10 @@ import { Room } from '../rooms.types';
 // Services
 import { RoomsService } from '../rooms.service';
 
-// Dates filtering
-import { isBefore, isAfter, isEqual } from 'date-fns';
-
 // Etc
 import { ToastrService } from 'ngx-toastr';
+import { isBefore, isAfter, isEqual } from 'date-fns';
+
 
 
 @Component({

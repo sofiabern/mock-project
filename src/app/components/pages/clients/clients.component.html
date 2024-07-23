@@ -3,7 +3,7 @@
     <h2 class="clients__title">Our Clients</h2>
     <app-clients-filter></app-clients-filter>
 
-    <mat-paginator [length]="paginationInfo.totalItems" [pageSize]="perPage" [pageSizeOptions]="[3, 6, 9]"
+    <mat-paginator [length]="paginationInfo.totalItems" [pageSize]="perPage" [pageSizeOptions]="[6, 12, 36, 64]"
     (page)="onPageChange($event)">
   </mat-paginator>
 

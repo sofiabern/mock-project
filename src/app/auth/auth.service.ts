@@ -3,10 +3,14 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { catchError, tap, switchMap } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
 
 // Types
 import { User, SignupApiResponse, LoginApiResponse, LogoutApiResponse } from './user.types';
+
+// Etc
+import { ToastrService } from 'ngx-toastr';
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -79,37 +83,17 @@ export class AuthApiService {
     );
   }
 
-  // logout(): Observable<LogoutApiResponse> {
-
-  //   return this.http.post<LogoutApiResponse>(`${this.apiUrl}/logout`, {}).pipe(
-  //     tap(() => {
-  //       localStorage.removeItem('token');
-  //       this.isAuthenticatedSubject.next(false);
-
-  //       localStorage.removeItem('currentUsername');
-  //       this.currentUsernameSubject.next(null);
-
-  //       this.toastr.success('Logout successful!');
-  //     }),
-  //     catchError((error: HttpErrorResponse) => this.handleError(error))
-  //   );
-  // }
-
   logout() {
     return this.http.post(`${this.apiUrl}/logout`, {}).pipe(
       tap(() => {
-        // Очистка локального storage
         this.clearLocalStorage();
-        // Перенаправлення на сторінку авторизації
         this.router.navigate(['/authorization']);
         this.toastr.success('Logged out successfully!');
       }),
       catchError((error: HttpErrorResponse) => {
         if (error.status === 401) {
-          // Очистка локального storage і перенаправлення на авторизацію
           this.clearLocalStorage();
           this.router.navigate(['/authorization']);
-          // this.toastr.error('Session expired. Please log in again.');
         }
         return throwError(() => new Error(error.message));
       })
@@ -141,7 +125,7 @@ export class AuthApiService {
   } else if (error.status === 401) {
     errorMessage = 'The credentials you entered are incorrect. Please double-check and try again.';
   } else if (error.status === 404) {
-    errorMessage = 'We couldn’t find an account with that email address. Please check and try again.';
+    errorMessage = "We couldn't find an account with that email address. Please check and try again.";
   }
 
 

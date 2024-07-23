@@ -17,6 +17,8 @@ import { Client } from './clients.types';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatPaginatorModule } from '@angular/material/paginator';
 
+
+
 @Component({
   selector: 'app-clients',
   standalone: true,
@@ -34,7 +36,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 export class ClientsComponent implements OnInit {
   clients: Client[] = [];
   loading: boolean = false;
-  paginationInfo: any = {}; // To store pagination info
+  paginationInfo: any = {};
   currentPage: number = 1;
   perPage: number = 6;
 
@@ -54,8 +56,8 @@ export class ClientsComponent implements OnInit {
   }
 
   loadClients(page: number = this.currentPage) {
-    const filter = this.clientsService.getFilter(); // Get the current filter
-    this.clientsService.fetchClients(page, this.perPage, filter); // Use current perPage value and filter
+    const filter = this.clientsService.getFilter();
+    this.clientsService.fetchClients(page, this.perPage, filter);
   }
 
   nextPage() {
@@ -73,18 +75,18 @@ export class ClientsComponent implements OnInit {
   }
 
   onPageChange(event: PageEvent) {
-    this.currentPage = event.pageIndex + 1; // MatPaginator uses 0-based index
+    this.currentPage = event.pageIndex + 1; 
     this.perPage = event.pageSize;
     this.loadClients(this.currentPage);
   }
 
   applyFilter(filterValue: string) {
     this.clientsService.setFilter(filterValue);
-    this.loadClients(1); // Reset to first page
+    this.loadClients(1); 
   }
 
   resetFilter() {
     this.clientsService.setFilter('');
-    this.loadClients(1); // Reset to first page
+    this.loadClients(1);
   }
 }

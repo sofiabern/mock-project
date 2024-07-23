@@ -2,8 +2,8 @@
   <div class="container">
     <h2 class="check-ins__title">Check-Ins</h2>
 
-    <app-check-ins-bookings-filter class="check-ins-bookings-filter"/>
-    <mat-paginator [length]="paginationInfo.totalItems" [pageSize]="perPage" [pageSizeOptions]="[3, 6, 9]"
+    <app-check-ins-bookings-filter/>
+    <mat-paginator [length]="paginationInfo.totalItems" [pageSize]="perPage" [pageSizeOptions]="[6, 12, 36, 64]"
       (page)="onPageChange($event)">
     </mat-paginator>
 
