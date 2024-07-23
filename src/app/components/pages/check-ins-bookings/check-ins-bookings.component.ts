@@ -38,7 +38,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 export class CheckInsBookingsComponent implements OnInit {
   checkInsBookings: CheckInBooking[] = [];
   loading: boolean = false;
-  paginationInfo: any = {}; // To store pagination info
+  paginationInfo: any = {};
   currentPage: number = 1;
   perPage: number = 6;
 
@@ -57,10 +57,10 @@ export class CheckInsBookingsComponent implements OnInit {
   }
 
   loadCheckIns(page: number = this.currentPage) {
-    const filter = this.checkInsBookingsService.getFilter(); // Get the current filter
-    this.checkInsBookingsService.fetchCheckIns(page, this.perPage, filter); // Use current perPage value and filter
+    const filter = this.checkInsBookingsService.getFilter();
+    this.checkInsBookingsService.fetchCheckIns(page, this.perPage, filter);
   }
-  
+
   nextPage() {
     if (this.paginationInfo.hasNextPage) {
       this.currentPage++;
@@ -76,7 +76,7 @@ export class CheckInsBookingsComponent implements OnInit {
   }
 
   onPageChange(event: PageEvent) {
-    this.currentPage = event.pageIndex + 1; // MatPaginator uses 0-based index
+    this.currentPage = event.pageIndex + 1;
     this.perPage = event.pageSize;
     this.loadCheckIns(this.currentPage);
   }

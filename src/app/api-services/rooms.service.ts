@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { switchMap, tap } from 'rxjs';
 import { Observable } from 'rxjs';
 import { Room, RoomsApiResponse} from '../components/pages/rooms/rooms.types';
 

@@ -13,20 +13,26 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatError } from '@angular/material/form-field';
 
-
+// Etc
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-log-in-modal',
   standalone: true,
-  imports: [FormsModule, NgIf, MatDialogModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule],
+  imports: [FormsModule, NgIf, MatDialogModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule, MatError, MatProgressSpinnerModule],
   templateUrl: './log-in-modal.component.html',
   styleUrls: ['./log-in-modal.component.css']
 })
 export class LogInModalComponent {
-  constructor(public dialogRef: MatDialogRef<LogInModalComponent>,
+  loading = false;
+
+  constructor(
+    public dialogRef: MatDialogRef<LogInModalComponent>,
     private authService: AuthApiService,
-    private router: Router) {}
+    private router: Router
+  ) {}
 
   closeDialog(): void {
     this.dialogRef.close();
@@ -34,12 +40,15 @@ export class LogInModalComponent {
 
   submitForm(form: NgForm): void {
     if (form.valid) {
+      this.loading = true;
       this.authService.login(form.value).subscribe({
         next: () => {
+          this.loading = false;
           this.dialogRef.close();
           this.router.navigate(['/']);
         },
         error: (err) => {
+          this.loading = false;
           console.error('Login failed', err);
         }
       });

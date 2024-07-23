@@ -24,9 +24,6 @@ export class CheckInBookingButtonsComponent {
 
   constructor(private checkInsBookingsService: CheckInsBookingsService, private dialog: MatDialog) { }
 
-  onCancel(checkInId: string) {
-    this.checkInsBookingsService.cancelCheckIn(checkInId);
-  }
 
   onApprove(checkInId: string) {
     this.checkInsBookingsService.approveCheckIn(checkInId);

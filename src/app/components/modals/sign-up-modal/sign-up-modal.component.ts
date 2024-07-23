@@ -6,7 +6,6 @@ import { NgIf } from '@angular/common';
 // Services
 import { AuthApiService } from '../../../auth/auth.service';
 
-
 // Modal
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -16,20 +15,24 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatError } from '@angular/material/form-field';
 
+// Etc
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
 @Component({
   selector: 'app-sign-up-modal',
   standalone: true,
-  imports: [ FormsModule, NgIf, MatFormFieldModule, MatInputModule, MatButtonModule, MatDialogModule, MatIconModule, MatError],
+  imports: [ FormsModule, NgIf, MatFormFieldModule, MatInputModule, MatButtonModule, MatDialogModule, MatIconModule, MatError, MatProgressSpinnerModule ],
   templateUrl: './sign-up-modal.component.html',
   styleUrls: ['./sign-up-modal.component.css']
 })
 export class SignUpModalComponent {
+  loading = false;
+
   constructor(
     public dialogRef: MatDialogRef<SignUpModalComponent>,
     private authService: AuthApiService,
     private router: Router
   ) {}
-
 
   closeDialog(): void {
     this.dialogRef.close();
@@ -37,12 +40,15 @@ export class SignUpModalComponent {
 
   submitForm(signUpForm: NgForm): void {
     if (signUpForm.valid) {
+      this.loading = true;
       this.authService.signupAndLogin(signUpForm.value).subscribe({
         next: () => {
+          this.loading = false;
           this.dialogRef.close();
           this.router.navigate(['/']);
         },
         error: (err) => {
+          this.loading = false;
           console.error('Signup failed', err);
         }
       });

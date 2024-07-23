@@ -21,9 +21,6 @@ export class CheckInsBookingsService {
   private checkInsBookingsSubject = new BehaviorSubject<CheckInBooking[]>([]);
   checkInsBookings$ = this.checkInsBookingsSubject.asObservable();
 
-  // private filteredCheckInsSubject = new BehaviorSubject<CheckInBooking[]>([]);
-  // filteredCheckIns$ = this.filteredCheckInsSubject.asObservable();
-
   private loadingSubject = new BehaviorSubject<boolean>(false);
   loading$ = this.loadingSubject.asObservable();
 
@@ -36,7 +33,7 @@ export class CheckInsBookingsService {
 
 
   fetchCheckIns(page: number = 1, perPage: number = this.perPage, filter: string = this.currentFilter) {
-    this.perPage = perPage; // Update perPage value
+    this.perPage = perPage;
     this.currentFilter = filter;
     this.loadingSubject.next(true);
     this.checkInsBookingsApiService.getCheckIns(page, perPage, filter).subscribe({
@@ -66,15 +63,15 @@ export class CheckInsBookingsService {
     return this.checkInsBookingsSubject.value;
   }
   getPerPage(): number {
-    return this.perPage; 
+    return this.perPage;
   }
 
   setFilter(filter: string) {
-    this.currentFilter = filter; // Update the filter
+    this.currentFilter = filter;
   }
-  
+
   getFilter(): string {
-    return this.currentFilter; // Return the current filter
+    return this.currentFilter;
   }
 
   isLoading(): boolean {

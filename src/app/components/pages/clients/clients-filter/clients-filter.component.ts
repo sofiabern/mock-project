@@ -26,7 +26,6 @@ export class ClientsFilterComponent implements OnInit{
   }
 
   ngOnInit() {
-    // Initialize searchTerm with the current filter from the service
     this.searchTerm = this.clientsService.getFilter();
   }
 
@@ -34,13 +33,13 @@ export class ClientsFilterComponent implements OnInit{
   }
 
   applyFilter() {
-    this.clientsService.setFilter(this.searchTerm); // Save the filter
-    this.clientsService.fetchClients(1, this.clientsService.getPerPage(), this.searchTerm); // Reset to first page
+    this.clientsService.setFilter(this.searchTerm);
+    this.clientsService.fetchClients(1, this.clientsService.getPerPage(), this.searchTerm);
   }
 
   resetFilter() {
     this.searchTerm = '';
-    this.clientsService.setFilter(''); // Clear the filter
-    this.clientsService.fetchClients(1, 6); // Reset to first page with default perPage
+    this.clientsService.setFilter('');
+    this.clientsService.fetchClients(1, 6);
   }
 }

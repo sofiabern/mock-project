@@ -6,25 +6,28 @@
       <input matInput type="text" name="name" ngModel required>
     </mat-form-field>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Email</mat-label>
-      <input matInput type="email" name="email" ngModel required
-        pattern="[^@\s]+@[^@\s]+\.[^@\s]+" #email="ngModel">
+    <div>
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput type="email" name="email" ngModel required pattern="[^@\s]+@[^@\s]+\.[^@\s]+" #email="ngModel">
+      </mat-form-field>
       <div *ngIf="email.invalid">
-        <div *ngIf="email.hasError('pattern')">Invalid email format.</div>
+        <mat-error *ngIf="email.hasError('pattern')">Invalid email format.</mat-error>
       </div>
-    </mat-form-field>
-    
-    <mat-form-field appearance="outline">
-      <mat-label>Password</mat-label>
+    </div>
 
-      <input matInput type="password" name="password" ngModel minlength="6" required #password="ngModel">
-      <div *ngIf="password.invalid" class="no">
-        <div *ngIf="password.hasError('minlength')">
-          Password must be at least 6 characters long.
-        </div>
+    <div>
+      <mat-form-field appearance="outline">
+        <mat-label>Password</mat-label>
+        <input matInput type="password" name="password" ngModel minlength="6" required #password="ngModel">
+      </mat-form-field>
+      <div *ngIf="password.invalid">
+        <mat-error *ngIf="password.hasError('minlength')">
+          Password is too short.
+        </mat-error >
       </div>
-    </mat-form-field>
+    </div>
+
 
     <button type="submit" class="sign-up-modal__submit-btn">Sign Up</button>
   </form>
@@ -32,3 +35,8 @@
     <mat-icon>close</mat-icon>
   </button>
 </div>
+@if(loading){
+  <div class="sign-up__loading">
+    <mat-spinner diameter="60"></mat-spinner>
+  </div>
+}

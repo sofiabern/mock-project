@@ -1,10 +1,14 @@
+:host {
+  display: block;
+  margin-bottom: 24px;
+}
+
 .check-ins__filter-container{
   display: flex;
   gap: 16px;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 24px;
 }
 
 @media(min-width:576px){
@@ -47,7 +51,7 @@
   .check-ins__filter::placeholder {
     font-size: 16px;
   }
-  
+
 }
 
 

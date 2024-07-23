@@ -6,22 +6,6 @@
   margin-bottom: 12px;
 }
 
-.clients__list{
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 24px;
-}
-
-.client-card {
-  border: 1px solid #000000;
-  padding: 12px;
-  width: 296px;
-}
-
-.client-details__info-bold{
-  font-weight: 500;
-}
 
 .clients__loading {
   position: absolute;

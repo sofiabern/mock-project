@@ -6,6 +6,9 @@
   margin-bottom: 12px;
 }
 
+:host(.check-ins-bookings-filter) {
+  margin-bottom: 24px;
+}
 
 .check-ins__loading {
   position: absolute;
@@ -14,64 +17,4 @@
   transform: translate(-50%, -50%);
 }
 
-.check-ins__list {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 24px;
-}
 
-.check-in-card {
-  border: 1px solid #000000;
-  padding: 12px;
-  width: 340px;
-
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.check-in-details__list{
-  margin-right: 6px;
-}
-
-.check-in-details__info-bold {
-  font-weight: 500;
-}
-
-.check-in-card__button-wrapper{
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.check-in-card__buttons {
-  padding: 6px 0 6px 0;
-  width: 64px;
-  font-size: 14px;
-  color: #ffffff;
-  background-color: #000000;
-  border: 1px solid #000000;
-
-  transition: all 0.3s ease-in-out;
-}
-
-.check-in-card__btn--approve,
-.check-in-card__btn--cancel{
-  color: #ffffff;
-  background-color: #000000;
-  border: 1px solid #000000;
-
-}
-
-.check-in-card__btn--change{
-  color: #000000;
-  background-color: #ffffff;
-  border: 1px solid #000000;
-}
-
-.check-in-card__buttons:hover {
-  background-color: #62ae62;
-  border-color: #62ae62;
-  color: #ffffff;
-}

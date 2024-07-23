@@ -1,31 +1,37 @@
-import { Component} from '@angular/core';
-import { Router } from '@angular/router';
+import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
+import { ComponentType } from '@angular/cdk/portal';
 
-import { MatDialog } from '@angular/material/dialog';
+// Components
 import { SignUpModalComponent } from '../../modals/sign-up-modal/sign-up-modal.component';
 import { LogInModalComponent } from '../../modals/log-in-modal/log-in-modal.component';
-import { ComponentType } from '@angular/cdk/portal';
 
 // Services
 import { AuthApiService } from '../../../auth/auth.service';
 
+// Modal
+import { MatDialog } from '@angular/material/dialog';
+
+// Etc
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
+
+
 @Component({
   selector: 'app-auth-buttons',
   standalone: true,
-  imports: [AsyncPipe],
+  imports: [AsyncPipe, MatProgressSpinnerModule],
   templateUrl: './auth-buttons.component.html',
-  styleUrl: './auth-buttons.component.css'
+  styleUrls: ['./auth-buttons.component.css']
 })
 export class AuthButtonsComponent {
   isAuthenticated$: Observable<boolean>;
+  loading = false;
 
-
-  constructor(public dialog: MatDialog, private authService: AuthApiService, private router: Router){
+  constructor(public dialog: MatDialog, private authService: AuthApiService) {
     this.isAuthenticated$ = this.authService.isAuthenticated$;
   }
-
 
   openDialog(component: ComponentType<SignUpModalComponent | LogInModalComponent>): void {
     this.dialog.open(component, {
@@ -42,6 +48,15 @@ export class AuthButtonsComponent {
   }
 
   logOut(): void {
-    this.authService.logout().subscribe();
+    this.loading = true;
+    this.authService.logout().subscribe({
+      next: () => {
+        this.loading = false;
+      },
+      error: (error) => {
+        this.loading = false;
+        console.error(error);
+      }
+    });
   }
 }
